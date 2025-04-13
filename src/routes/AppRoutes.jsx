@@ -11,13 +11,13 @@ import NicknamePage from '../pages/Nickname';
 // import EmailInputPage from '../pages/VideoCall/EmailInputPage';
 // import VideoCallPage from '../pages/VideoCall/VideoCallPage';
 
-import LetterPage from '../pages/Letter/LetterPage';
+// import LetterPage from '../pages/Letter/LetterPage';
 
 const AppRoutes = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<HomePage />}/>
+                <Route path="/" element={<HomePage />} />
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/nickname" element={<NicknamePage />} />
                 {/* <Route path="/main" element={<MainPage />} /> */}
