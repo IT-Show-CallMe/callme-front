@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from '../Pages/HomePage';
 import LandingPage from '../pages/Landing/LandingPage';
 import NicknamePage from '../pages/Nickname/NicknamePage';
 import MainPage from '../pages/Main/MainPage';
@@ -16,6 +17,7 @@ const AppRoutes = () => {
     return (
         <Router>
             <Routes>
+                <Route path="/" element={<HomePage />}/>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/nickname" element={<NicknamePage />} />
                 <Route path="/main" element={<MainPage />} />
