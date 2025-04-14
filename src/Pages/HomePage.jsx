@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/HomePage.css";
+import "../styles/homePage.css";
 
 const imagesFiles=[
     "images/mark_bg.png","images/mjh_bg.png","images/sw_bg.png","images/sh_bg.png","images/so_bg.png","images/yj_bg.png","images/wy_bg.png",
