@@ -24,10 +24,15 @@
 │   └── AppRoutes.jsx               # URL ↔ 페이지 매핑 정의
 
 ├── 📂 context                    # 전역 상태 관리 
-│   ├── NicknameContext.jsx         # 닉네임 전역 관리 (담당: 가현)
-│   └── StatsContext.jsx            # 통계/조회수 등 상태 관리 (담당: 가현)
+│   ├── NicknameContext.jsx         # 닉네임 전역 관리 (가현)
+│   └── StatsContext.jsx            # 통계/조회수 등 상태 관리 (가현)
 
 ├── 📂 utils                      # API 호출, 날짜 포맷 등 유틸 함수 모음
+│   ├── email.js                   
+│   ├── format.js         
+│   ├── idoleApi.js         
+│   ├── letterApi.js         
+│   └── nicknameStorage.js         
 
 └── App.jsx                       # 앱 루트 컴포넌트, 전체 구조/라우터 포함
 ``
