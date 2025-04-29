@@ -1,13 +1,65 @@
-.image-grid{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 40px;
+.background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* 배경 이미지를 컨테이너에 맞게 */
+    height: 100vh;
+    z-index: 0; /* 뒤에 배경 이미지 */
 }
-.image-grid img{
-    width: 150px;
-    height: auto;
-    border: 10px;
+
+.idol-back {
+    position: absolute;
+    bottom: 0;  /* 화면 하단에 위치 */
+    left: 0;
+    width: 100%; /* 배경 이미지를 컨테이너에 맞게 */
+    height: 666px;
+    z-index: 1; /* homebackground 이미지가 background-img 위에 오도록 */
+}
+
+.idol-img {
+    position: absolute;
+    z-index: 2; /* 아이돌 이미지가 다른 이미지들 위에 오도록 */
+    width: 100px; /* 예시 크기 */
+    height: auto; /* 비율에 맞춰 자동으로 높이 조정 */
+}
+
+.mark {
+    top: 739px;
+    left: 1018px;
+    width: 345px;
+    height: 345px;
+}
+
+.mjh {
+    top: 709px;
+    left: 585.08px;
+    width: 370px;
+    height: 370px;
+}
+
+.so {
+    top: 698px;
+    left: 667px;
+    width: 438px;
+    height: 580px;
+}
+.ys{
+    top: 739px;
+    left: 320px;
+    width: 308px;
+    height: 404px;
+    z-index: 4;
+}
+.jh{
+    top: 422px;
+    left:188px;
+    width: 453px;
+    height: 679px;
+}
+.lh{
+    top: 661px;
+    left: 42px;
+    width: 468px;
+    height: 468px;
+    z-index: 3;
 }
