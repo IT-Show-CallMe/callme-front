@@ -1,17 +1,38 @@
 
 ## 📁 폴더 구조
+````
 📦 src  
+├── 📂 components                 # 재사용 가능한 UI 컴포넌트 모음
+│   ├── 📂 main                   # 🏠 MainPage 구성 섹션들 
+│   │   ├── SectionHello.jsx         # 닉네임 인사 + 검색 바 (가현)
+│   │   ├── SectionPickYourIdol.jsx  # (가현)
+│   │   ├── SectionTop5.jsx          # (가현)
+│   │   └── SectionLetter.jsx        # (가현)
+│   └── 📂 common                # 버튼, 카드 등 공용 UI 컴포넌트 (예: IdolCard, SearchBar 등)
 
-┣ 📂 components         # 자주 쓰이는 UI 요소(버튼, 네비게이션 바 등)를 따로 모아서 재사용하는 요소들  
+├── 📂 pages                      # 화면 단위 페이지 컴포넌트
+│   ├── 📂 Call
+│   │   └── Incall.jsx               # 영상 통화 중 화면 (현주)
+│   ├── HomePage.jsx                # 메인 홈 페이지
+│   ├── IdolDetail.jsx              # 아이돌 상세 페이지
+│   ├── Landing.jsx                 # 랜딩(인트로) 페이지 (여원)
+│   ├── Nickname.jsx                # 닉네임 입력 페이지 (여원)
+│   ├── Review.jsx                  # 리뷰 페이지
+│   └── Search.jsx                  # 아이돌 검색 결과 페이지
 
-┣ 📂 pages              # 화면 단위 컴포넌트 (ex. 로그인, 메인, 마이페이지)  
+├── 📂 router                     # 라우팅 설정
+│   └── AppRoutes.jsx               # URL ↔ 페이지 매핑 정의
 
-┣ 📂 router             # 어떤 페이지가 어떤 URL에서 보여질지 정의  
+├── 📂 context                    # 전역 상태 관리 
+│   ├── NicknameContext.jsx         # 닉네임 전역 관리 (가현)
+│   └── StatsContext.jsx            # 통계/조회수 등 상태 관리 (가현)
 
-┃ ┗ 📄 AppRoutes.jsx    # 페이지와 경로를 연결하는 핵심 파일! 여기서 모든 라우팅 설정  
+├── 📂 utils                      # API 호출, 날짜 포맷 등 유틸 함수 모음
+│   ├── email.js                   
+│   ├── format.js         
+│   ├── idoleApi.js         
+│   ├── letterApi.js         
+│   └── nicknameStorage.js         
 
-┣ 📂 utils              # 날짜 포맷, API 호출 등 공용 유틸 함수  
-
-┣ 📂 context            # 전역 상태 관리용 (ex. 로그인 정보, 테마 등)  
-
-┗ 📄 App.jsx            # 앱 전체 구조 담당, 라우터와 공통 컴포넌트 포함    
+└── App.jsx                       # 앱 루트 컴포넌트, 전체 구조/라우터 포함
+``
