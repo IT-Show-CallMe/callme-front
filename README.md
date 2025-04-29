@@ -3,9 +3,24 @@
 📦 src  
 
 ┣ 📂 components         # 자주 쓰이는 UI 요소(버튼, 네비게이션 바 등)를 따로 모아서 재사용하는 요소들  
-
+    **main**
+      ├─ SectionHello.jsx (가현)
+      ├─ SectionPickYourIdol.jsx (가현)
+      ├─ SectionTop5.jsx (가현)
+      └─ SectionLetter.jsx (가현)
+    **context**
+      ├─ NicknameContext.jsx (가현)
+      ├─ StatsContext.jsx (가현)
 ┣ 📂 pages              # 화면 단위 컴포넌트 (ex. 로그인, 메인, 마이페이지)  
-
+    **Call**
+      ├─ Incall.jsx ()
+    ├─ HomePage.jsx ()
+    ├─ IdolDetail.jsx ()
+    ├─ Landing.jsx ()
+    ├─ Nickname.jsx ()
+    ├─ HomePage.jsx ()
+    ├─ Review.jsx ()
+    ├─ Search.jsx ()
 ┣ 📂 router             # 어떤 페이지가 어떤 URL에서 보여질지 정의  
 
 ┃ ┗ 📄 AppRoutes.jsx    # 페이지와 경로를 연결하는 핵심 파일! 여기서 모든 라우팅 설정  
