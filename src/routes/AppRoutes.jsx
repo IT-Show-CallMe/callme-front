@@ -5,6 +5,9 @@ import LandingPage from '../Pages/Landing';
 import NicknamePage from '../Pages/Nickname';
 import MainPage from '../Pages/Main';
 import SearchPage from '../Pages/Search';
+import IncallPage from '../Pages/Call/Incall';
+import CallIncomingPage from '../Pages/Call/CallIncomingPage';
+import CallEndedPage from '../Pages/Call/CallEndedPage';
 import LetterPage from '../Pages/Letter';
 import ReviewPage from '../Pages/Review';
 
@@ -24,6 +27,9 @@ const AppRoutes = () => {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/letter" element={<LetterPage />} />
             <Route path="/review" element={<ReviewPage />} />
+            <Route path="/call/incal" element={<IncallPage />} />
+            <Route path="/call/incoming" element={<CallIncomingPage />} />
+            <Route path="/call/ended" element={<CallEndedPage />} />
             {/* <Route path="/idol/:idolId" element={<IdolDetailPage />} /> */}
             {/* <Route path="/call/confirm" element={<ConfirmNicknamePage />} /> */}
             {/* <Route path="/call/agreement" element={<EmailAgreementPage />} /> */}
