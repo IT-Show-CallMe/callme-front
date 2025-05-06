@@ -1,0 +1,90 @@
+/* incall.css */
+
+@font-face {
+    font-family: 'Pretendard-SemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+  }
+html, body {
+    font-family: 'Pretendard-SemiBold', sans-serif;
+    font-weight: 600; /* 꼭 맞춰줘야 제대로 적용됨 */
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+
+  
+  .App {
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .background-image {
+    background-image: url('../assets/images/callpage-background.png'); /* public 폴더 기준 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh; /* 화면 전체 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+  }
+  
+
+  /* 폰 이미지 */
+.phone-image {
+    width: 300px;  /* 원하는 크기 */
+    height: auto;
+    z-index: 1;  /* 폰 이미지를 위로 올려줘야 함 */
+  }
+  
+
+  .wing {
+    width: 200px; /* 날개 이미지 크기 */
+    height: auto; /* 비율 유지 */
+  }
+  
+  .left-wing {
+    margin-right: 10px; /* 왼쪽 날개와 폰 사이 간격을 좁힘 */
+  }
+  
+  .right-wing {
+    margin-left: 10px; /* 오른쪽 날개와 폰 사이 간격을 좁힘 */
+  }
+
+  .phone-text {
+    position: absolute; /* 폰 이미지 위에 위치 */
+    z-index: 1;
+    top: 25%;
+    transform: translateY(-50%);
+    color: white; /* 글자 색 */
+    font-size: 1.3rem; /* 글자 크기 */
+  }
+
+  .phone-buttons {
+    z-index: 1;
+    position: absolute;
+    top: 75%; /* 버튼을 화면의 30% 위치에 배치 */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; /* 버튼을 나란히 배치 */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 개별 버튼 스타일 */
+  .phone-buttons img {
+    width: 50px; /* 버튼 크기 */
+    cursor: pointer;
+    margin-right: 90px; /* 버튼 사이의 간격 */
+  }
+  
+  /* 마지막 버튼에는 오른쪽 마진을 제거 */
+  .phone-buttons img:last-child {
+    margin-right: 0;
+  }
