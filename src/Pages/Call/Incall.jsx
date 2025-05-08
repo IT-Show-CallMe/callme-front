@@ -1,15 +1,35 @@
 import React from 'react';
 import PhoneLayout from '../../components/Phone';
-import "../../styles/incall.css"; 
-function Incall() {
+import IncallPhoneImage from '../../assets/images/call-phone.png';
+import IncallBackgroundImage from '../../assets/images/incall-background.png';
+import endCallButtonImage from '../../assets/images/call-down.png';
+import { useNavigate } from 'react-router-dom';
+
+
+const Incall = () => {
+  const navigate = useNavigate();
+
+  const handleEndCall = () => {
+    navigate('/call/ended'); 
+  };
+
   return (
-    <PhoneLayout message="소희(임시)">
-      <div style={{ textAlign: 'center', color: 'white' }}>
-        <p>📞 영상통화 연결 중...</p>
-        {/* 나중에 버튼이나 상태 추가하면 여기 넣기 */}
+    <PhoneLayout 
+      message="소희와 통화 중...!" 
+      hideWings={true} 
+      phoneImage={IncallPhoneImage}
+      backgroundImage={IncallBackgroundImage}
+    >
+      <div className="incall-end-button-wrapper">
+        <img 
+          src={endCallButtonImage} 
+          alt="End Call" 
+          className="end-call-button" 
+          onClick={handleEndCall}
+        />
       </div>
     </PhoneLayout>
   );
-}
+};
 
 export default Incall;
