@@ -64,9 +64,22 @@ html, body {
   }
   
   .phone-container {
-    position: relative; /* 버튼 기준이 될 컨테이너 */
+    position: relative;
+    height: 600px; /* 또는 적절한 값 (폰 이미지보다 조금 더 크게) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
+  .phone-children-inside {
+    position: absolute;
+    bottom: 7%; /* 폰 안에서 하단에서 조금 위 */
+    left: 15%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 60px;
+    z-index: 2;
+  }
   .phone-text {
     position: absolute;
     top: 20%;
@@ -76,28 +89,28 @@ html, body {
     color: white;
     font-size: 1.3rem;
   }
-
   .phone-buttons {
-    z-index: 1;
     position: absolute;
-    bottom: 10%;
-    left: 50%;
+    bottom: 12%;
+    left: 10%;
     transform: translateX(-50%);
-    display: flex; /* 버튼을 나란히 배치 */
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    gap: 80px;  /* 버튼 간격 */
+    z-index: 2;
   }
   
-  /* 개별 버튼 스타일 */
+  /* 개별 버튼 */
   .phone-buttons img {
-    width: 50px; /* 버튼 크기 */
+    width: 60px;
+    height: auto;
     cursor: pointer;
-    margin-right: 90px; /* 버튼 사이의 간격 */
   }
+
   
-  /* 마지막 버튼에는 오른쪽 마진을 제거 */
-  .phone-buttons img:last-child {
-    margin-right: 0;
+  .phone-children-inside img {
+    width: 60px;
+    height: auto;
+    cursor: pointer;
   }
 
   @keyframes phone-shake {
@@ -122,16 +135,53 @@ html, body {
     transform: scale(1.2);
     opacity: 0;
   }
-  .incall-end-button-wrapper {
-    position: absolute;
-    bottom: -35px;  
-    left: 50%;
-    transform: translateX(-50%); 
-    z-index: 2;  
-  }
+ /* incall 페이지에서만 적용할 스타일 */
+.incall-page {
   
-  .end-call-button {
-    width: 10px;  
-    height: auto;  
-    cursor: pointer; 
-  }
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* 화면을 꽉 채우도록 */
+}
+
+.dual-phone-container {
+  
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* 폰 이미지 사이의 간격 */
+  align-items: center; /* 세로로 중앙 정렬 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -90%); /* 화면 중앙에 배치 */
+}
+
+.single-phone {
+  position: relative;
+}
+
+.single-phone img.dual-phone-image {
+  width: 300px;
+}
+.end-call-button {
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.self-camera {
+  position: absolute;
+  top: 90px;
+  left: 25px;
+  width: 250px;
+  height: 440px;
+  border-radius: 10px;
+  object-fit: cover;
+  z-index: 3;
+}
