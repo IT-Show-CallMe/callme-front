@@ -1,18 +1,18 @@
 import React from 'react';
 import "../styles/incall.css";
-import phoneImage from '../assets/images/phone.png';
+import phoneImageDefault from '../assets/images/phone.png';
 import leftWingImage from '../assets/images/wing-left.png';
 import rightWingImage from '../assets/images/wing-right.png';
-
 
 const Phone = ({
   children,
   message,
   hideWings = false,
+  hidePhoneImage = false,
   backgroundImage,
   phoneImage = phoneImageDefault,
   phoneImageClassName,
-  shakeAll = false // 전체 진동 옵션
+  shakeAll = false
 }) => {
   return (
     <div
@@ -20,14 +20,18 @@ const Phone = ({
       style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : {}}
     >
       <div className="phone-wrapper">
-        {!hideWings && <img src={leftWingImage} alt="Left Wing" className="wing left-wing" />}
+        {!hideWings && (
+          <img src={leftWingImage} alt="Left Wing" className="wing left-wing" />
+        )}
 
         <div className={`phone-container ${shakeAll ? 'shaking-phone' : ''}`}>
-          <img
-            src={phoneImage}
-            alt="Phone"
-            className={`phone-image ${phoneImageClassName || ''}`}
-          />
+          {!hidePhoneImage && (
+            <img
+              src={phoneImage}
+              alt="Phone"
+              className={`phone-image ${phoneImageClassName || ''}`}
+            />
+          )}
 
           {message && (
             <div className="phone-text">
@@ -35,14 +39,18 @@ const Phone = ({
             </div>
           )}
 
-          <div className="phone-buttons">
+          {/* ✅ 버튼(children) 폰 내부에 고정 */}
+          <div className="phone-children-inside">
             {children}
           </div>
         </div>
 
-        {!hideWings && <img src={rightWingImage} alt="Right Wing" className="wing right-wing" />}
+        {!hideWings && (
+          <img src={rightWingImage} alt="Right Wing" className="wing right-wing" />
+        )}
       </div>
     </div>
   );
 };
+
 export default Phone;
