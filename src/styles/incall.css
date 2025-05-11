@@ -241,3 +241,15 @@ html, body {
 .speech-bubble-option:hover {
   border: 1px solid #6C9CDF;
 }
+
+.left-phone-video {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 20px;
+  z-index: 2;
+}

@@ -24,7 +24,7 @@ function CallIncomingPage() {
   return (
     <div className={`transition-wrapper ${isTransitioning ? 'zoom-out' : ''}`}>
       <PhoneLayout
-        message="소희(임시)"
+        message="원빈"
         phoneImage={defaultPhoneImage}
         phoneImageClassName="shaking-phone"
         shakeAll={true}
