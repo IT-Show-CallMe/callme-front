@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 // import HomePage from '../Pages/HomePage';
-// import LandingPage from '../Pages/Landing';
-// import NicknamePage from '../Pages/Nickname';
+import LandingPage from '../Pages/Landing';
+import NicknamePage from '../Pages/Nickname';
 // import MainPage from '../Pages/Main';
 // import SearchPage from '../Pages/Search';
 import IncallPage from '../pages/Call/Incall';
@@ -20,14 +20,14 @@ const AppRoutes = () => {
     return (
         <Routes>
 
-            {/* <Route path="/" element={<HomePage />} />
+            {/* {<Route path="/" element={<HomePage />} /> */}
             <Route path="/landing" element={<LandingPage />} />
-            {/* <Route path="/nickname" element={<NicknamePage />} />
-            <Route path="/main" element={<MainPage />} />
+            <Route path="/nickname" element={<NicknamePage />} />
+            {/* <Route path="/main" element={<MainPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/letter" element={<LetterPage />} />
-            <Route path="/review" element={<ReviewPage />} /> */}
-            <Route path="/call/Incall" element={<incallPage />} />
+            <Route path="/review" element={<ReviewPage />} /> */} 
+            <Route path="/call/Incall" element={<IncallPage />} />
             <Route path="/call/incoming" element={<CallIncomingPage />} />
             {/*<Route path="/call/ended" element={<CallEndedPage />} /> */}
 
