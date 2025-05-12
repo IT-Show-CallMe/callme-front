@@ -8,7 +8,7 @@ import NicknamePage from '../Pages/Nickname';
 import IncallPage from '../pages/Call/Incall';
 import CallIncomingPage from '../pages/Call/CallIncomingPage';
 // import CallEndedPage from '../Pages/Call/CallEndedPage';
-// import LetterPage from '../Pages/Letter';
+import LetterPage from '../Pages/Letter';
 // import ReviewPage from '../Pages/Review';
 // import IdolDetailPage from '../pages/';
 // import ConfirmNicknamePage from '../pages/VideoCall/ConfirmNicknamePage';
@@ -23,9 +23,9 @@ const AppRoutes = () => {
             {/* {<Route path="/" element={<HomePage />} /> */}
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/nickname" element={<NicknamePage />} />
+            <Route path="/letter" element={<LetterPage />} />
             {/* <Route path="/main" element={<MainPage />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/letter" element={<LetterPage />} />
             <Route path="/review" element={<ReviewPage />} /> */} 
             <Route path="/call/Incall" element={<IncallPage />} />
             <Route path="/call/incoming" element={<CallIncomingPage />} />
