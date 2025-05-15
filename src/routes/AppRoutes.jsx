@@ -7,8 +7,8 @@ import NicknamePage from '../Pages/Nickname';
 // import SearchPage from '../Pages/Search';
 import IncallPage from '../pages/Call/Incall';
 import CallIncomingPage from '../pages/Call/CallIncomingPage';
-// import CallEndedPage from '../Pages/Call/CallEndedPage';
-import LetterPage from '../Pages/Letter';
+import CallEndedPage from '../Pages/Call/CallEndedPage';
+// import LetterPage from '../Pages/Letter';
 // import ReviewPage from '../Pages/Review';
 // import IdolDetailPage from '../pages/';
 // import ConfirmNicknamePage from '../pages/VideoCall/ConfirmNicknamePage';
@@ -19,18 +19,16 @@ import LetterPage from '../Pages/Letter';
 const AppRoutes = () => {
     return (
         <Routes>
-
-            {/* {<Route path="/" element={<HomePage />} /> */}
+            {/* <Route path="/" element={<HomePage />} /> */}
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/nickname" element={<NicknamePage />} />
-            <Route path="/letter" element={<LetterPage />} />
-            {/* <Route path="/main" element={<MainPage />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/review" element={<ReviewPage />} /> */} 
+            {/* <Route path="/main" element={<MainPage />} /> */}
+            {/* <Route path="/search" element={<SearchPage />} /> */}
+            {/* <Route path="/letter" element={<LetterPage />} /> */}
+            {/* <Route path="/review" element={<ReviewPage />} /> */}
             <Route path="/call/Incall" element={<IncallPage />} />
             <Route path="/call/incoming" element={<CallIncomingPage />} />
-            {/*<Route path="/call/ended" element={<CallEndedPage />} /> */}
-
+            <Route path="/call/ended" element={<CallEndedPage />} />
             {/* <Route path="/idol/:idolId" element={<IdolDetailPage />} /> */}
             {/* <Route path="/call/confirm" element={<ConfirmNicknamePage />} /> */}
             {/* <Route path="/call/agreement" element={<EmailAgreementPage />} /> */}
