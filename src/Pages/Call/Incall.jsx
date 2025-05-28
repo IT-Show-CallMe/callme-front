@@ -10,9 +10,6 @@ import wonbinIntro from '../../assets/videos/wonbin-intro.mp4';
 import wonbinOptionA from '../../assets/videos/wonbin-flirting.mp4';
 import wonbinOptionB from '../../assets/videos/wonbin-mbti.mp4';
 import wonbinOptionC from '../../assets/videos/wonbin-bluescreen.mp4';
-import wonbinOptionD from '../../assets/videos/wonbin-jjol.mp4';
-import wonbinOptionE from '../../assets/videos/wonbin-what.mp4';
-import wonbinOptionF from '../../assets/videos/wonbin-bye.mp4';
 
 const videoMap = {
   wonbin: {
@@ -20,9 +17,6 @@ const videoMap = {
     optionA: [wonbinOptionA],
     optionB: [wonbinOptionB],
     optionC: [wonbinOptionC],
-    optionD: [wonbinOptionD],
-    optionE: [wonbinOptionE],
-    optionF: [wonbinOptionF],
   },
 };
 
