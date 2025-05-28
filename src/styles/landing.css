@@ -1,65 +1,199 @@
-.background-img {
+/* 기본 리셋 및 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html, #root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  @font-face { 
+    font-family: 'HakgyoansimDunggeunmisoTTF-B'; 
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimDunggeunmisoTTF-B.woff2') 
+    format('woff2'); 
+    font-weight: 700; 
+    font-style: normal; 
+  }
+  @font-face { font-family: 'Pretendard-Regular'; 
+    src: url('https://fastly.jsdelivr.net/gh\/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') 
+    format('woff'); font-weight: 400; font-style: normal; }
+  
+  /* 메인 컨테이너를 화면 전체에 맞추기 */
+  .Home-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .background-img {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* 배경 이미지를 컨테이너에 맞게 */
-    height: 100vh;
-    z-index: 0; /* 뒤에 배경 이미지 */
-}
-
-.idol-back {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    object-fit: cover; /* 이미지가 화면을 꽉 채우도록 설정 */
+  }
+  
+  .Home-text {
     position: absolute;
-    bottom: 0;  /* 화면 하단에 위치 */
-    left: 0;
-    width: 100%; /* 배경 이미지를 컨테이너에 맞게 */
-    height: 666px;
-    z-index: 1; /* homebackground 이미지가 background-img 위에 오도록 */
-}
-
-.idol-img {
-    position: absolute;
-    z-index: 2; /* 아이돌 이미지가 다른 이미지들 위에 오도록 */
-    width: 100px; /* 예시 크기 */
-    height: auto; /* 비율에 맞춰 자동으로 높이 조정 */
-}
-
-.mark {
-    top: 739px;
-    left: 1018px;
-    width: 345px;
-    height: 345px;
-}
-
-.mjh {
-    top: 709px;
-    left: 585.08px;
-    width: 370px;
-    height: 370px;
-}
-
-.so {
-    top: 698px;
-    left: 667px;
-    width: 438px;
-    height: 580px;
-}
-.ys{
-    top: 739px;
-    left: 320px;
-    width: 308px;
-    height: 404px;
-    z-index: 4;
-}
-.jh{
-    top: 422px;
-    left:188px;
-    width: 453px;
-    height: 679px;
-}
-.lh{
-    top: 661px;
-    left: 42px;
-    width: 468px;
-    height: 468px;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 3;
+    color: white;
+    -webkit-text-stroke: 3px #71ABFB;
+    font-size: 8vw; /* 화면 크기에 따라 폰트 크기가 조정됨 */
+    font-weight: 700;
+    font-family: 'HakgyoansimDunggeunmisoTTF-B', sans-serif;
+    white-space: nowrap;
+  }
+  
+  .idol-back {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;          /* 전체 뷰포트 너비 */
+    height: 61.7vh;        /* 전체 뷰포트 높이의 약 61.7% */
+    z-index: 1;
+    object-fit: cover;
 }
+  
+  .idol-img {
+    position: absolute;
+    z-index: 2;
+    object-fit: contain; /* 이미지 비율 유지 */
+  }
+  
+  .mark {
+    top: 68.4vh;
+    left: 54.1vw;
+    width: 17.9vw;
+    height: 31.9vh;
+    z-index: 3;
+  }
+  
+  .mjh {
+    top: 68.4vh;
+    left: 26vw;
+    width: auto;
+    height: 41.7vh;
+    z-index: 4;
+  }
+  
+  .so {
+    top: 65.7vh;
+    left: 35.8vw;
+    width: 22.8vw;
+    height: 53.7vh;
+    z-index: 5;
+  }
+  
+  .ys {
+    top: 68.4vh;
+    left: 16.7vw;
+    width: 16vw;
+    height: 37.4vh;
+    z-index: 3;
+  }
+  
+  .jh {
+    top: 39.1vh;
+    left: 9.6vw;
+    width: 23.6vw;
+    height: 62.9vh;
+    z-index: 1;
+  }
+  
+  .lh {
+    top: 61.2vh;
+    left: -5.2vw;
+    width: auto;
+    height: 52.6vh;
+    z-index: 2;
+  }
+  
+  .wy {
+    top: 30vh;
+    left: -7.8vw;
+    width: auto;
+    height: 66vh;
+  }
+  
+  .sh {
+    top: 53.6vh;
+    left: 70.4vw;
+    width: 19.5vw;
+    height: 61.7vh;
+    z-index: 3;
+  }
+  
+  .hn {
+    top: 35.6vh;
+    left: 20.8vw;
+    width: auto;
+    height: 69.3vh;
+    z-index: 1;
+  }
+  
+  .krn {
+    top: 40.6vh;
+    left: 42.7vw;
+    width: 17.9vw;
+    height: 44.4vh;
+    z-index: 2;
+  }
+  
+  .yj {
+    top: 42.2vh;
+    left: 64.5vw;
+    width: 23.8vw;
+    height: 49.3vh;
+    z-index: 1;
+  }
+  
+  .yuj {
+    top: 27.8vh;
+    left: 72.9vw;
+    width: 35.9vw;
+    height: 70.4vh;
+    z-index: 1;
+  }
+  
+  .mj {
+    top: 23vh;
+    left: 52.1vw;
+    width: auto;
+    height: 77.3vh;
+    z-index: 2;
+  }
+  
+  .sw {
+    top: 68.8vh;
+    left: 82.8vw;
+    width: auto;
+    height: 35.6vh;
+  }
+  
+.next-Page{
+    position: absolute;
+    font-family: 'Pretendard-Regular';
+    color: #bdbdbd;
+    font-size: 24px;
+    top: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+  /* 모바일 화면 대응을 위한 미디어 쿼리 (선택사항) */
+  @media screen and (max-width: 768px) {
+    .Home-text {
+      font-size: 12vw; /* 작은 화면에서는 더 큰 글씨 */
+      -webkit-text-stroke: 2px #71ABFB; /* 더 얇은 테두리 */
+    }
+  }

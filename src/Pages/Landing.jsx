@@ -1,4 +1,5 @@
 import "../styles/landing.css";
+import { useNavigate } from "react-router-dom";
 // 앱을 시작하는 첫 화면, 클릭시 닉네임 입력처ㅏㅇ으로 넘어감감
 // Landing.jsx 파일이 다음과 같이 export 되어 있는지 확인
 // 이미지 리스트
@@ -11,12 +12,18 @@ const imagesFiles = [
   ];
 
 function Landing(){
+  const navigate = useNavigate(); // 🔹페이지 이동 함수
+
+  const handleClick = () => {
+    navigate("/nickname"); // 다음 페이지로 이동
+  };
     return (
-    <div className="Home-container">
+    <div className="Home-container" onClick={handleClick}>
         <img src="images/back_short.png" alt="배경이미지" className="background-img" />
         <img src="images/home_imgback.png" alt="home background" className="idol-back"/>
-
-
+      <div className="Home-text">
+        <h1>call me</h1>
+      </div>
       <div className="image-grid">
         {imagesFiles.map((file, i) => {
           const name = file.split("/")[1].split("_")[0]; // ex: mark
@@ -29,6 +36,9 @@ function Landing(){
             />
           );
         })}
+      </div>
+      <div className="next-Page">
+        <p>클릭하시면 다음페이지로 넘어갑니다.</p>
       </div>
     </div>
   );

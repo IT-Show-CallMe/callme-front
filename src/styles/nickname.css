@@ -1,0 +1,100 @@
+@font-face { 
+    font-family: 'HakgyoansimDunggeunmisoTTF-B'; 
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimDunggeunmisoTTF-B.woff2') 
+    format('woff2'); 
+    font-weight: 700; 
+    font-style: normal; 
+  }
+
+@font-face { font-family: 'Pretendard-Regular'; 
+    src: url('https://fastly.jsdelivr.net/gh\/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') 
+    format('woff'); font-weight: 400; font-style: normal; }
+
+.background-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+  }
+  
+.window {
+    position: relative;
+    top: 113px;
+
+    width: 1180px;
+    height: 834px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    /* window 이미지 사이즈 바꾸기 */
+.window-img {
+    position: absolute;
+    top: 5%;
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+.window-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; /* 이미지 위로 */
+    position: relative;
+}
+  
+  
+.input-title{
+    font-family: 'HakgyoansimDunggeunmisoTTF-B';
+    color: white;
+    -webkit-text-stroke: 3px #C8D7FF;
+    font-size: 90px;
+    margin-bottom: 35px;
+}
+  
+.input-nickname {
+    font-family: 'Pretendard-Regular';
+    padding: 10px 600px 10px 20px; /* 위아래 5px, 오른쪽 400px → 긴 가로 */
+    font-size: 20px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 115px;
+    text-align: left;
+  }
+.input-nickname::placeholder {
+    color: #bdbdbd; /* 연한 회색 */
+    text-align: left; /* 이건 대부분 브라우저에서 기본이지만 명시적으로 써줘도 좋음 */
+  }
+/* 버튼 색 */
+.confirm-button {
+    width: 130px;
+    height: 60px;
+    padding: 10px 24px;
+    font-size: 16px;
+    background-color: #71ABFB;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-bottom: -80px;
+}
+  /* 버튼 클릭시 색 바뀜 */
+.confirm-button:hover {
+    background-color: #B8D6FF;
+}
+.angyeongmando-img {
+    position: absolute;
+    top: 500px; /* 창 이미지 위 기준에서 조정 */
+    right: -35px; /* 오른쪽으로 살짝 튀어나오게 */
+    width: 300px; /* 이미지 크기 */
+    height: auto;
+    z-index: 2; /* 창 이미지 위로 */
+}
