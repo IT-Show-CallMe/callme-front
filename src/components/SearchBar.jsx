@@ -17,6 +17,7 @@ function SearchBar({ value, onChange, onClick }) {
                 background: "#FFF",
                 boxShadow: "0px 0px 16px 0px rgba(0, 0, 0, 0.15)",
                 cursor: onClick ? "pointer" : "auto",
+                marginBottom: "30px",
             }}
 
             onClick={onClick}
