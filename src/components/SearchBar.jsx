@@ -1,6 +1,6 @@
-import React from "react";
 import "../styles/SearchBar.css";
-function SearchBar({ value, onChange, onClick }) {
+
+function SearchBar({ value, onChange, placeholder = "검색어를 입력하세요", onClick }) {
     return (
         <div
             style={{
@@ -19,7 +19,6 @@ function SearchBar({ value, onChange, onClick }) {
                 cursor: onClick ? "pointer" : "auto",
                 marginBottom: "30px",
             }}
-
             onClick={onClick}
         >
             <svg
@@ -36,7 +35,7 @@ function SearchBar({ value, onChange, onClick }) {
                 type="text"
                 value={value}
                 onChange={onChange}
-                placeholder="원하는 아이돌의 이름을 입력하세요."
+                placeholder={placeholder}
                 style={{
                     border: "none",
                     outline: "none",
