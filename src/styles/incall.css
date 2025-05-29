@@ -108,7 +108,7 @@ html, body {
 
   
   .phone-children-inside img {
-    width: 60px;
+    width: 80px;
     height: auto;
     cursor: pointer;
   }
@@ -158,18 +158,20 @@ html, body {
 
 .single-phone {
   position: relative;
+
 }
 
 .single-phone img.dual-phone-image {
-  width: 300px;
+  width: 400px;
+  padding-top: 400px;
 }
 .end-call-button {
   z-index: 99;
-  width: 40px;
-  height: 40px;
+  width: 200%;
+  height: 200px;
   object-fit: contain;
   position: absolute;
-  bottom: 25px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -177,18 +179,18 @@ html, body {
 
 .self-camera {
   position: absolute;
-  top: 90px;
+  top: 530px;
   left: 25px;
-  width: 250px;
-  height: 440px;
+  width: 350px;
+  height: 580px;
   border-radius: 10px;
   object-fit: cover;
   z-index: 3;
 }
 .speech-bubble-container {
   position: relative;
-  width: 355px; /* 말풍선의 크기를 적당히 설정 */
-  height: 5px;
+  width: 405px; /* 말풍선의 크기를 적당히 설정 */
+  height: 0px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -200,9 +202,8 @@ html, body {
 
 .speech-bubble-image {
   position: absolute;
-  left: 0;
-  width: 350px;
-  height: 520px; /* 이미지가 전체 공간을 채우도록 설정 */
+  width: 400px;
+  height: 590px;
   object-fit: cover; /* 비율 유지하며 채우기 */
   z-index: 1; /* 이미지가 뒤로 가도록 설정 */
 }
@@ -220,7 +221,7 @@ html, body {
   display: flex;
   flex-direction: column;
   width: 300px;
-  gap: 10px;
+  gap: 18px;
   z-index: 2; /* 버튼들이 텍스트 위로 보이도록 설정 */
 }
 
