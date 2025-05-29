@@ -1,5 +1,5 @@
 import React from "react";
-import Styles from "./SearchBar.css"
+import "../styles/SearchBar.css";
 function SearchBar({ value, onChange, onClick }) {
     return (
         <div
@@ -18,7 +18,7 @@ function SearchBar({ value, onChange, onClick }) {
                 boxShadow: "0px 0px 16px 0px rgba(0, 0, 0, 0.15)",
                 cursor: onClick ? "pointer" : "auto",
             }}
-            
+
             onClick={onClick}
         >
             <svg
