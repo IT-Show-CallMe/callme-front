@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 // import HomePage from '../Pages/HomePage';
 import LandingPage from '../Pages/Landing';
 import NicknamePage from '../Pages/Nickname';
-// import MainPage from '../Pages/Main';
+import MainPage from '../Pages/MainPage';
 // import SearchPage from '../Pages/Search';
 import IncallPage from '../pages/Call/Incall';
 import CallIncomingPage from '../pages/Call/CallIncomingPage';
@@ -23,7 +23,7 @@ const AppRoutes = () => {
             {/* <Route path="/" element={<HomePage />} /> */}
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/nickname" element={<NicknamePage />} />
-            {/* <Route path="/main" element={<MainPage />} /> */}
+            <Route path="/main" element={<MainPage />} />
             {/* <Route path="/search" element={<SearchPage />} */}
             {/* <Route path="/letter" element={<LetterPage />} */}
             {/* <Route path="/review" element={<ReviewPage />} /> */}
