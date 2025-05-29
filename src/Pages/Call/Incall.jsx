@@ -109,6 +109,15 @@ const Incall = () => {
         backgroundImage={IncallBackgroundImage}
         phoneImage={null}
         className="incall-page"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          gap: '50px',
+          paddingTop: '100px',
+          width: '100vw',           // 👉 화면 전체 너비 사용
+          maxWidth: '150%',         // 👉 제한 없애기
+        }}
       >
         <div className="dual-phone-container" style={{ display: 'flex', gap: '20px' }}>
           {[1, 2].map((_, idx) => (
@@ -165,6 +174,7 @@ const Incall = () => {
                   muted
                   className="self-camera"
                   style={{ transform: 'scaleX(-1)' }} // 좌우반전
+                  
                 />
               )}
 
@@ -181,7 +191,7 @@ const Incall = () => {
 
         {/* 말풍선: 인트로 영상 이후 항상 표시 */}
         {hasIntroEnded && showSpeechBubble && (
-        <div style={{ position: 'absolute', transform: 'translate(145%, -50%)' }}>
+        <div style={{ position: 'absolute', transform: 'translate(155%, -50%)' }}>
           <SpeechBubble options={speechOptions} onSelect={handleOptionSelect} />
         </div>
       )}
