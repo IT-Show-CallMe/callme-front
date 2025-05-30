@@ -30,8 +30,10 @@ function CallIncomingPage() {
         shakeAll={true}
       >
        <div className="phone-buttons shaking-phone"> {/* 애니메이션 클래스 추가 */}
-    <img src={backButtonImage} alt="Go Back" onClick={handleGoBack} />
-    <img src={startButtonImage} alt="Start Call" onClick={handleStartCall} />
+    <img src={backButtonImage} alt="Go Back" onClick={handleGoBack}
+      style={{ width: '80%', height: '80%' }} />
+    <img src={startButtonImage} alt="Start Call" onClick={handleStartCall} 
+    style={{ width: '80%', height: '40%' }} />
   </div>
       </PhoneLayout>
     </div>

@@ -10,9 +10,6 @@ import wonbinIntro from '../../assets/videos/wonbin-intro.mp4';
 import wonbinOptionA from '../../assets/videos/wonbin-flirting.mp4';
 import wonbinOptionB from '../../assets/videos/wonbin-mbti.mp4';
 import wonbinOptionC from '../../assets/videos/wonbin-bluescreen.mp4';
-import wonbinOptionD from '../../assets/videos/wonbin-jjol.mp4';
-import wonbinOptionE from '../../assets/videos/wonbin-what.mp4';
-import wonbinOptionF from '../../assets/videos/wonbin-bye.mp4';
 
 const videoMap = {
   wonbin: {
@@ -20,9 +17,6 @@ const videoMap = {
     optionA: [wonbinOptionA],
     optionB: [wonbinOptionB],
     optionC: [wonbinOptionC],
-    optionD: [wonbinOptionD],
-    optionE: [wonbinOptionE],
-    optionF: [wonbinOptionF],
   },
 };
 
@@ -115,6 +109,15 @@ const Incall = () => {
         backgroundImage={IncallBackgroundImage}
         phoneImage={null}
         className="incall-page"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          gap: '50px',
+          paddingTop: '100px',
+          width: '100vw',           // 👉 화면 전체 너비 사용
+          maxWidth: '150%',         // 👉 제한 없애기
+        }}
       >
         <div className="dual-phone-container" style={{ display: 'flex', gap: '20px' }}>
           {[1, 2].map((_, idx) => (
@@ -171,6 +174,7 @@ const Incall = () => {
                   muted
                   className="self-camera"
                   style={{ transform: 'scaleX(-1)' }} // 좌우반전
+                  
                 />
               )}
 
@@ -187,7 +191,7 @@ const Incall = () => {
 
         {/* 말풍선: 인트로 영상 이후 항상 표시 */}
         {hasIntroEnded && showSpeechBubble && (
-        <div style={{ position: 'absolute', transform: 'translate(145%, -50%)' }}>
+        <div style={{ position: 'absolute', transform: 'translate(155%, -50%)' }}>
           <SpeechBubble options={speechOptions} onSelect={handleOptionSelect} />
         </div>
       )}
