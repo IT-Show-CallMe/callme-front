@@ -1,0 +1,218 @@
+{
+    "안유진": {
+      "name": "안유진",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "윈터": {
+      "name": "윈터",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "원빈": {
+      "name": "원빈",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "운학": {
+      "name": "운학",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "이한": {
+      "name": "이한",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "이주연": {
+      "name": "이주연",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "장원영": {
+      "name": "장원영",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "정재현": {
+      "name": "정재현",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "도훈": {
+      "name": "도훈",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "마크": {
+      "name": "마크",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "민지": {
+      "name": "민지",
+      "startVideo": "",
+      "messages": [
+        {"message": "민지야 항상 힘내", "video": ""},
+        {"message": "아침에 일어나서 젤 먼저하는 건 뭐야", "video": ""},
+        {"message": "이 세상에서 가장 충격적인 말은 뭘까", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "하트해줘!", "video": ""}
+      ],
+      "endVideo": "../images/idolVideo/잘 가ㅜㅜ.mp4"
+    },
+    "명재현": {
+      "name": "명재현",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "선우": {
+      "name": "선우",
+      "startVideo": "../images/idolVideo/선우/선우-인트로.mp4",
+      "messages": [
+        {"message": "내가 누나잖아!", "video": "../images/idolVideo/선우/선우-내가누나잖아.mp4"},
+        {"message": "오늘 컨셉 뭐야?", "video": "../images/idolVideo/선우/선우-오늘컨셉뭐야.mp4"},
+        {"message": "왜 계속 좋다고 말 해?", "video": "../images/idolVideo/선우/선우-왜계속좋다고말해.mp4"},
+        {"message": "왜 반말하냐?", "video": "../images/idolVideo/선우/선우-왜반말해.mp4"},
+        {"message": "팔찌 이쁘다!", "video": "../images/idolVideo/선우/선우-팔찌 이쁘다.mp4"}
+      ],
+      "endVideo": "../images/idolVideo/선우/선우-잘자(아웃트로).mp4"
+    },
+    "소희": {
+      "name": "소희",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "신유": {
+      "name": "신유",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "카리나": {
+      "name": "카리나",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "태산": {
+      "name": "태산",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    },
+    "하니": {
+      "name": "하니",
+      "startVideo": "",
+      "messages": [
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""},
+        {"message": "", "video": ""}
+      ],
+      "endVideo": ""
+    }
+}
