@@ -1,28 +1,31 @@
-// 아이돌에게 남긴 편지 (편지 작성 화면)
 import React, { useState } from "react";
-// import styles from "../styles/main_letter.css";
+import leftWingImage from '../assets/images/wing-left.png';
+import rightWingImage from '../assets/images/wing-right.png';
+// import styles from "../styles/main_letter.moudule.css";
 
 function Letter() {
 
     return (
-        <div className="letter-container">
+        <div className={styles.container}>
             <img src="images/back_short.png" alt="배경이미지" className="background-img" />
 
-            <div className="main-context">
+            <div className={styles.letterContainer}>
                 <h1>call me</h1>
 
                 <div className="letter-input-container">
-                    <img src="../images/wing-left.png" alt="날개 왼쪽" className="wing-left" />
+                    <img src={leftWingImage} alt="Left Wing" className="wing left-wing" />
 
                     <div className="letter-input">
+                        <button>×</button>
                         <div className="letter-background">
+                            <img src="../images/letteremoji.png" alt="" />
                             <p className="to">to. fromName</p>
                             <textarea placeholder="후기를 작성해 주세요!" className="textarea"></textarea>
                             <p className="from">from. nickName</p>
                         </div>
                     </div>
 
-                    <img src="images/wing-right.png" alt="날개 오른쪽" className="wing-right" />
+                    <img src={rightWingImage} alt="Right Wing" className="wing right-wing" />
                 </div>
             </div>
         </div>
