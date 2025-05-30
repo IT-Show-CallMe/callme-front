@@ -1,8 +1,11 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import styles from "../styles/IdolModal.module.css";
+import { useNavigate } from "react-router-dom";
 
 
-export default function IdolModal({imgUrl, group, name, count, onClose}) {
+export default function IdolModal({ imgUrl, group, name, count, onClose }) {
+    const navigate = useNavigate();
+
     return (
         <div className={styles.modalContainer} onClick={onClose}>
             <div className={styles.contentBox} onClick={(e) => e.stopPropagation()}>
@@ -12,7 +15,9 @@ export default function IdolModal({imgUrl, group, name, count, onClose}) {
                     <p>{group}</p>
                     <div className={styles.info}>
                         <h1>{name}</h1>
-                        <button><i className="bi bi-telephone-fill"></i></button>
+                        <button onClick={() => navigate("/call/incoming")}>
+                            <i className="bi bi-telephone-fill"></i>
+                        </button>
                         <div className={styles.hits}>
                             <p>{count}</p>
                             <p>♥️</p>
