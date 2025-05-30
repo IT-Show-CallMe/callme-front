@@ -6,16 +6,15 @@ function Letter() {
 
     return (
         <div className="letter-container">
-            <img src="images/callpage-background.png" alt="배경이미지" className="background-img" />
+            <img src="images/back_short.png" alt="배경이미지" className="background-img" />
 
             <div className="main-context">
                 <h1>call me</h1>
 
                 <div className="letter-input-container">
-                    <img src="images/wing-left.png" alt="날개 왼쪽" className="wing-left" />
+                    <img src="../images/wing-left.png" alt="날개 왼쪽" className="wing-left" />
 
                     <div className="letter-input">
-                        {/* 편지지 이미지 배경에 텍스트가 들어가는 부분 */}
                         <div className="letter-background">
                             <p className="to">to. fromName</p>
                             <textarea placeholder="후기를 작성해 주세요!" className="textarea"></textarea>
