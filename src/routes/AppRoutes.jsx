@@ -18,8 +18,8 @@ const AppRoutes = () => {
             <Route path="/nickname" element={<NicknamePage />} />
             <Route path="/main" element={<MainPage />} />
             <Route path="/letter" element={<LetterPage />} />
-            <Route path="/call/Incall" element={<IncallPage />} />
-            <Route path="/call/incoming" element={<CallIncomingPage />} />
+            <Route path="/call/Incall/:name" element={<IncallPage />} />
+            <Route path="/call/incoming/:name" element={<CallIncomingPage />} />
             <Route path="/call/ended" element={<CallEndedPage />} />
             <Route path="/idol" element={<IdolDetailPage />} />
         </Routes>

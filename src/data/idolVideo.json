@@ -145,15 +145,15 @@
     },
     "선우": {
       "name": "선우",
-      "startVideo": "../images/idolVideo/선우/선우-인트로.mp4",
+      "startVideo": "/images/idolVideo/선우/선우-인트로.mp4",
       "messages": [
-        {"message": "내가 누나잖아!", "video": "../images/idolVideo/선우/선우-내가누나잖아.mp4"},
-        {"message": "오늘 컨셉 뭐야?", "video": "../images/idolVideo/선우/선우-오늘컨셉뭐야.mp4"},
-        {"message": "왜 계속 좋다고 말 해?", "video": "../images/idolVideo/선우/선우-왜계속좋다고말해.mp4"},
-        {"message": "왜 반말하냐?", "video": "../images/idolVideo/선우/선우-왜반말해.mp4"},
-        {"message": "팔찌 이쁘다!", "video": "../images/idolVideo/선우/선우-팔찌 이쁘다.mp4"}
+        {"message": "내가 누나잖아!", "video": "/images/idolVideo/선우/선우-내가누나잖아.mp4"},
+        {"message": "오늘 컨셉 뭐야?", "video": "/images/idolVideo/선우/선우-오늘컨셉뭐야.mp4"},
+        {"message": "왜 계속 좋다고 말 해?", "video": "/images/idolVideo/선우/선우-왜계속좋다고말해.mp4"},
+        {"message": "왜 반말하냐?", "video": "/images/idolVideo/선우/선우-왜반말해.mp4"},
+        {"message": "팔찌 이쁘다!", "video": "/images/idolVideo/선우/선우-팔찌 이쁘다.mp4"}
       ],
-      "endVideo": "../images/idolVideo/선우/선우-잘자(아웃트로).mp4"
+      "endVideo": "/images/idolVideo/선우/선우-잘자(아웃트로).mp4"
     },
     "소희": {
       "name": "소희",
