@@ -56,7 +56,7 @@ const Incall = () => {
     }
   };
 
-  const speechOptions = idol.messages.map(m => m.message).concat(idol.endVideo ? '잘가 원빈아' : []);
+  const speechOptions = idol.messages.map(m => m.message).concat(idol.endVideo ? `잘가 ${idol.name}야` : []);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '50px' }}>
