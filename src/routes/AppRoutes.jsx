@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from '../Pages/Landing'; // 여원
 import NicknamePage from '../Pages/Nickname';
 import MainPage from '../Pages/MainPage'; // 가현
@@ -12,6 +12,8 @@ import IdolDetailPage from '../Pages/IdolDetail'; // 지은
 const AppRoutes = () => {
     return (
         <Routes>
+            <Route path="/" element={<Navigate to="/landing" />} />
+            
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/nickname" element={<NicknamePage />} />
             <Route path="/main" element={<MainPage />} />
