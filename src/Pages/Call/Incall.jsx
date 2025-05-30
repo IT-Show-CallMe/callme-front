@@ -12,7 +12,7 @@ const Incall = () => {
   const location = useLocation();
   const userCameraRef = useRef(null);
 
-  const name = location.state?.name || '선우';
+  const name = location.state?.name || '기본값';
   const idol = idolData[name];
   const [currentVideo, setCurrentVideo] = useState(idol.startVideo);
   const [showSpeechBubble, setShowSpeechBubble] = useState(false);
@@ -21,7 +21,7 @@ const Incall = () => {
   const [showWaitingScreen, setShowWaitingScreen] = useState(true);
 
   const handleEndCall = () => {
-    navigate('/call/ended');
+    navigate('/call/ended', { state: { name } });
   };
 
   useEffect(() => {
@@ -45,16 +45,16 @@ const Incall = () => {
     setShowSpeechBubble(true);
   };
 
-const handleOptionSelect = (selectedMessage) => {
-  const matched = idol.messages.find(m => m.message === selectedMessage);
-  if (matched?.video) {
-    setCurrentVideo(matched.video);
-    setVideoKey(prev => prev + 1);
-  } else if (selectedMessage === `잘가 ${idol.name}` && idol.endVideo) {
-    setCurrentVideo(idol.endVideo);
-    setVideoKey(prev => prev + 1);
-  }
-};
+  const handleOptionSelect = (selectedMessage) => {
+    const matched = idol.messages.find(m => m.message === selectedMessage);
+    if (matched?.video) {
+      setCurrentVideo(matched.video);
+      setVideoKey(prev => prev + 1);
+    } else if (selectedMessage === `잘가 ${idol.name}` && idol.endVideo) {
+      setCurrentVideo(idol.endVideo);
+      setVideoKey(prev => prev + 1);
+    }
+  };
 
   const speechOptions = idol.messages.map(m => m.message).concat(idol.endVideo ? '잘가 원빈아' : []);
 
@@ -109,6 +109,7 @@ const handleOptionSelect = (selectedMessage) => {
                   autoPlay
                   playsInline
                   onEnded={handleVideoEnded}
+                  onError={(e) => console.error('Video playback error:', e)}
                   className="self-camera"
                 />
               )}

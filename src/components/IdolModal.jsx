@@ -15,7 +15,7 @@ export default function IdolModal({ imgUrl, group, name, count, onClose }) {
                     <p>{group}</p>
                     <div className={styles.info}>
                         <h1>{name}</h1>
-                        <button onClick={() => navigate("/call/incoming")}>
+                        <button onClick={() => navigate(`/call/incoming/${name}`, { state: { name } })}>
                             <i className="bi bi-telephone-fill"></i>
                         </button>
                         <div className={styles.hits}>
