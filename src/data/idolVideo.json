@@ -49,13 +49,13 @@
     },
     "이한": {
       "name": "이한",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/이한/09년생이랑 친구 어때.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "09년생이랑 친구 어때?", "video": "/images/idolVideo/이한/09년생이랑 친구 어때.mp4"},
+        {"message": "미니언즈 포즈 해주세요!", "video": "/images/idolVideo/이한/미니언즈 포즈해주세요.mp4"},
+        {"message": "장난감 추천해줘", "video": "/images/idolVideo/이한/장난감 추천해줘 - 연날리기.mp4"},
+        {"message": "지코 vs 나랑 사귀기", "video": "/images/idolVideo/이한/지코vs나랑 사귀기.mp4"},
+        {"message": "컨디션 어때?", "video": "/images/idolVideo/이한/컨디션 어때.mp4"}
       ],
       "endVideo": ""
     },
@@ -121,15 +121,15 @@
     },
     "민지": {
       "name": "민지",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/민지/민지야 항상 힘내.mp4",
       "messages": [
-        {"message": "민지야 항상 힘내", "video": ""},
-        {"message": "아침에 일어나서 젤 먼저하는 건 뭐야", "video": ""},
-        {"message": "이 세상에서 가장 충격적인 말은 뭘까", "video": ""},
+        {"message": "민지야 항상 힘내", "video": "/images/idolVideo/민지/민지야 항상 힘내.mp4"},
+        {"message": "아침에 일어나서 젤 먼저하는 건 뭐야", "video": "/images/idolVideo/민지/아침에 일어나서 젤 먼저하는 건 뭐야_.mp4"},
+        {"message": "이 세상에서 가장 충격적인 말은 뭘까", "video": "/images/idolVideo/민지/이 세상에서 가장 충격적인 말은 뭘까_.mp4"},
         {"message": "", "video": ""},
-        {"message": "하트해줘!", "video": ""}
+        {"message": "하트해줘!", "video": "/images/idolVideo/민지/하트해줘!.mov"}
       ],
-      "endVideo": "../images/idolVideo/잘 가ㅜㅜ.mp4"
+      "endVideo": "/images/idolVideo/민지/잘 가ㅜㅜ.mp4"
     },
     "명재현": {
       "name": "명재현",
