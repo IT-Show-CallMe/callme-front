@@ -41,9 +41,15 @@ function SearchBar({ value, onChange, onClick }) {
                     border: "none",
                     outline: "none",
                     fontSize: "1.15rem",
-                    color: "#222",
+                    // color: "#222",
                     background: "transparent",
                     flex: 1,
+                    color: "#BBB",
+                    fontFamily: "Pretendard",
+                    // fontSize: "24px",
+                    fontStyle: "normal",
+                    fontWeight: 300,
+                    lineHeight: "normal",
                 }}
             />
         </div>
