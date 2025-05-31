@@ -1,126 +1,144 @@
 {
     "안유진": {
         "idolName": "안유진",
-        "idolGroup": "아이브",
+        "idolGroup": "IVE",
+        "idolGroupKor": "아이브",
         "idolImg": "../images/idoProfile/p_안유지.png",
         "idolIndex": 1,
         "idolCount": 0
     },
     "윈터": {
         "idolName": "윈터",
-        "idolGroup": "에스파",
+        "idolGroup": "aespa",
+        "idolGroupKor": "에스파",
         "idolImg": "../images/idoProfile/p_윈터.png",
         "idolIndex": 2,
         "idolCount": 0
     },
     "원빈": {
         "idolName": "원빈",
-        "idolGroup": "라이즈",
+        "idolGroup": "RIIZE",
+        "idolGroupKor": "라이즈",
         "idolImg": "../images/idoProfile/p_원빈.png",
         "idolIndex": 3,
         "idolCount": 0
     },
     "운학": {
         "idolName": "운학",
-        "idolGroup": "보이넥스트도어",
+        "idolGroup": "BOYNEXTDOOR",
+        "idolGroupKor": "보넥도",
         "idolImg": "../images/idoProfile/p_운한.png",
         "idolIndex": 4,
         "idolCount": 0
     },
     "이한": {
         "idolName": "이한",
-        "idolGroup": "보이넥스트도어",
+        "idolGroup": "BOYNEXTDOOR",
+        "idolGroupKor": "보넥도",
         "idolImg": "../images/idoProfile/p_이한.png",
         "idolIndex": 5,
         "idolCount": 0
     },
     "이주연": {
         "idolName": "이주연",
-        "idolGroup": "더보이즈",
+        "idolGroup": "THE BOYZ",
+        "idolGroupKor": "더보이즈",
         "idolImg": "../images/idoProfile/p_이주연.png",
         "idolIndex": 6,
         "idolCount": 0
     },
     "장원영": {
         "idolName": "장원영",
-        "idolGroup": "아이브",
+        "idolGroup": "IVE",
+        "idolGroupKor": "아이브",
         "idolImg": "../images/idoProfile/p_장원영.png",
         "idolIndex": 7,
         "idolCount": 0
     },
     "정재현": {
         "idolName": "정재현",
-        "idolGroup": "엔시티",
+        "idolGroup": "NCT",
+        "idolGroupKor": "엔시티",
         "idolImg": "../images/idoProfile/p_정재현.png",
         "idolIndex": 8,
         "idolCount": 0
     },
     "도훈": {
         "idolName": "도훈",
-        "idolGroup": "투어스",
+        "idolGroup": "TWS",
+        "idolGroupKor": "트위스",
         "idolImg": "../images/idoProfile/p_도훈.png",
         "idolIndex": 9,
         "idolCount": 0
     },
     "마크": {
         "idolName": "마크",
-        "idolGroup": "엔시티",
+        "idolGroup": "NCT",
+        "idolGroupKor": "엔시티",
         "idolImg": "../images/idoProfile/p_마크.png",
         "idolIndex": 10,
         "idolCount": 0
     },
     "민지": {
         "idolName": "민지",
-        "idolGroup": "뉴진스",
+        "idolGroup": "NewJeans",
+        "idolGroupKor": "뉴진스",
         "idolImg": "../images/idoProfile/p_민지.png",
         "idolIndex": 11,
         "idolCount": 0
     },
     "명재현": {
         "idolName": "명재현",
-        "idolGroup": "보이넥스트도어",
+        "idolGroup": "BOYNEXTDOOR",
+        "idolGroupKor": "보넥도",
         "idolImg": "../images/idoProfile/p_명재현.png",
         "idolIndex": 12,
         "idolCount": 0
     },
     "선우": {
         "idolName": "선우",
-        "idolGroup": "더보이즈",
+        "idolGroup": "THE BOYZ",
+        "idolGroupKor": "더보이즈",
         "idolImg": "../images/idoProfile/p_김선우.png",
         "idolIndex": 13,
         "idolCount": 0
     },
     "소희": {
         "idolName": "소희",
-        "idolGroup": "라이즈",
+        "idolGroup": "RIIZE",
+        "idolGroupKor": "라이즈",
         "idolImg": "../images/idoProfile/p_소희.png",
         "idolIndex": 14,
         "idolCount": 0
     },
     "신유": {
         "idolName": "신유",
-        "idolGroup": "투어스",
+        "idolGroup": "TWS",
+        "idolGroupKor": "트위스",
         "idolImg": "../images/idoProfile/p_신유.png",
         "idolIndex": 15,
         "idolCount": 0
     },
     "카리나": {
         "idolName": "카리나",
-        "idolGroup": "에스파",
+        "idolGroup": "aespa",
+        "idolGroupKor": "에스파",
         "idolImg": "../images/idoProfile/p_카리나.png",
         "idolIndex": 16,
         "idolCount": 0
     },
     "태산": {
         "idolName": "태산",
-        "idolGroup": "보이넥스트도어",
+        "idolGroup": "BOYNEXTDOOR",
+        "idolGroupKor": "보넥도",
         "idolImg": "../images/idoProfile/p_태산.png",
         "idolIndex": 17,
         "idolCount": 0
     },
     "하니": {
         "idolName": "하니",
-        "idolGroup": "뉴진스",
+        "idolGroup": "NewJeans",
+        "idolGroupKor": "뉴진스",
         "idolImg": "../images/idoProfile/p_하니.png",
         "idolIndex": 18,
         "idolCount": 0
