@@ -206,12 +206,14 @@ html, body {
   align-items: center;
   z-index: 2; /* 컨테이너가 다른 요소들 위로 보이도록 설정 */
   gap: 20px;
+    transform: translate(155%, -50%); /* 초기 상태: 폰 뒤 */
+  transition: transform 1.5s ease-in-out;
 }
 
 .speech-bubble-image {
   position: absolute;
-  width: 400px;
-  height: 590px;
+  width: 490px;
+  height: 730px;
   object-fit: cover; /* 비율 유지하며 채우기 */
   z-index: 1; /* 이미지가 뒤로 가도록 설정 */
 }
@@ -228,7 +230,7 @@ html, body {
 .options {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 400px;
   gap: 18px;
   z-index: 2; /* 버튼들이 텍스트 위로 보이도록 설정 */
 }
@@ -241,7 +243,7 @@ html, body {
   color: black;
   font-size: 1rem;
   cursor: pointer;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);

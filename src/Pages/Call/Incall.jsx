@@ -19,6 +19,7 @@ const Incall = () => {
   const [hasIntroEnded, setHasIntroEnded] = useState(false);
   const [videoKey, setVideoKey] = useState(0);
   const [showWaitingScreen, setShowWaitingScreen] = useState(true);
+  const [bubbleVisible, setBubbleVisible] = useState(false);
 
   const handleEndCall = () => {
     navigate('/call/ended', { state: { name } });
@@ -41,6 +42,7 @@ const Incall = () => {
   const handleVideoEnded = () => {
     if (!hasIntroEnded && currentVideo === idol.startVideo) {
       setHasIntroEnded(true);
+      setTimeout(() => setBubbleVisible(true), 100);
     }
     setShowSpeechBubble(true);
   };
@@ -57,6 +59,24 @@ const Incall = () => {
   };
 
   const speechOptions = idol.messages.map(m => m.message).concat(idol.endVideo ? `잘가 ${idol.name}야` : []);
+
+  // 인라인 스타일로 애니메이션
+  const speechBubbleStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+ transform: bubbleVisible ? 'translate(-40%, -50%)' : 'translate(-150%, -50%)',
+  transition: 'transform 1s ease-in-out',
+  zIndex: 1
+  };
+
+    // 폰 두 개 담긴 컨테이너 위치 이동 스타일
+  const dualPhoneContainerStyle = {
+    display: 'flex',
+    gap: '20px',
+    transition: 'transform 1.2s ease-in-out',
+    transform: hasIntroEnded ? 'translateX(-0px)' : 'translateX(0)', // 원하는 만큼 왼쪽으로 이동
+  };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '50px' }}>
@@ -137,7 +157,7 @@ const Incall = () => {
       </PhoneLayout>
 
       {hasIntroEnded && showSpeechBubble && (
-        <div style={{ position: 'absolute', transform: 'translate(155%, -50%)' }}>
+        <div style={speechBubbleStyle}>
           <SpeechBubble options={speechOptions} onSelect={handleOptionSelect} />
         </div>
       )}
