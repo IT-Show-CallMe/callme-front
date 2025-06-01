@@ -21,7 +21,7 @@ function Landing(){
     <div className="Home-container" onClick={handleClick}>
         <img src="images/back_short.png" alt="배경이미지" className="background-img" />
         <img src="images/home_imgback.png" alt="home background" className="idol-back"/>
-      <div className="Home-text">
+      <div className="Landing-text">
         <h1>call me</h1>
       </div>
       <div className="image-grid">
