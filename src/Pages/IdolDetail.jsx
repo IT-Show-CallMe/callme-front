@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/IdolDetail.module.css";
 import idolData from "../data/idolJson.json";
 import SearchBar from "../components/SearchBar";
@@ -16,14 +16,28 @@ export default function IdolDetail() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // 로컬스토리지에서 callCount 불러와 초기 상태에 반영
+  useEffect(() => {
+    const updatedIdols = { ...idolData };
+    Object.keys(updatedIdols).forEach((name) => {
+      const storedCount = localStorage.getItem(`callCount_${name}`);
+      if (storedCount !== null) {
+        updatedIdols[name].callCount = Number(storedCount);
+      } else {
+        updatedIdols[name].callCount = 0;
+      }
+    });
+    setIdols(updatedIdols);
+  }, []);
+
   const handleClick = (name) => {
-    const prevCount = idols[name].idolCount || 0;
+    const prevCount = idols[name].callCount || 0;
     const updatedIdol = {
       ...idols[name],
-      idolCount: idols[name].idolCount + 1,
+      callCount: prevCount + 1,
     };
 
-    localStorage.setItem(`idolCount_${name}`, updatedIdol.idolCount)
+    localStorage.setItem(`callCount_${name}`, updatedIdol.callCount);
     localStorage.setItem("lastCalledIdolName", updatedIdol.idolName);
 
     setIdols((prev) => ({
@@ -84,7 +98,7 @@ export default function IdolDetail() {
             imgUrl={selectedIdol.idolImg}
             group={selectedIdol.idolGroup}
             name={selectedIdol.idolName}
-            count={selectedIdol.idolCount}
+            count={selectedIdol.callCount} // callCount로 변경
             onClose={handleCloseModal}
           />
         </ModalPortal>
