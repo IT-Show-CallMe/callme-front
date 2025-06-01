@@ -18,6 +18,21 @@ function CallIncomingPage() {
   }
 
   const handleStartCall = () => {
+    const now = new Date().toISOString();
+    // local불러오기
+    const storedData = JSON.parse(localStorage.getItem("idolData")) || {};
+    if (storedData[name]) {
+      storedData[name].callCount = (storedData[name].callCount || 0) + 1;
+      storedData[name].lastCallTime = now
+    } else {
+      storedData[name] = {
+        callCount: 1,
+        lastCallTime: now,
+      };
+    }
+    // 수정하면 저장
+    localStorage.setItem("idolData", JSON.stringify(storedData));
+    console.log("Updated call data:", storedData[name]);  // 여기에 출력!
     setIsTransitioning(true);
     setTimeout(() => {
       // state에 name 넘겨주기 추가
