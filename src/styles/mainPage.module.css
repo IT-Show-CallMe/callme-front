@@ -10,6 +10,14 @@
 
 
 } */
+
+@font-face {
+  font-family: 'HakgyoansimDunggeunmisoTTF-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimDunggeunmisoTTF-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
 .mainBackground {
   position: absolute;
   top: 0;
@@ -77,7 +85,7 @@
   color: #FFF;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #71ABFB;
-  font-family: "Hakgyoansim Dunggeunmiso OTF";
+  font-family: 'HakgyoansimDunggeunmisoTTF-B';
   /* font-size: 70px; */
   font-size: 4.5rem;
   font-weight: 700;
@@ -100,7 +108,7 @@
 
 .sectionTitle {
   color: #0040A0;
-  font-family: "Hakgyoansim Dunggeunmiso OTF";
+  font-family: 'HakgyoansimDunggeunmisoTTF-B';
   font-size: 25px;
   font-style: normal;
   font-weight: 600;
@@ -113,7 +121,7 @@
 .sectionSubtitle {
   align-self: stretch;
   color: #9EB3D3;
-  font-family: "Hakgyoansim Dunggeunmiso OTF";
+  font-family: 'HakgyoansimDunggeunmisoTTF-B';
   font-size: 18px;
   font-style: normal;
   font-weight: 100;
@@ -139,8 +147,8 @@
 .idolCardFrame {
   /* display: flex; */
   flex-direction: column;
-  width: 230px;
-  height: 320px;
+  width: 260px;
+  height: 400px;
   padding: 17px 16px;
   align-items: center;
   gap: 10px;
@@ -171,7 +179,7 @@
 .idolCardFrame .countClassName {
   margin: 0;
   color: #000;
-  font-size: 16px;
+  font-size: 20px;
   font-style: normal;
   display: flex;
   align-items: center;
