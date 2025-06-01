@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/main_letter.module.css";
+
+import { useNavigate } from "react-router-dom";
 
 import leftWingImage from "../assets/images/wing-left.png";
 import rightWingImage from "../assets/images/wing-right.png";
 import emojiImage from "/images/letteremoji.png";
 import bgImage from "/images/back_short.png";
 
-function Letter({ idolName, nickName }) {
+function Letter() {
+    const navigate = useNavigate();
+
     const [message, setMessage] = useState("");
+    const [idolName, setIdolName] = useState("");
+    const [nickName, setNickName] = useState("");
 
     const handleSend = async () => {
         try {
@@ -24,15 +30,32 @@ function Letter({ idolName, nickName }) {
             });
 
             if (!res.ok) throw new Error("Failed to send letter");
+
             alert("성공적으로 전송되었습니다!");
+            
+            navigate("/main");
         } catch (err) {
             console.error(err);
             alert("전송 중 오류가 발생했습니다.");
         }
     };
 
+    useEffect(() => {
+        // localStorage에서 아이돌 이름 가져오기
+        const storedIdol = localStorage.getItem("lastCalledIdolName");
+        if (storedIdol) setIdolName(storedIdol);
+
+        // 예시: 닉네임 DB에서 가져오기
+        fetch("/api/user-info")
+            .then((res) => res.json())
+            .then((data) => {
+                if (data?.nickname) setNickName(data.nickname);
+            })
+            .catch((err) => console.error("닉네임 불러오기 실패:", err));
+    }, []);
+
     return (
-        <div className={styles.container}>
+        <div className={styles.container} style={{ minHeight: "auto" }}>
             <img src={bgImage} alt="배경" className={styles.backgroundImg} />
             <h1 className={styles.title}>call me</h1>
 
