@@ -1,0 +1,238 @@
+/* Background Img ----------------*/
+/* .mainBackgroundImg {
+  width: 100vw;
+  display: block;
+  margin: 0;
+  padding: 0;
+
+  width: 100vw;
+  height: auto;
+
+
+} */
+.mainBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: auto;
+  z-index: -1;
+}
+
+.mainPageWrapper {
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 2000px;
+  overflow-y: auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-attachment: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* header */
+
+.contentWrapper {
+  left: 0;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 60px 24px;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* text-align: center; */
+  align-items: flex-start;
+  gap: 300px;
+  /* gap: 50px; */
+  /* padding-left: 230px; */
+  padding: 200px 0 0;
+
+}
+
+.Header {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 60px 24px;
+  box-sizing: border-box;
+  width: 100%;
+  /* margin-top: 250px; */
+  margin-top: 0;
+  display: flex;
+  gap: 25px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  color: #FFF;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #71ABFB;
+  font-family: "Hakgyoansim Dunggeunmiso OTF";
+  /* font-size: 70px; */
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  text-align: center;
+  /* transform: scaleY(0.9); */
+}
+
+/* 인기 아이돌 */
+.top5IdolSection,
+.letterSection {
+  width: 900px;
+  max-width: 90vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 1200px;
+}
+
+.sectionTitle {
+  color: #0040A0;
+  font-family: "Hakgyoansim Dunggeunmiso OTF";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: left;
+  align-self: flex-start;
+
+}
+
+.sectionSubtitle {
+  align-self: stretch;
+  color: #9EB3D3;
+  font-family: "Hakgyoansim Dunggeunmiso OTF";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.top5Idols {
+  /* display: flex; */
+  text-align: start;
+  gap: 20px;
+  padding-top: 50px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-bottom: 24px;
+}
+
+.idolCardFrame {
+  /* display: flex; */
+  flex-direction: column;
+  width: 230px;
+  height: 320px;
+  padding: 17px 16px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #FFF;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.idolCardFrame .groupClassName {
+  padding: 7px 0 3px 0;
+  margin: 0;
+  color: #1A1A1A;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.idolCardFrame .nameClassName {
+  color: #1A1A1A;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.idolCardFrame .countClassName {
+  margin: 0;
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.idolCardFrame .HeartIconClassName {
+  margin: 0;
+  font-size: 10px;
+}
+
+
+
+/* letter */
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.letters {
+  animation: float 2.5s ease-in-out infinite;
+  display: flex;
+  flex-direction: column;
+  text-align: initial;
+}
+
+.letterItem {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.letterItem.left {
+  animation: float 3s ease-in-out infinite;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.letterItem.right {
+  animation: float 2s ease-in-out infinite;
+  justify-content: flex-end;
+  text-align: right;
+  top: -300px;
+}
+
+
+body,
+html,
+#root {
+  height: 100%;
+  overflow: auto !important;
+}

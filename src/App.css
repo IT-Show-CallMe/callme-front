@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Hakgyoansim Dunggeunmiso OTF B';
+    src: url('./assets/fonts/Hakgyoansim\ Dunggeunmiso\ OTF\ B.otf') format('B');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Hakgyoansim Dunggeunmiso OTF R';
+    src: url('./assets/fonts/Hakgyoansim\ Dunggeunmiso\ OTF\ R.otf') format('R');
+    font-weight: normal;
+    font-style: normal;
+}
