@@ -27,9 +27,9 @@ const Nickname = () => {
     }
     return (
         <div className="container">
-            <img src="images/back_short.png" alt="배경 이미지" className="background-img"/>
+            <img src="/images/back_short.png" alt="배경 이미지" className="background-img"/>
             <div className="window">
-                <img src="images/window-img.png" alt="창 이미지" className="window-img"/>
+                <img src="/images/window-img.png" alt="창 이미지" className="window-img"/>
                 <div className="window-content">
                     <p className="input-title">닉네임을 입력하세요.</p>
                     <input type="text" placeholder="닉네임을 입력하세요." 
@@ -40,7 +40,7 @@ const Nickname = () => {
                     <button className="confirm-button" onClick={handleSubmit}>확인</button> 
                         
                 </div>
-                <img src="images/angyeongmando-img.png" alt="안경만두" className="angyeongmando-img" />
+                <img src="/images/angyeongmando-img.png" alt="안경만두" className="angyeongmando-img" />
             </div>
         </div>
         
