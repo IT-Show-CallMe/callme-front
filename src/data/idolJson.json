@@ -66,7 +66,7 @@
     "도훈": {
         "idolName": "도훈",
         "idolGroup": "TWS",
-        "idolGroupKor": "트위스",
+        "idolGroupKor": "투어스",
         "idolImg": "../images/idoProfile/p_도훈.png",
         "idolIndex": 9,
         "callCount": 0
@@ -114,7 +114,7 @@
     "신유": {
         "idolName": "신유",
         "idolGroup": "TWS",
-        "idolGroupKor": "트위스",
+        "idolGroupKor": "투어스",
         "idolImg": "../images/idoProfile/p_신유.png",
         "idolIndex": 15,
         "callCount": 0
