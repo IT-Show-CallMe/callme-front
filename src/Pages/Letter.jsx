@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/main_letter.module.css";
-
 import { useNavigate } from "react-router-dom";
 
 import leftWingImage from "../assets/images/wing-left.png";
@@ -32,7 +31,6 @@ function Letter() {
             if (!res.ok) throw new Error("Failed to send letter");
 
             alert("성공적으로 전송되었습니다!");
-            
             navigate("/main");
         } catch (err) {
             console.error(err);
@@ -41,17 +39,8 @@ function Letter() {
     };
 
     useEffect(() => {
-        // localStorage에서 아이돌 이름 가져오기
         const storedIdol = localStorage.getItem("lastCalledIdolName");
         if (storedIdol) setIdolName(storedIdol);
-
-        // 예시: 닉네임 DB에서 가져오기
-        fetch("/api/user-info")
-            .then((res) => res.json())
-            .then((data) => {
-                if (data?.nickname) setNickName(data.nickname);
-            })
-            .catch((err) => console.error("닉네임 불러오기 실패:", err));
     }, []);
 
     return (
@@ -81,9 +70,16 @@ function Letter() {
                             data-placeholder="후기를 작성해 주세요!"
                         />
 
-                        {/* <hr className={styles.hrLine} /> */}
-
-                        <p className={styles.from}>from. {nickName}</p>
+                        <div className={styles.nickNameInputContainer}>
+                            <p>from. </p>
+                            <input
+                                type="text"
+                                className={styles.nicknameInput}
+                                value={nickName}
+                                onChange={(e) => setNickName(e.target.value)}
+                                placeholder="닉네임"
+                            />
+                        </div>
                     </div>
                 </div>
 
