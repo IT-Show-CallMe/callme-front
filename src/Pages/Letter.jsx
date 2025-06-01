@@ -1,36 +1,100 @@
-import React, { useState } from "react";
-import leftWingImage from '../assets/images/wing-left.png';
-import rightWingImage from '../assets/images/wing-right.png';
-// import styles from "../styles/main_letter.moudule.css";
+import React, { useState, useEffect } from "react";
+import styles from "../styles/main_letter.module.css";
+
+import { useNavigate } from "react-router-dom";
+
+import leftWingImage from "../assets/images/wing-left.png";
+import rightWingImage from "../assets/images/wing-right.png";
+import emojiImage from "/images/letteremoji.png";
+import bgImage from "/images/back_short.png";
 
 function Letter() {
+    const navigate = useNavigate();
+
+    const [message, setMessage] = useState("");
+    const [idolName, setIdolName] = useState("");
+    const [nickName, setNickName] = useState("");
+
+    const handleSend = async () => {
+        try {
+            const res = await fetch("https://your-backend-api.com/letters", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    to: idolName,
+                    from: nickName,
+                    message,
+                }),
+            });
+
+            if (!res.ok) throw new Error("Failed to send letter");
+
+            alert("성공적으로 전송되었습니다!");
+            
+            navigate("/main");
+        } catch (err) {
+            console.error(err);
+            alert("전송 중 오류가 발생했습니다.");
+        }
+    };
+
+    useEffect(() => {
+        // localStorage에서 아이돌 이름 가져오기
+        const storedIdol = localStorage.getItem("lastCalledIdolName");
+        if (storedIdol) setIdolName(storedIdol);
+
+        // 예시: 닉네임 DB에서 가져오기
+        fetch("/api/user-info")
+            .then((res) => res.json())
+            .then((data) => {
+                if (data?.nickname) setNickName(data.nickname);
+            })
+            .catch((err) => console.error("닉네임 불러오기 실패:", err));
+    }, []);
 
     return (
-        <div className={styles.container}>
-            <img src="images/back_short.png" alt="배경이미지" className="background-img" />
+        <div className={styles.container} style={{ minHeight: "auto" }}>
+            <img src={bgImage} alt="배경" className={styles.backgroundImg} />
+            <h1 className={styles.title}>call me</h1>
 
-            <div className={styles.letterContainer}>
-                <h1>call me</h1>
+            <div className={styles.letterBox}>
+                <img src={leftWingImage} alt="왼쪽 날개" className={styles.leftWing} />
 
-                <div className="letter-input-container">
-                    <img src={leftWingImage} alt="Left Wing" className="wing left-wing" />
+                <div className={styles.letter}>
+                    <button className={styles.closeBtn}>×</button>
 
-                    <div className="letter-input">
-                        <button>×</button>
-                        <div className="letter-background">
-                            <img src="../images/letteremoji.png" alt="" />
-                            <p className="to">to. fromName</p>
-                            <textarea placeholder="후기를 작성해 주세요!" className="textarea"></textarea>
-                            <p className="from">from. nickName</p>
+                    <div className={styles.letterContainer}>
+                        <div className={styles.headerContainer}>
+                            <p className={styles.to}>to. {idolName}</p>
+                            <img src={emojiImage} alt="이모지" className={styles.emoji} />
                         </div>
-                    </div>
 
-                    <img src={rightWingImage} alt="Right Wing" className="wing right-wing" />
+                        <hr className={styles.hrLine} />
+
+                        <div
+                            contentEditable={true}
+                            className={styles.textarea}
+                            onInput={(e) => setMessage(e.currentTarget.textContent)}
+                            suppressContentEditableWarning={true}
+                            data-placeholder="후기를 작성해 주세요!"
+                        />
+
+                        {/* <hr className={styles.hrLine} /> */}
+
+                        <p className={styles.from}>from. {nickName}</p>
+                    </div>
                 </div>
+
+                <img src={rightWingImage} alt="오른쪽 날개" className={styles.rightWing} />
             </div>
+
+            <button className={styles.sendBtn} onClick={handleSend}>
+                send
+            </button>
         </div>
     );
-
 }
 
 export default Letter;

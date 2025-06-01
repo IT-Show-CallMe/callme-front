@@ -17,10 +17,14 @@ export default function IdolDetail() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleClick = (name) => {
+    const prevCount = idols[name].idolCount || 0;
     const updatedIdol = {
       ...idols[name],
       idolCount: idols[name].idolCount + 1,
     };
+
+    localStorage.setItem(`idolCount_${name}`, updatedIdol.idolCount)
+    localStorage.setItem("lastCalledIdolName", updatedIdol.idolName);
 
     setIdols((prev) => ({
       ...prev,
