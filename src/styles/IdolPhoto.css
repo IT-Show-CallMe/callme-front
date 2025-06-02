@@ -49,12 +49,13 @@
 .video-feed {
   position: absolute;
   width: 50%;
-  height: 50%;
+  height: 70%;
   object-fit: cover;
   border-radius: 10px;
   z-index: 1;
+  right: 25%;  /* 오른쪽으로 이동 */
+  top: 14%;    /* 위쪽 위치 조절 (필요하면) */
+  border-radius: 80px;
 }
-
-
 
 
