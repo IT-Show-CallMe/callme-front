@@ -17,11 +17,13 @@ const AppRoutes = () => {
 
             {/* <Route path="/" element={<HomePage />} /> */}
             <Route path="/landing" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/nickname" element={<NicknamePage />} />
 
             <Route path="/email" element={<EmailInputPage />} />
             <Route path="/main" element={<MainPage />} />
             <Route path="/letter" element={<LetterPage />} />
+            <Route path='/idol' element={<IdolDetailPage />} />
             <Route path="/call/Incall/:name" element={<IncallPage />} />
             <Route path="/call/incoming/:name" element={<CallIncomingPage />} />
             <Route path="/call/ended" element={<CallEndedPage />} />
