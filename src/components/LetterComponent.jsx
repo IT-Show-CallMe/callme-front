@@ -9,11 +9,23 @@ const letterImages = [closedImg, slightlyOpenImg, moreOpenImg, fullyOpenImg];
 
 export default function LetterComponent() {
     const [openStep, setOpenStep] = useState(0);
+    const [isAnimating, setIsAnimating] = useState(false);
 
-    // 클릭하면 다음 단계로 넘어감 (마지막 단계에서는 멈춤)
+    // 클릭하면 자동으로 펼쳐짐
     const handleClick = () => {
-        setOpenStep((prev) => (prev < 3 ? prev + 1 : prev));
-    };
+        if (isAnimating || openStep === 3) return; // 이미 애니메이션 중 or 다 열리면 무시
+        setIsAnimating(true);
+
+        let currStep = openStep;
+        const interval = setInterval(() => {
+            currStep += 1;
+            setOpenStep(currStep);
+            if (currStep === 3) {
+                clearInterval(interval);
+                setIsAnimating(false);
+            }
+        }, 300);
+    }
 
     return (
         <img
@@ -21,10 +33,11 @@ export default function LetterComponent() {
             alt="편지지"
             onClick={handleClick}
             style={{
-                cursor: 'pointer',
-                transition: 'all 0.3s',
-                width: "400px",       // 원하는 크기로 조절
+                cursor: openStep === 3 ? 'default' : 'pointer',
+                transition: 'all 0.5s',
+                width: "400px",
                 height: "auto",
+                userSelect: 'none',
             }}
         />
     );
