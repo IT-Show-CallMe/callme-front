@@ -14,16 +14,12 @@ const Incall = () => {
 
   const name = location.state?.name || '기본값';
   const idol = idolData[name];
+
   const [currentVideo, setCurrentVideo] = useState(idol.startVideo);
-  const [showSpeechBubble, setShowSpeechBubble] = useState(false);
-  const [hasIntroEnded, setHasIntroEnded] = useState(false);
   const [videoKey, setVideoKey] = useState(0);
+  const [hasIntroEnded, setHasIntroEnded] = useState(false);
   const [showWaitingScreen, setShowWaitingScreen] = useState(true);
   const [bubbleVisible, setBubbleVisible] = useState(false);
-
-  const handleEndCall = () => {
-    navigate('/call/ended', { state: { name } });
-  };
 
   useEffect(() => {
     navigator.mediaDevices
@@ -39,43 +35,61 @@ const Incall = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  // 인트로 영상이 끝났을 때 한 번만 호출
+  // 종료 영상이 끝나면 자동으로 종료 페이지 이동
   const handleVideoEnded = () => {
     if (!hasIntroEnded && currentVideo === idol.startVideo) {
       setHasIntroEnded(true);
-      setTimeout(() => setBubbleVisible(true), 100);
+      setBubbleVisible(true);
+    } else if (idol.endVideo && currentVideo === idol.endVideo) {
+      navigate('/call/ended', { state: { name } });
     }
-    setShowSpeechBubble(true);
   };
 
+  // 말풍선 옵션 클릭 시 처리, 말풍선은 사라지지 않고 계속 유지
   const handleOptionSelect = (selectedMessage) => {
     const matched = idol.messages.find(m => m.message === selectedMessage);
     if (matched?.video) {
       setCurrentVideo(matched.video);
       setVideoKey(prev => prev + 1);
-    } else if (selectedMessage === `잘가 ${idol.name}` && idol.endVideo) {
-      setCurrentVideo(idol.endVideo);
-      setVideoKey(prev => prev + 1);
+    } else if (selectedMessage === `잘가 ${idol.name}` || selectedMessage === `잘가 ${idol.name}야`) {
+      if (idol.endVideo) {
+        setCurrentVideo(idol.endVideo);
+        setVideoKey(prev => prev + 1);
+      }
     }
+    // 말풍선 유지 (setBubbleVisible(false) 제거)
   };
 
-  const speechOptions = idol.messages.map(m => m.message).concat(idol.endVideo ? `잘가 ${idol.name}야` : []);
+  // 옵션에 빈 문자열이나 공백만 있는 경우 필터링
+  const speechOptions = idol.messages
+    .map(m => m.message)
+    .filter(msg => msg && msg.trim() !== '')
+    .concat(idol.endVideo ? `잘가 ${idol.name}야` : []);
 
-  // 인라인 스타일로 애니메이션
+  // 말풍선 스타일
   const speechBubbleStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
- transform: bubbleVisible ? 'translate(-40%, -50%)' : 'translate(-150%, -50%)',
-  transition: 'transform 1s ease-in-out',
-  zIndex: 1
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: bubbleVisible ? 'translate(-80%, -50%)' : 'translate(-150%, -50%)',
+    transition: 'transform 0.8s ease-in-out',
+    zIndex: 1,
   };
 
-    // 폰 두 개 담긴 컨테이너 위치 이동 스타일
+  // 폰 위치 이동 스타일 (인트로 끝나면 한 번 이동)
   const dualPhoneContainerStyle = {
     display: 'flex',
     gap: '20px',
-    transition: 'transform 1.2s ease-in-out',
-    transform: hasIntroEnded ? 'translateX(-0px)' : 'translateX(0)', // 원하는 만큼 왼쪽으로 이동
+    transition: 'transform 1s ease-in-out',
+    transform: hasIntroEnded ? 'translate(-70%, -90%)' : 'translate(-50%, -90%)',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+  };
+
+  const handleEndCall = () => {
+    navigate('/call/ended', { state: { name } });
   };
 
   return (
@@ -95,16 +109,21 @@ const Incall = () => {
           maxWidth: '150%',
         }}
       >
-        <div className="dual-phone-container" style={{ display: 'flex', gap: '20px' }}>
+        <div className="dual-phone-container" style={dualPhoneContainerStyle}>
           {[1, 2].map((_, idx) => (
             <div className="single-phone" key={idx} style={{ position: 'relative' }}>
               <img src={IncallPhoneImage} alt="Phone" className="dual-phone-image" />
 
               {idx === 0 && showWaitingScreen && (
-                <div style={{
-                  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                  textAlign: 'center'
-                }}>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    textAlign: 'center',
+                  }}
+                >
                   <p style={{ fontSize: '18px', color: 'white', fontWeight: 'bold' }}>
                     영상 통화를 준비 중입니다. 잠시만 기다려 주세요...
                   </p>
@@ -114,7 +133,7 @@ const Incall = () => {
                       marginTop: '20px',
                       padding: '10px 20px',
                       fontSize: '16px',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
                     }}
                   >
                     대기 종료
@@ -156,7 +175,8 @@ const Incall = () => {
         </div>
       </PhoneLayout>
 
-      {hasIntroEnded && showSpeechBubble && (
+      {/* 인트로 끝났고 옵션이 하나라도 있으면 말풍선 보임 */}
+      {hasIntroEnded && speechOptions.length > 0 && (
         <div style={speechBubbleStyle}>
           <SpeechBubble options={speechOptions} onSelect={handleOptionSelect} />
         </div>
