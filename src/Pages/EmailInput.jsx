@@ -16,18 +16,26 @@ function EmailInput() {
 
   // 버튼 클릭 시 서버에 이메일 전송
   const handleSubmit = async () => {
-    if (!email) {
-      alert("이메일을 입력해주세요!");
-      return;
-    }
-    try {
-      const response = await axios.post("http://localhost:5000/users", { email });
-      alert(response.data);
-    } catch (error) {
-      console.error("이메일 저장 실패: ", error);
-      alert("이메일 저장 중 오류가 발생하였습니다. 다시 시도하세요.");
-    }
-  };
+  if (!email) {
+    alert("이메일을 입력해주세요!");
+    return;
+  }
+
+  // 이메일 형식 검사 정규표현식
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("올바른 이메일 형식을 입력해주세요!");
+    return;
+  }
+
+  try {
+    const response = await axios.post("http://localhost:5000/users", { email });
+    alert(response.data);
+  } catch (error) {
+    console.error("이메일 저장 실패: ", error);
+    alert("이메일 저장 중 오류가 발생하였습니다. 다시 시도하세요.");
+  }
+};
 
   return (
     <div className="container">
