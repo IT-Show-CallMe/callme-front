@@ -5,36 +5,24 @@ import IncallBackgroundImage from '../../assets/images/incall-background.png';
 import endCallButtonImage from '../../assets/images/call-down.png';
 import SpeechBubble from '../../components/SpeechBubble';
 import PhoneLayout from '../../components/Phone';
-
-import wonbinIntro from '../../assets/videos/wonbin-intro.mp4';
-import wonbinOptionA from '../../assets/videos/wonbin-flirting.mp4';
-import wonbinOptionB from '../../assets/videos/wonbin-mbti.mp4';
-import wonbinOptionC from '../../assets/videos/wonbin-bluescreen.mp4';
-
-const videoMap = {
-  wonbin: {
-    intro: [wonbinIntro],
-    optionA: [wonbinOptionA],
-    optionB: [wonbinOptionB],
-    optionC: [wonbinOptionC],
-  },
-};
+import idolData from '../../data/idolVideo.json';
 
 const Incall = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userCameraRef = useRef(null);
 
-  const name = location.state?.name || 'wonbin';
-  const [currentVideo, setCurrentVideo] = useState(videoMap[name].intro);
+  const name = location.state?.name || '기본값';
+  const idol = idolData[name];
+  const [currentVideo, setCurrentVideo] = useState(idol.startVideo);
   const [showSpeechBubble, setShowSpeechBubble] = useState(false);
-  const [hasIntroEnded, setHasIntroEnded] = useState(false); // 인트로 종료 여부
-  const [videoKey, setVideoKey] = useState(0); // 재렌더링 유도
-  const [showWaitingScreen, setShowWaitingScreen] = useState(true); // 대기화면 상태
+  const [hasIntroEnded, setHasIntroEnded] = useState(false);
+  const [videoKey, setVideoKey] = useState(0);
+  const [showWaitingScreen, setShowWaitingScreen] = useState(true);
+  const [bubbleVisible, setBubbleVisible] = useState(false);
 
   const handleEndCall = () => {
-    console.log('Navigating to /call/ended');
-    navigate('/call/ended');
+    navigate('/call/ended', { state: { name } });
   };
 
   useEffect(() => {
@@ -45,69 +33,57 @@ const Incall = () => {
           userCameraRef.current.srcObject = stream;
         }
       })
-      .catch((err) => {
-        console.error('카메라 접근 실패:', err);
-      });
+      .catch((err) => console.error('카메라 접근 실패:', err));
 
-    const timeoutId = setTimeout(() => {
-      setShowWaitingScreen(false);
-    }, 5000);
-
+    const timeoutId = setTimeout(() => setShowWaitingScreen(false), 5000);
     return () => clearTimeout(timeoutId);
   }, []);
 
   const handleVideoEnded = () => {
-    if (!hasIntroEnded && currentVideo[0] === videoMap[name].intro[0]) {
-      setHasIntroEnded(true); // 인트로 종료 표시
+    if (!hasIntroEnded && currentVideo === idol.startVideo) {
+      setHasIntroEnded(true);
+      setTimeout(() => setBubbleVisible(true), 100);
     }
-    setShowSpeechBubble(true); // 항상 말풍선 표시
+    setShowSpeechBubble(true);
   };
 
-  const getOptionKey = (optionText) => {
-    switch (optionText) {
-      case '앞니 플러팅 해줘':
-        return 'optionA';
-      case 'mbti 뭐야?':
-        return 'optionB';
-      case '블루 스크린 해줘':
-        return 'optionC';
-      case '원빈아 쫄았니':
-        return 'optionD';
-      case '팔찌 뭐야?':
-        return 'optionE';
-        case '잘가 원빈아':
-          return 'optionF';
-      default:
-        return 'intro';
-    }
-  };
-
-  const handleOptionSelect = (option) => {
-    const key = getOptionKey(option);
-    const nextVideo = videoMap[name][key];
-    if (nextVideo) {
-      setCurrentVideo(nextVideo);
+  const handleOptionSelect = (selectedMessage) => {
+    const matched = idol.messages.find(m => m.message === selectedMessage);
+    if (matched?.video) {
+      setCurrentVideo(matched.video);
+      setVideoKey(prev => prev + 1);
+    } else if (selectedMessage === `잘가 ${idol.name}` && idol.endVideo) {
+      setCurrentVideo(idol.endVideo);
       setVideoKey(prev => prev + 1);
     }
-   
   };
 
-  const speechOptions = [
-    '앞니 플러팅 해줘',
-    'mbti 뭐야?',
-    '블루 스크린 해줘',
-    '원빈아 쫄았니',
-    '팔찌 뭐야?',
-    '잘가 원빈아',
-  ];
+  const speechOptions = idol.messages.map(m => m.message).concat(idol.endVideo ? `잘가 ${idol.name}야` : []);
+
+  // 인라인 스타일로 애니메이션
+  const speechBubbleStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+ transform: bubbleVisible ? 'translate(-40%, -50%)' : 'translate(-150%, -50%)',
+  transition: 'transform 1s ease-in-out',
+  zIndex: 1
+  };
+
+    // 폰 두 개 담긴 컨테이너 위치 이동 스타일
+  const dualPhoneContainerStyle = {
+    display: 'flex',
+    gap: '20px',
+    transition: 'transform 1.2s ease-in-out',
+    transform: hasIntroEnded ? 'translateX(-0px)' : 'translateX(0)', // 원하는 만큼 왼쪽으로 이동
+  };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '50px' }}>
       <PhoneLayout
-        hideWings={true}
-        hidePhoneImage={true}
+        hideWings
+        hidePhoneImage
         backgroundImage={IncallBackgroundImage}
-        phoneImage={null}
         className="incall-page"
         style={{
           display: 'flex',
@@ -115,8 +91,8 @@ const Incall = () => {
           alignItems: 'flex-start',
           gap: '50px',
           paddingTop: '100px',
-          width: '100vw',           // 👉 화면 전체 너비 사용
-          maxWidth: '150%',         // 👉 제한 없애기
+          width: '100vw',
+          maxWidth: '150%',
         }}
       >
         <div className="dual-phone-container" style={{ display: 'flex', gap: '20px' }}>
@@ -124,18 +100,11 @@ const Incall = () => {
             <div className="single-phone" key={idx} style={{ position: 'relative' }}>
               <img src={IncallPhoneImage} alt="Phone" className="dual-phone-image" />
 
-              {/* 대기 화면 */}
               {idx === 0 && showWaitingScreen && (
-                <div
-                  className="waiting-screen"
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    textAlign: 'center',
-                  }}
-                >
+                <div style={{
+                  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                  textAlign: 'center'
+                }}>
                   <p style={{ fontSize: '18px', color: 'white', fontWeight: 'bold' }}>
                     영상 통화를 준비 중입니다. 잠시만 기다려 주세요...
                   </p>
@@ -145,7 +114,7 @@ const Incall = () => {
                       marginTop: '20px',
                       padding: '10px 20px',
                       fontSize: '16px',
-                      cursor: 'pointer',
+                      cursor: 'pointer'
                     }}
                   >
                     대기 종료
@@ -153,7 +122,6 @@ const Incall = () => {
                 </div>
               )}
 
-              {/* 상대방 영상 */}
               {idx === 0 && (
                 <video
                   key={videoKey}
@@ -161,11 +129,11 @@ const Incall = () => {
                   autoPlay
                   playsInline
                   onEnded={handleVideoEnded}
+                  onError={(e) => console.error('Video playback error:', e)}
                   className="self-camera"
                 />
               )}
 
-              {/* 내 카메라 */}
               {idx === 1 && (
                 <video
                   ref={userCameraRef}
@@ -173,8 +141,7 @@ const Incall = () => {
                   playsInline
                   muted
                   className="self-camera"
-                  style={{ transform: 'scaleX(-1)' }} // 좌우반전
-                  
+                  style={{ transform: 'scaleX(-1)' }}
                 />
               )}
 
@@ -189,15 +156,13 @@ const Incall = () => {
         </div>
       </PhoneLayout>
 
-        {/* 말풍선: 인트로 영상 이후 항상 표시 */}
-        {hasIntroEnded && showSpeechBubble && (
-        <div style={{ position: 'absolute', transform: 'translate(155%, -50%)' }}>
+      {hasIntroEnded && showSpeechBubble && (
+        <div style={speechBubbleStyle}>
           <SpeechBubble options={speechOptions} onSelect={handleOptionSelect} />
         </div>
       )}
     </div>
   );
 };
-
 
 export default Incall;

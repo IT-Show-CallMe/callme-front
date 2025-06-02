@@ -6,6 +6,8 @@
     font-weight: 600;
     font-style: normal;
   }
+
+  @font-face { font-family: 'HakgyoansimDunggeunmisoTTF-B'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimDunggeunmisoTTF-B.woff2') format('woff2'); font-weight: 700; font-style: normal; }
 html, body {
     font-family: 'Pretendard-SemiBold', sans-serif;
     font-weight: 600; /* 꼭 맞춰줘야 제대로 적용됨 */
@@ -14,6 +16,12 @@ html, body {
     height: 100%;
   }
 
+  @font-face {
+  font-family: 'Pretendard-Light';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
 
   
   .App {
@@ -198,12 +206,14 @@ html, body {
   align-items: center;
   z-index: 2; /* 컨테이너가 다른 요소들 위로 보이도록 설정 */
   gap: 20px;
+    transform: translate(155%, -50%); /* 초기 상태: 폰 뒤 */
+  transition: transform 1.5s ease-in-out;
 }
 
 .speech-bubble-image {
   position: absolute;
-  width: 400px;
-  height: 590px;
+  width: 490px;
+  height: 730px;
   object-fit: cover; /* 비율 유지하며 채우기 */
   z-index: 1; /* 이미지가 뒤로 가도록 설정 */
 }
@@ -220,7 +230,7 @@ html, body {
 .options {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 400px;
   gap: 18px;
   z-index: 2; /* 버튼들이 텍스트 위로 보이도록 설정 */
 }
@@ -233,7 +243,7 @@ html, body {
   color: black;
   font-size: 1rem;
   cursor: pointer;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -302,19 +312,19 @@ html, body {
 }
 
 .callEndedImage {
-  width: 800px;
+  width: 1400px;
   height: auto;
   display: block;
 }
 
 .callEndedText {
   font-family: "Modak", system-ui;
-  font-size: 55px;
+  font-size: 30px;
   font-weight: 400;
   color: white;
   -webkit-text-stroke: 1px #71ABFB;
   position: absolute;
-  top: 25%; /* 중앙 이미지의 상단에서 20% 위치 */
+  top: 35%; /* 중앙 이미지의 상단에서 20% 위치 */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1; /* 텍스트가 이미지 위에 올라가도록 설정 */
@@ -345,7 +355,70 @@ html, body {
   opacity: 0;
   transform: scale(0.9);
   animation: fadeIn 1s ease forwards; /* 1초 동안 fadeIn 애니메이션 */
+   white-space: nowrap;
+   font-family: 'HakgyoansimDunggeunmisoTTF-B';
 }
+
+.mainMessage {
+    font-family: 'HakgyoansimDunggeunmisoTTF-B';
+  font-size: 74px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.subMessage {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  font-family: 'HakgyoansimDunggeunmisoTTF-B';
+  color: rgb(255, 255, 255);      /* 내부 하얀색 반투명 */
+  -webkit-text-stroke: 1px #71ABFB;     /* 테두리 색상 변경 */
+}
+
+.yesButton {
+    font-family: 'Pretendard-Light', sans-serif;
+  font-weight: 300; /* light weight */
+
+  font-size: 1.5rem;
+  padding: 15px 100px;
+  border: 2px solid #B8D6FF; /* 초록색 테두리 */
+  background-color: #71ABFB;
+  color: white; /* 초록색 글씨 */
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 약간 투명한 검은 그림자 */
+}
+
+.yesButton:hover{
+  background-color: #B8D6FF;
+}
+
+.noButton {
+    font-family: 'Pretendard-Light', sans-serif;
+  font-weight: 300; /* light weight */
+
+  font-size: 1.5rem;
+  padding: 15px 100px;
+  border: 2px solid #71ABFB; /* 빨간색 테두리 */
+  background-color: #71ABFB;
+  color: white; /* 빨간색 글씨 */
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 약간 투명한 검은 그림자 */
+
+}
+
+
+.noButton:hover{
+  background-color: #B8D6FF;
+  border: none;
+}
+
+
 
 @keyframes fadeIn {
   from {

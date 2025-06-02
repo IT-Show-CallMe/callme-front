@@ -40,7 +40,7 @@
     object-fit: cover; /* 이미지가 화면을 꽉 채우도록 설정 */
   }
   
-  .Home-text {
+  .Landing-text  h1{
     position: absolute;
     top: 35%;
     left: 50%;
@@ -48,7 +48,7 @@
     z-index: 3;
     color: white;
     -webkit-text-stroke: 3px #71ABFB;
-    font-size: 8vw; /* 화면 크기에 따라 폰트 크기가 조정됨 */
+    font-size: 8vw;
     font-weight: 700;
     font-family: 'HakgyoansimDunggeunmisoTTF-B', sans-serif;
     white-space: nowrap;

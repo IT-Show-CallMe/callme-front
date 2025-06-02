@@ -1,11 +1,11 @@
 import "../styles/SearchBar.css";
 
-function SearchBar({ value, onChange, placeholder = "검색어를 입력하세요", onClick }) {
+function SearchBar({ value, onChange, placeholder = "원하는 아이돌의 이름을 입력하세요.", onClick }) {
     return (
         <div
             style={{
                 display: "flex",
-                width: "900px",
+                width: "1080px",
                 height: "50px",
                 padding: "14px 27px",
                 flexDirection: "row",
@@ -17,7 +17,7 @@ function SearchBar({ value, onChange, placeholder = "검색어를 입력하세�
                 background: "#FFF",
                 boxShadow: "0px 0px 16px 0px rgba(0, 0, 0, 0.15)",
                 cursor: onClick ? "pointer" : "auto",
-                marginBottom: "30px",
+                marginBottom: "50px",
             }}
             onClick={onClick}
         >
@@ -40,9 +40,15 @@ function SearchBar({ value, onChange, placeholder = "검색어를 입력하세�
                     border: "none",
                     outline: "none",
                     fontSize: "1.15rem",
-                    color: "#222",
+                    // color: "#222",
                     background: "transparent",
                     flex: 1,
+                    color: "#BBB",
+                    fontFamily: "Pretendard",
+                    // fontSize: "24px",
+                    fontStyle: "normal",
+                    fontWeight: 300,
+                    lineHeight: "normal",
                 }}
             />
         </div>

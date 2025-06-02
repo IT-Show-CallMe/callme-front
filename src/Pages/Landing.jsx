@@ -12,7 +12,7 @@ const imagesFiles = [
   ];
 
 function Landing(){
-  const navigate = useNavigate(); // 🔹페이지 이동 함수
+  const navigate = useNavigate(); // 페이지 이동 함수
 
   const handleClick = () => {
     navigate("/nickname"); // 다음 페이지로 이동
@@ -21,7 +21,7 @@ function Landing(){
     <div className="Home-container" onClick={handleClick}>
         <img src="images/back_short.png" alt="배경이미지" className="background-img" />
         <img src="images/home_imgback.png" alt="home background" className="idol-back"/>
-      <div className="Home-text">
+      <div className="Landing-text">
         <h1>call me</h1>
       </div>
       <div className="image-grid">
