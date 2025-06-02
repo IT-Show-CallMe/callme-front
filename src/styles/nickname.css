@@ -75,9 +75,9 @@
   }
 /* 버튼 색 */
 .confirm-button {
-    width: 130px;
+    width: 160px;
     height: 60px;
-    padding: 10px 24px;
+    padding: 10px 50px;
     font-size: 16px;
     background-color: #71ABFB;
     color: white;
