@@ -25,7 +25,7 @@ const AppRoutes = () => {
             <Route path="/call/incoming/:name" element={<CallIncomingPage />} />
             <Route path="/call/ended" element={<CallEndedPage />} />
             <Route path="/idol" element={<IdolDetailPage />} />
-            <Route path="/photo" element={<IdolPhotoPage/>}/>
+            <Route path="/photo/:name" element={<IdolPhotoPage/>}/>
         </Routes>
     );
 };
