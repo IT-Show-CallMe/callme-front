@@ -161,7 +161,7 @@ html, body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -90%); /* 화면 중앙에 배치 */
+  transform: translate(-50%, -90%);
 }
 
 .single-phone {
@@ -241,9 +241,9 @@ html, body {
   font-family: 'Pretendard-SemiBold', sans-serif;
   background-color: transparent;
   color: black;
-  font-size: 1rem;
+  font-size: 24px;
   cursor: pointer;
-  padding: 30px;
+  padding: 25px;
   text-align: center;
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
