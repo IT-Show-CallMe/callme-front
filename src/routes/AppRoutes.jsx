@@ -9,6 +9,7 @@ import CallEndedPage from '../Pages/Call/CallEndedPage'; // 현주
 import LetterPage from '../Pages/Letter'; // 지은
 import IdolDetailPage from '../Pages/IdolDetail'; // 지은
 import EmailInputPage from '../Pages/EmailInput'; //여원
+import IdolPhotoPage from "../Pages/IdolPhoto"; //현주
 
 const AppRoutes = () => {
     return (
@@ -24,12 +25,6 @@ const AppRoutes = () => {
             <Route path="/call/Incall/:name" element={<IncallPage />} />
             <Route path="/call/incoming/:name" element={<CallIncomingPage />} />
             <Route path="/call/ended" element={<CallEndedPage />} />
-
-            {/* <Route path="/idol/:idolId" element={<IdolDetailPage />} /> */}
-            {/* <Route path="/call/confirm" element={<ConfirmNicknamePage />} /> */}
-            {/* <Route path="/call/agreement" element={<EmailAgreementPage />} /> */}
-            {/* <Route path="/call/email" element={<EmailInputPage />} /> */}
-            {/* <Route path="/call/start" element={<VideoCallPage />} /> */}
         </Routes>
     );
 };
