@@ -1,17 +1,12 @@
-// CallEndedPage.jsx
 import React, { useEffect } from 'react';
 import "../../styles/incall.css"; // CSS 파일을 불러옵니다.
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import callEndedIcon from '../../assets/images/wings.png'; // 중앙 이미지만 import
-import buttonImage1 from '../../assets/images/yes.png';
-import buttonImage2 from '../../assets/images/no.png'
-
-
-
 
 const CallEndedPage = () => {
-
   const navigate = useNavigate();
+  const location = useLocation();
+  const name = location.state?.name || '기본값'; // 이전 페이지에서 전달된 이름 받기
 
   useEffect(() => {
     // Google Fonts 링크를 head에 추가
@@ -22,7 +17,6 @@ const CallEndedPage = () => {
   }, []);
 
   return (
-
     <div className="callEndedContainer">
       <div className="callEndedImageContainer">
         <img
@@ -43,7 +37,7 @@ const CallEndedPage = () => {
           </button>
           <button
             className="noButton"
-            onClick={() => console.log('아니오 버튼 클릭')}
+            onClick={() => navigate(`/photo/${name}`)} // 여기서 name과 함께 이동
           >
             예
           </button>

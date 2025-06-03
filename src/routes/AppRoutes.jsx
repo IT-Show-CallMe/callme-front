@@ -9,21 +9,25 @@ import CallEndedPage from '../Pages/Call/CallEndedPage'; // 현주
 import LetterPage from '../Pages/Letter'; // 지은
 import IdolDetailPage from '../Pages/IdolDetail'; // 지은
 import EmailInputPage from '../Pages/EmailInput'; //여원
+import IdolPhotoPage from "../Pages/IdolPhoto"; //현주
 
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<Navigate to="/landing" />} />
-            
+
+            {/* <Route path="/" element={<HomePage />} /> */}
             <Route path="/landing" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/nickname" element={<NicknamePage />} />
+
             <Route path="/email" element={<EmailInputPage />} />
             <Route path="/main" element={<MainPage />} />
             <Route path="/letter" element={<LetterPage />} />
+            <Route path='/idol' element={<IdolDetailPage />} />
             <Route path="/call/Incall/:name" element={<IncallPage />} />
             <Route path="/call/incoming/:name" element={<CallIncomingPage />} />
             <Route path="/call/ended" element={<CallEndedPage />} />
-            <Route path="/idol" element={<IdolDetailPage />} />
+            <Route path="/photo/:name" element={<IdolPhotoPage />} />
         </Routes>
     );
 };
