@@ -131,7 +131,6 @@
 }
 
 .top5Idols {
-  /* display: flex; */
   text-align: start;
   gap: 20px;
   padding-top: 50px;
@@ -145,7 +144,6 @@
 }
 
 .idolCardFrame {
-  /* display: flex; */
   flex-direction: column;
   width: 260px;
   height: 400px;
@@ -195,8 +193,10 @@
 }
 
 
-
 /* letter */
+.letterSection {
+  position: relative;
+}
 
 @keyframes float {
   0% {
@@ -216,12 +216,13 @@
   animation: float 2.5s ease-in-out infinite;
   display: flex;
   flex-direction: column;
-  text-align: initial;
+  /* text-align: initial; */
 }
 
 .letterItem {
   display: flex;
   margin-bottom: 3px;
+  /* min-width: 0; */
 }
 
 .letterItem.left {
@@ -233,7 +234,7 @@
 .letterItem.right {
   animation: float 2s ease-in-out infinite;
   justify-content: flex-end;
-  text-align: right;
+  /* text-align: right; */
   top: -300px;
 }
 
