@@ -39,17 +39,80 @@
     align-items: center;
 }
 
+
 .letter {
     background-color: #FFFBF8;
     padding: 30px;
     min-width: 670px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; */
     margin: 0 60px 0 60px;
 }
+
+/* letterView 별도 스타일 지정*/
+.letter.letterViewSmall {
+    min-width: 450px;
+    /* margin: 80px 20px 30px 50px; */
+}
+
+.letter.letterViewSmall .letterContainer {
+    padding: 0 20px 0 20px;
+}
+
+.letter.letterViewSmall .textarea {
+    width: 350px;
+    min-height: 300px;
+    max-height: 300px;
+    font-size: 16px;
+    line-height: 30px;
+    background-size: 100% 30px;
+    /* 배경이 콘텐츠랑 같이 스크롤롤 */
+    background-attachment: local;
+    height: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: pre-line;
+    box-sizing: border-box;
+    padding-right: 16px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #bbb #f0f0f0;
+}
+/* 
+.textarea::-webkit-scrollbar {
+    width: 6px;
+    background: transparent;
+}
+
+.textarea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.textarea:hover {
+    scrollbar-color: #bbb #eee;
+}
+
+.textarea:hover::-webkit-scrollbar-thumb {
+    background: #bbb;
+}
+
+.textarea:hover::-webkit-scrollbar-track {
+    background: #eee;
+}
+.textarea::-webkit-scrollbar-thumb:hover {
+    background: #888 !important;
+} */
+
+.letter.letterViewSmall .to,
+.letter.letterViewSmall .nickNameInputContainer {
+    font-size: 20px;
+}
+
 
 .closeBtn {
     color: #6C9CDF;
@@ -94,6 +157,8 @@
     background-image: linear-gradient(to bottom, transparent calc(100% - 2px), #FFEAE2 2px);
     background-size: 100% 36px;
     background-repeat: repeat-y;
+    /* 배경도 같이 스크롤 */
+    background-attachment: local;
 
     color: #000;
 
@@ -103,6 +168,8 @@
 
     font-weight: 100;
 }
+
+
 
 .hrLine {
     border: none;

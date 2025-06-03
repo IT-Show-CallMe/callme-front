@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import idolJsonData from "../data/idolJson.json";
 import IdolModal from '../components/IdolModal';
 import SearchBar from "../components/SearchBar";
@@ -6,14 +6,13 @@ import IdolCard from "../components/IdolCard";
 import LetterComponent from '../components/LetterComponent'
 import mainBackground from '../assets/images/main-background.png';
 import LettersJson from '../data/lettersData.json';
-
-import Masonry from 'react-masonry-css';
 import mainPageStyles from '../styles/mainPage.module.css'
+import styles from "../styles/main_letter.module.css";
 
-const breakpointColumnsObj = {
-    default: 2, // 기본 2열
-    700: 1      // 700px 이하에서는 1열
-};
+// const breakpointColumnsObj = {
+//     default: 2, // 기본 2열
+//     700: 1      // 700px 이하에서는 1열
+// };
 
 
 function MainPage() {
@@ -25,9 +24,12 @@ function MainPage() {
     const [top5Data, setTop5Data] = useState([]);
     const firstRow = top5Data.slice(0, 3);
     const secondRow = top5Data.slice(3, 5);
-    // const [letters, setLetters] = useState(initialLetters);
+    const [activeLetterId, setActiveLetterId] = useState(null);
+    const [centerPos, setCenterPos] = useState({ x: 0, y: 0 });
+    const letterSectionRef = useRef(null);
+    const sentLetter = JSON.parse(localStorage.getItem('sentLetter') || '{}');
 
-
+    // LettersJson.forEach(l => console.log('main data:', l.content));
     useEffect(() => {
         if (!callData) return;
 
@@ -55,18 +57,20 @@ function MainPage() {
     };
 
     const closeModal = () => setSelectedIdol(null);
-    console.log(idolJsonData); // ✅ 이거 먼저 확인!
-    // function IdolCard({ idol }) {
-    //     // ...
-    // }
+    console.log(idolJsonData);
 
-    // function LetterEnvelope({ letter }) {
-    //     // ...
-    // }
 
-    // function LetterModal({ letter, onClose }) {
-    //     // ...
-    // }
+    const handleLetterOpen = (id) => {
+        if (letterSectionRef.current) {
+            const rect = letterSectionRef.current.getBoundingClientRect();
+            setCenterPos({
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2,
+            });
+        }
+        setActiveLetterId(id);
+    };
+    // console.log('lettersJson:', LettersJson);
 
 
     return (
@@ -128,26 +132,36 @@ function MainPage() {
                         </div>
                     </div>
                 </section>
-                <section className={mainPageStyles.letterSection}>
+                <section className={mainPageStyles.letterSection} ref={letterSectionRef}>
                     <h2 className={mainPageStyles.sectionTitle}>Letter</h2>
-                    <p className={mainPageStyles.sectionSubtitle}>지금 인기 있는 아이돌의 영상통화를 확인해 보세요!</p>
+                    <p className={mainPageStyles.sectionSubtitle}>영상통화를 끝낸 후 팬들이 보내는 마음들을 확인해봐요</p>
                     <div className={mainPageStyles.letters}>
-                        {LettersJson.map((letter, idx) => (
-                            <div
-                                key={letter.id}
-                                className={`${mainPageStyles.letterItem} ${idx % 2 === 0 ? mainPageStyles.left : mainPageStyles.right}`}
-                                style={{
-                                    transform: `translateY(${idx % 2 === 1 ? '-50px' : '0'})`, 
-                                    zIndex: idx, // 겹칠 때 위로 올라오게
-                                }}
-                            >
-                                <LetterComponent
-                                    to={LettersJson.to}
-                                    from={LettersJson.from}
-                                    content={LettersJson.content}
-                                />
-                            </div>
-                        ))}
+                        {LettersJson.map((letter, idx) => {
+                            // console.log('map data:', letter.content);
+                            const isActive = activeLetterId === letter.id;
+                            return (
+                                <div
+                                    key={letter.id}
+                                    className={`${mainPageStyles.letterItem} ${idx % 2 === 0 ? mainPageStyles.left : mainPageStyles.right}`}
+                                    style={{
+                                        zIndex: isActive ? 999 : idx,
+                                    }}
+                                >
+                                    <LetterComponent
+                                        to={letter.to}
+                                        from={letter.from}
+                                        content={letter.content}
+                                        isActive={isActive}
+                                        onOpen={() => handleLetterOpen(letter.id)}
+                                        onClose={() => setActiveLetterId(null)}
+                                        centerPos={centerPos}
+                                        className={styles.letterViewSmall}
+                                    />
+
+
+                                </div>
+                            );
+                        })}
                     </div>
                 </section>
             </div>
