@@ -65,7 +65,7 @@
     const speechOptions = idol.messages
       .map(m => m.message)
       .filter(msg => msg && msg.trim() !== '')
-      .concat(idol.endVideo ? `잘가 ${idol.name}야` : []);
+      .concat(idol.endVideo ? `잘가 ${idol.name}` : []);
 
     // 말풍선 스타일
     const speechBubbleStyle = {

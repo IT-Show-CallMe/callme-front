@@ -125,13 +125,12 @@ function Photo({ name }) {
           ref={idolImageRef}
           src={imgSrc}
           alt={`${name}와 함께 사진`}
-          className="idol-photo-image"
+          className={`idol-photo-image idol-position-${name}`}
           onError={() => {
             console.warn(`이미지를 불러올 수 없습니다: ${imgSrc}`);
             setImgSrc('/images/idolPhotos/default.png');
           }}
         />
-
         {/* 프레임 이미지 */}
         <img
           ref={frameImageRef}
