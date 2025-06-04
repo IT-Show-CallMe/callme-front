@@ -29,6 +29,9 @@
   position: absolute;
   z-index: 1;
   /* 위치 관련 기본 제거 */
+    bottom: 10px;
+  left: 7%;
+  transform: translateY(-15%);
 }
 
 
@@ -84,29 +87,7 @@
   100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
-.idol-position-이한 {
-  bottom: 30px;
-  left: 24%;
-  transform: translateY(-23%);
-}
 
-.idol-position-선우 {
-  bottom: 10px;
-  left: 7%;
-  transform: translateY(-15%);
-}
-
-.idol-position-소희 {
-  bottom: 30px;
-  left: 42%;
-  transform: translateY(-30%);
-}
-
-.idol-position-원빈 {
-    bottom: 30px;
-  left: 25%;
-  transform: translateY(-20%);
-}
 
 .flash {
   position: fixed;
