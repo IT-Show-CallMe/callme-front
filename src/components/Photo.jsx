@@ -110,7 +110,7 @@ function Photo({ name }) {
     link.click();
 
     // 찰칵! 사운드 재생
-    const shutterSound = new Audio('/sounds/camera-shutter.mp3');
+    const shutterSound = new Audio('/images/sound/찰칵!.mp3');
     shutterSound.play().catch(err => console.warn('사운드 재생 실패:', err));
 
     // 플래시 켜기
