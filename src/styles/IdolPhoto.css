@@ -27,10 +27,10 @@
   max-height: 80%;
   border-radius: 10px;
   position: absolute;
-  top: 20%;  /* 위쪽 여백 조절 */
-  left: 50%; /* 👉 오른쪽으로 이동시킴 */
   z-index: 1;
+  /* 위치 관련 기본 제거 */
 }
+
 
 
 .overlay-image {
@@ -82,4 +82,28 @@
   0% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
   50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
   100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.idol-position-이한 {
+  bottom: 30px;
+  left: 24%;
+  transform: translateY(-23%);
+}
+
+.idol-position-선우 {
+  bottom: 30px;
+  left: 50%;
+  transform: translateY(-23%);
+}
+
+.idol-position-소희 {
+  bottom: 30px;
+  left: 42%;
+  transform: translateY(-30%);
+}
+
+.idol-position-원빈 {
+    bottom: 30px;
+  left: 25%;
+  transform: translateY(-20%);
 }
