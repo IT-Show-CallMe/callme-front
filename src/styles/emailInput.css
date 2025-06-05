@@ -64,8 +64,10 @@
 
 .input-email {
     font-family: 'Pretendard-Regular';
-    padding: 10px 600px 10px 20px;
-    /* 위아래 5px, 오른쪽 400px → 긴 가로 */
+    width: 600px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
     font-size: 20px;
     border: none;
     border-radius: 50px;
