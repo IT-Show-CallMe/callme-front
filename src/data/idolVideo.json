@@ -1,39 +1,39 @@
 {
     "안유진": {
       "name": "안유진",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/유진/안유진 - 안녕(인트로).mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "고양이 귀 해줘!", "video": "/images/idolVideo/유진/안유진 - 유진아 고양이 귀 해줫.mp4"},
+        {"message": "쓰담쓰담 해줘", "video": "/images/idolVideo/유진/안유진 - 유진아 나 쓰담쓰담 해줭.mp4"},
+        {"message": "헤어지자..", "video": "/images/idolVideo/유진/안유진 - 유진아 헤어지자….mp4"},
+        {"message": "마루는 강쥐 불러줘", "video": "/images/idolVideo/유진/안유진 - 마루는 강쥐 불러줭.mp4"},
+        {"message": "오늘 강아지 같애!", "video": "/images/idolVideo/유진/안유진 - 유진이 오늘 강아지 같애.mp4"}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/유진/안유진 - 안녕( 마지막 인사 ).mp4"
     },
     "윈터": {
       "name": "윈터",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/윈터/윈터-인트로.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "윈터 눈썹 어디갔어?", "video": "/images/idolVideo/윈터/윈터-눈썹 어딨니.mp4"},
+        {"message": "무슨 과일 좋아해?", "video": "/images/idolVideo/윈터/윈터-무슨 과일 좋아해.mp4"},
+        {"message": "볼콕 해줘", "video": "/images/idolVideo/윈터/윈터-볼콕 해줘.mp4"},
+        {"message": "뽀삐뽀삐뽀 해줘", "video": "/images/idolVideo/윈터/윈터-뽀삐뽀삐뽀 해줘.mp4"},
+        {"message": "퇴근 몇시에 할거야?", "video": "/images/idolVideo/윈터/윈터-퇴근 몇시에 할거야.mp4"}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/윈터/윈터-끝인사.mp4"
     },
     "원빈": {
       "name": "원빈",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/원빈/원빈-인트로.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "앞니 플러팅 해줘", "video": "/images/idolVideo/원빈/원빈-앞니플러팅.mp4"},
+        {"message": "엠비티아이 뭐야?", "video": "/images/idolVideo/원빈/원빈-엠비티아이 뭐야.mp4"},
+        {"message": "쫄?", "video": "/images/idolVideo/원빈/원빈-쫄.mp4"},
+        {"message": "파란 모니터 해줘!", "video": "/images/idolVideo/원빈/원빈-파란모니터 해줘.mp4"},
+        {"message": "팔찌 뭐야?", "video": "/images/idolVideo/원빈/원빈-팔짜뭐야.mp4"}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/원빈/원빈-끝인사.mp4"
     },
     "운학": {
       "name": "운학",
@@ -61,63 +61,63 @@
     },
     "이주연": {
       "name": "이주연",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/주연/주연-인트로.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "뭐하고 있었게!", "video": "/images/idolVideo/주연/주연-뭐했어뭐하고있었어.mp4"},
+        {"message": "영어로 사랑한다고 해줘", "video": "/images/idolVideo/주연/주연-영어로 사랑한다고 말해줘.mp4"},
+        {"message": "오늘의 ootd 뭐야?", "video": "/images/idolVideo/주연/주연-오늘의 Ootd.mp4"},
+        {"message": "반모 가능?", "video": "/images/idolVideo/주연/주연-초6인데반모가능s.mp4"},
+        {"message": "초등학생 때 무슨 요일이 젤 좋았어?", "video": "/images/idolVideo/주연/주연-초등학교때무슨요일이제일좋았어.mp4"}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/주연/주연-인트로.mp4"
     },
     "장원영": {
       "name": "장원영",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/장원영/원영 - 다이브 안녕 ( 인트로 ).mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
+        {"message": "위로 되는 말 해줘", "video": "/images/idolVideo/장원영/원영 - 언니는 언니 자체만으로도 너무 멋진 사람이야 언니는 뭘 해도 잘어울령ㅠ.mp4"},
+        {"message": "언니라고 해줘", "video": "/images/idolVideo/장원영/원영 - 언니라고 해줘!.mp4"},
+        {"message": "고양이 귀 해줘", "video": "/images/idolVideo/장원영/원영 - 원영아! 고양이 귀 해줘.mp4"},
+        {"message": "토끼 귀 해줘", "video": "/images/idolVideo/장원영/원영 - 토끼 귀도 해줭.mp4"},
         {"message": "", "video": ""}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/장원영/원영 - 안녕 (마지막 인사).mp4"
     },
     "정재현": {
       "name": "정재현",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/정재현/재현-인트로.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
+        {"message": "저 오늘 시험 끝났어요", "video": "/images/idolVideo/정재현/재현-수고했어.mp4"},
+        {"message": "아침 먹었어?", "video": "/images/idolVideo/정재현/재현-아침 안먹었어요.mp4"},
+        {"message": "옆에 해 보여줘", "video": "/images/idolVideo/정재현/재현-자연광.mp4"},
+        {"message": "", "video": "/images/idolVideo/정재현/안녕안녕.mp4"},
         {"message": "", "video": ""}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/정재현/재현-빠빠이.mp4"
     },
     "도훈": {
       "name": "도훈",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/도훈/안녕안녕.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
+        {"message": "브이 해줘~", "video": "/images/idolVideo/도훈/브이해줘.mp4"},
+        {"message": "뭐 먹었어?", "video": "/images/idolVideo/도훈/뭐먹었어.mp4"},
+        {"message": "오노추 해줘", "video": "/images/idolVideo/도훈/오노추해조.mp4"},
+        {"message": "오늘도 아샷추 먹었어?", "video": "/images/idolVideo/도훈/오늘도 아샷추 먹었어.mp4"},
         {"message": "", "video": ""}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/도훈/안녕안녕.mp4"
     },
     "마크": {
       "name": "마크",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/마크/마크-인트로.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
+        {"message": "입술 뜯지마!", "video": "/images/idolVideo/마크/마크-입술 뜯지마.mp4"},
+        {"message": "윙크 해줘", "video": "/images/idolVideo/마크/마크-윙크 해줘.mp4"},
+        {"message": "위시에서 누굴 젤 좋아해?", "video": "/images/idolVideo/마크/마크-위시에서 누굴 좋아하나요.mp4"},
+        {"message": "앞니 플러팅 해줘", "video": "/images/idolVideo/마크/마크-앞니플러팅.mp4"},
         {"message": "", "video": ""}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/마크/마크-손 흔들흔들(끝인사).mp4"
     },
     "민지": {
       "name": "민지",
@@ -133,15 +133,15 @@
     },
     "명재현": {
       "name": "명재현",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/명재현/명재현 - 안녕(인트로).mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "캡처 타임 해줘!", "video": "/images/idolVideo/명재현/명재현 - 캡쳐타입 해줘!.mp4"},
+        {"message": "노래 불러줘", "video": "/images/idolVideo/명재현/명재현 - 재현아 노래 불러줭.mp4"},
+        {"message": "랩 해줘", "video": "/images/idolVideo/명재현/명재현 - 재현아 랩해줘 _.mp4"},
+        {"message": "오알럽 불러줘", "video": "/images/idolVideo/명재현/명재현 - 재현아 오알럽 불러줘ㅓ.mp4"},
+        {"message": "파란모니터 해줘", "video": "/images/idolVideo/명재현/명재현 - 재현아 파란모니터 해줘ㅓ.mp4"}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/명재현/명재현 - 여러분 사랑합니다 ( 마지막 인사 ).mp4"
     },
     "선우": {
       "name": "선우",
@@ -155,64 +155,65 @@
       ],
       "endVideo": "/images/idolVideo/선우/선우-잘자(아웃트로).mp4"
     },
+    
     "소희": {
       "name": "소희",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/소희/소희-인트로.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "눈 더 매섭게 떠줘", "video": "/images/idolVideo/소희/소희-눈 더 매섭게 떠줘.mp4"},
+        {"message": "tell me what is love 불러줘", "video": "/images/idolVideo/소희/소희-tell me what is love 불러줘.mp4"},
+        {"message": "먹을 거 나도 줘", "video": "/images/idolVideo/소희/소희-나도 줘.mp4"},
+        {"message": "모자 벗어줘", "video": "/images/idolVideo/소희/소희-모자 벗어줘.mp4"},
+        {"message": "요새 제일 먹고 싶은 게 뭐야?", "video": "/images/idolVideo/소희/소희-요새 제일 먹고 싶은 거 뭐야.mp4"}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/소희/소희-또 보자 빠이.mp4"
     },
     "신유": {
       "name": "신유",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/신유/안녕하세요-신유.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
+        {"message": "강아지 귀 해줘", "video": "/images/idolVideo/신유/강아지귀해조-신유.mp4"},
+        {"message": "뭐 먹었어?", "video": "/images/idolVideo/신유/뭐먹었어-신유.mp4"},
+        {"message": "시선 먼저 고개 먼저 해줘", "video": "/images/idolVideo/신유/시선먼저고개먼저.mp4"},
+        {"message": "위로 해주는 말 해줄 수 있어?", "video": "/images/idolVideo/신유/위로해주는말해줘.mp4"},
         {"message": "", "video": ""}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/신유/안녕하세요-신유.mp4"
     },
     "카리나": {
       "name": "카리나",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/카리나/카리나-인트로.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "asmr 해줘", "video": "/images/idolVideo/카리나/카리나-asmr 해줘.mp4"},
+        {"message": "mbti 뭐야?", "video": "/images/idolVideo/카리나/카리나-mbti 뭐야_.mp4"},
+        {"message": "라푼젤 노래 불러줘", "video": "/images/idolVideo/카리나/카리나-라푼젤 노래 불러줘.mp4"},
+        {"message": "볼콕 해줘", "video": "/images/idolVideo/카리나/카리나-볼콕 해줘.mp4"},
+        {"message": "크리스마스 노래 불러줘!", "video": "/images/idolVideo/카리나/카리나-크리스마스 노래 불러줘.mp4"}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/카리나/카리나-끝인사.mp4"
     },
     "태산": {
       "name": "태산",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/태산/안녕하세요.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
+        {"message": "뽀뽀 해줘", "video": "/images/idolVideo/태산/뽀뽀해줘~~.mp4"},
+        {"message": "애교 3종 세트 해줘!", "video": "/images/idolVideo/태산/애교 3종세트~.mp4"},
+        {"message": "자작곡 들려줘", "video": "/images/idolVideo/태산/자작곡 들려줘.mp4"},
+        {"message": "밥 먹었어?", "video": "/images/idolVideo/태산/밥 먹었어 - 태산.mp4"},
         {"message": "", "video": ""}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/태산/안녕하세요.mp4"
     },
     "하니": {
       "name": "하니",
-      "startVideo": "",
+      "startVideo": "/images/idolVideo/하니/하니-인트로.mp4",
       "messages": [
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""},
-        {"message": "", "video": ""}
+        {"message": "tmi 말해줘", "video": "/images/idolVideo/하니/하니-TMI말해줘.mp4"},
+        {"message": "안 피곤해?", "video": "/images/idolVideo/하니/하니-안피곤해.mp4"},
+        {"message": "옷 이쁘다", "video": "/images/idolVideo/하니/하니-옷이쁘다.mp4"},
+        {"message": "원래 안경 써?", "video": "/images/idolVideo/하니/하니-원래안경써.mp4"},
+        {"message": "캡처 타임 해줘", "video": "/images/idolVideo/하니/하니-캡쳐타임해줘.mp4"}
       ],
-      "endVideo": ""
+      "endVideo": "/images/idolVideo/하니/하니-아웃트로.mp4"
     }
 }

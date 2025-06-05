@@ -48,7 +48,7 @@
 
 .card {
     font-family: 'HakgyoansimDunggeunmisoTTF-B';
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 /* className 만들어줬으니까 그걸로 했으 (.info h1으로 접근했던것도 똑같이 )*/

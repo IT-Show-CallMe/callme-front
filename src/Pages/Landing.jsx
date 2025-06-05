@@ -15,7 +15,7 @@ function Landing(){
   const navigate = useNavigate(); // 페이지 이동 함수
 
   const handleClick = () => {
-    navigate("/nickname"); // 다음 페이지로 이동
+    navigate("/main"); // 다음 페이지로 이동
   };
     return (
     <div className="Home-container" onClick={handleClick}>

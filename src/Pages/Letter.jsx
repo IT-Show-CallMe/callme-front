@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import leftWingImage from "../assets/images/wing-left.png";
 import rightWingImage from "../assets/images/wing-right.png";
-import emojiImage from "/images/letteremoji.png";
+import emojiImage from "../assets/images/letteremoji.png";
 import bgImage from "/images/back_short.png";
 
 function Letter() {
@@ -36,6 +36,12 @@ function Letter() {
             console.error(err);
             alert("전송 중 오류가 발생했습니다.");
         }
+        localStorage.setItem('sentLetter', JSON.stringify({
+            to: idolName,
+            from: nickName,
+            message,
+        }));
+        // navigate("/MainPage");
     };
 
     useEffect(() => {
@@ -91,6 +97,6 @@ function Letter() {
             </button>
         </div>
     );
-}
+};
 
 export default Letter;
