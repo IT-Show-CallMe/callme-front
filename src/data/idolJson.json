@@ -4,7 +4,7 @@
         "idolGroup": "IVE",
         "idolGroupKor": "아이브",
         "idolImg": "../images/idoProfile/p_안유지.png",
-        "idolIndex": 1,
+        "id": 16,
         "callCount": 0
     },
     "윈터": {
@@ -12,7 +12,7 @@
         "idolGroup": "aespa",
         "idolGroupKor": "에스파",
         "idolImg": "../images/idoProfile/p_윈터.png",
-        "idolIndex": 2,
+        "id": 10,
         "callCount": 0
     },
     "원빈": {
@@ -20,7 +20,7 @@
         "idolGroup": "RIIZE",
         "idolGroupKor": "라이즈",
         "idolImg": "../images/idoProfile/p_원빈.png",
-        "idolIndex": 3,
+        "id": 13,
         "callCount": 0
     },
     "운학": {
@@ -28,7 +28,7 @@
         "idolGroup": "BOYNEXTDOOR",
         "idolGroupKor": "보넥도",
         "idolImg": "../images/idoProfile/p_운한.png",
-        "idolIndex": 4,
+        "id": 12,
         "callCount": 0
     },
     "이한": {
@@ -36,7 +36,7 @@
         "idolGroup": "BOYNEXTDOOR",
         "idolGroupKor": "보넥도",
         "idolImg": "../images/idoProfile/p_이한.png",
-        "idolIndex": 5,
+        "id": 17,
         "callCount": 0
     },
     "이주연": {
@@ -44,7 +44,7 @@
         "idolGroup": "THE BOYZ",
         "idolGroupKor": "더보이즈",
         "idolImg": "../images/idoProfile/p_이주연.png",
-        "idolIndex": 6,
+        "id": 18,
         "callCount": 0
     },
     "장원영": {
@@ -52,7 +52,7 @@
         "idolGroup": "IVE",
         "idolGroupKor": "아이브",
         "idolImg": "../images/idoProfile/p_장원영.png",
-        "idolIndex": 7,
+        "id": 14,
         "callCount": 0
     },
     "정재현": {
@@ -60,7 +60,7 @@
         "idolGroup": "NCT",
         "idolGroupKor": "엔시티",
         "idolImg": "../images/idoProfile/p_정재현.png",
-        "idolIndex": 8,
+        "id": 1,
         "callCount": 0
     },
     "도훈": {
@@ -68,7 +68,7 @@
         "idolGroup": "TWS",
         "idolGroupKor": "투어스",
         "idolImg": "../images/idoProfile/p_도훈.png",
-        "idolIndex": 9,
+        "id": 3,
         "callCount": 0
     },
     "마크": {
@@ -76,7 +76,7 @@
         "idolGroup": "NCT",
         "idolGroupKor": "엔시티",
         "idolImg": "../images/idoProfile/p_마크.png",
-        "idolIndex": 10,
+        "id": 5,
         "callCount": 0
     },
     "민지": {
@@ -84,7 +84,7 @@
         "idolGroup": "NewJeans",
         "idolGroupKor": "뉴진스",
         "idolImg": "../images/idoProfile/p_민지.png",
-        "idolIndex": 11,
+        "id": 7,
         "callCount": 0
     },
     "명재현": {
@@ -92,7 +92,7 @@
         "idolGroup": "BOYNEXTDOOR",
         "idolGroupKor": "보넥도",
         "idolImg": "../images/idoProfile/p_명재현.png",
-        "idolIndex": 12,
+        "id": 6,
         "callCount": 0
     },
     "선우": {
@@ -100,7 +100,7 @@
         "idolGroup": "THE BOYZ",
         "idolGroupKor": "더보이즈",
         "idolImg": "../images/idoProfile/p_김선우.png",
-        "idolIndex": 13,
+        "id": 8,
         "callCount": 0
     },
     "소희": {
@@ -108,7 +108,7 @@
         "idolGroup": "RIIZE",
         "idolGroupKor": "라이즈",
         "idolImg": "../images/idoProfile/p_소희.png",
-        "idolIndex": 14,
+        "id": 9,
         "callCount": 0
     },
     "신유": {
@@ -116,7 +116,7 @@
         "idolGroup": "TWS",
         "idolGroupKor": "투어스",
         "idolImg": "../images/idoProfile/p_신유.png",
-        "idolIndex": 15,
+        "id": 11,
         "callCount": 0
     },
     "카리나": {
@@ -124,7 +124,7 @@
         "idolGroup": "aespa",
         "idolGroupKor": "에스파",
         "idolImg": "../images/idoProfile/p_카리나.png",
-        "idolIndex": 16,
+        "id": 4,
         "callCount": 0
     },
     "태산": {
@@ -132,7 +132,7 @@
         "idolGroup": "BOYNEXTDOOR",
         "idolGroupKor": "보넥도",
         "idolImg": "../images/idoProfile/p_태산.png",
-        "idolIndex": 17,
+        "id": 15,
         "callCount": 0
     },
     "하니": {
@@ -140,7 +140,7 @@
         "idolGroup": "NewJeans",
         "idolGroupKor": "뉴진스",
         "idolImg": "../images/idoProfile/p_하니.png",
-        "idolIndex": 18,
+        "id": 2,
         "callCount": 0
     }
 }

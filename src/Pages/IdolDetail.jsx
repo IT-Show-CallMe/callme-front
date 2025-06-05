@@ -16,7 +16,6 @@ export default function IdolDetail() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 로컬스토리지에서 callCount 불러와 초기 상태에 반영
   useEffect(() => {
     const updatedIdols = { ...idolData };
     Object.keys(updatedIdols).forEach((name) => {
@@ -39,6 +38,7 @@ export default function IdolDetail() {
 
     localStorage.setItem(`callCount_${name}`, updatedIdol.callCount);
     localStorage.setItem("lastCalledIdolName", updatedIdol.idolName);
+    localStorage.setItem("lastCalledIdolId", updatedIdol.id);
 
     setIdols((prev) => ({
       ...prev,
@@ -98,7 +98,7 @@ export default function IdolDetail() {
             imgUrl={selectedIdol.idolImg}
             group={selectedIdol.idolGroup}
             name={selectedIdol.idolName}
-            count={selectedIdol.callCount} // callCount로 변경
+            count={selectedIdol.callCount}
             onClose={handleCloseModal}
           />
         </ModalPortal>
