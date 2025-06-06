@@ -13,40 +13,36 @@ function Letter() {
     const [message, setMessage] = useState("");
     const [idolName, setIdolName] = useState("");
     const [nickName, setNickName] = useState("");
+    const [idolId, setIdolId] = useState(null);
 
     const handleSend = async () => {
         try {
-            const res = await fetch("https://your-backend-api.com/letters", {
+            const res = await fetch('/api/letter/message', {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    to: idolName,
-                    from: nickName,
-                    message,
-                }),
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ idolId, nickname: nickName, message }),
             });
 
             if (!res.ok) throw new Error("Failed to send letter");
 
             alert("성공적으로 전송되었습니다!");
+            localStorage.setItem('sentLetter', JSON.stringify({
+                idolId,
+                nickname: nickName,
+                message,
+            }));
             navigate("/main");
         } catch (err) {
             console.error(err);
             alert("전송 중 오류가 발생했습니다.");
         }
-        localStorage.setItem('sentLetter', JSON.stringify({
-            to: idolName,
-            from: nickName,
-            message,
-        }));
-        // navigate("/MainPage");
     };
 
     useEffect(() => {
-        const storedIdol = localStorage.getItem("lastCalledIdolName");
-        if (storedIdol) setIdolName(storedIdol);
+        const storedIdolId = localStorage.getItem("lastCalledIdolId");
+        const storedIdolName = localStorage.getItem("lastCalledIdolName");
+        if (storedIdolId) setIdolId(parseInt(storedIdolId));
+        if (storedIdolName) setIdolName(storedIdolName);
     }, []);
 
     return (
@@ -97,6 +93,6 @@ function Letter() {
             </button>
         </div>
     );
-};
+}
 
 export default Letter;
