@@ -12,31 +12,26 @@
     font-style: normal;
 }
 
-/* body {
-  font-family: 'HakgyoansimDunggeunmisoTTF-B', sans-serif;
-} */
-
 .modalContainer {
     position: fixed;
     z-index: 999;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .contentBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 580px;
-    height: 788px;
+    height: 777px;
+    padding: 30px;
+    transform: translate(-50%, -50%);
     background-color: white;
     border-radius: 20px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 30px;
-    font-family: 'HakgyoansimDunggeunmisoTTF-B';
 }
 
 .idolImg {
@@ -47,60 +42,94 @@
 }
 
 .card {
-    font-family: 'HakgyoansimDunggeunmisoTTF-B';
-    margin-top: 10px;
-}
-
-/* className 만들어줬으니까 그걸로 했으 (.info h1으로 접근했던것도 똑같이 )*/
-.card p {
-    font-size: 30px;
-    /* margin-bottom: 20px; */
-    /* margin-top: 20px; */
-    color: #808080;
-    font-weight: 100;
-}
-
-.info {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 800;
+    margin-top: 28px;
+    gap: 20px;
 }
 
-h1 {
-    /* font-family: 'Pretendard-Regular'; */
-    font-size: 50px;
+.contentWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.info button {
-    width: 120px;
-    height: 120px;
-    background-color: #3BF065;
+.nameGroupWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: 'HakgyoansimDunggeunmisoTTF-B';
+}
+
+.nameGroupWrapper p {
+    font-size: 30px;
+    color: #808080;
+    font-weight: 100;
+    margin: 0;
+}
+
+.nameGroupWrapper h1 {
     font-size: 50px;
-    border-radius: 100%;
-    border: none;
+    margin: 0;
 }
 
 .hits {
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+    gap: 8px;
     font-family: 'Pretendard-SemiBold';
+    font-size: 30px;
+    margin-top: 20px;
 }
 
-.hits :nth-child(2) {
-    margin-bottom: 5px;
+.hits :nth-child(1) {
+    margin-top: 5px;
 }
 
 .countClassName {
     font-size: 30px;
-    padding-bottom: 5px;
 }
 
+.HeartIconClassName {
+    font-size: 26px;
+    margin-bottom: 5px;
+}
 
-/* .predendardFont {
-    font-family: 'Pretendard-SemiBold';
-} */
+.info {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-family: 'HakgyoansimDunggeunmisoTTF-B';
+}
+
+.info button {
+    width: 120px;
+    height: 120px;
+    font-size: 50px;
+    background-color: #3BF065;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centerButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 110px;
+    height: 110px;
+    font-size: 50px;
+    background-color: #3BF065;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+}
