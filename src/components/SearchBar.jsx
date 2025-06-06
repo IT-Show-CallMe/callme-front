@@ -1,6 +1,12 @@
 import "../styles/SearchBar.css";
+import { useNavigate } from "react-router-dom";
 
-function SearchBar({ value, onChange, placeholder = "원하는 아이돌의 이름을 입력하세요.", onClick }) {
+function SearchBar({ value, onChange, placeholder = "원하는 아이돌의 이름을 입력하세요.", onClick, goToIdolSearch }) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/idol');  // 검색 페이지로 이동
+    };
     return (
         <div
             style={{
@@ -19,7 +25,7 @@ function SearchBar({ value, onChange, placeholder = "원하는 아이돌의 이�
                 cursor: onClick ? "pointer" : "auto",
                 marginBottom: "50px",
             }}
-            onClick={onClick}
+            onClick={handleClick}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
