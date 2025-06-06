@@ -10,6 +10,7 @@ const Nickname = () => {
     const handleInputChange = (e) => {
         setNickname(e.target.value);
     };
+    
     const handleSubmit = async () =>{
         if(!nickname){
             alert("닉네임을 입력해주세요!");
