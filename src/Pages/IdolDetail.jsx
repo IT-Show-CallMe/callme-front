@@ -15,37 +15,23 @@ export default function IdolDetail() {
   const [selectedIdol, setSelectedIdol] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [callData, setCallData] = useState({}); // MainPage와 동일한 방식으로 관리
 
   useEffect(() => {
-    const updatedIdols = { ...idolData };
-    Object.keys(updatedIdols).forEach((name) => {
-      const storedCount = localStorage.getItem(`callCount_${name}`);
-      if (storedCount !== null) {
-        updatedIdols[name].callCount = Number(storedCount);
-      } else {
-        updatedIdols[name].callCount = 0;
-      }
-    });
-    setIdols(updatedIdols);
+    // MainPage와 동일한 방식으로 localStorage에서 데이터 가져오기
+    const stored = JSON.parse(localStorage.getItem('idolData')) || {};
+    setCallData(stored);
   }, []);
 
   const handleClick = (name) => {
-    const prevCount = idols[name].callCount || 0;
-    const updatedIdol = {
+    const currentCount = callData[name]?.callCount || 0;
+
+    const selectedIdolData = {
       ...idols[name],
-      callCount: prevCount + 1,
+      callCount: currentCount,
     };
 
-    localStorage.setItem(`callCount_${name}`, updatedIdol.callCount);
-    localStorage.setItem("lastCalledIdolName", updatedIdol.idolName);
-    localStorage.setItem("lastCalledIdolId", updatedIdol.id);
-
-    setIdols((prev) => ({
-      ...prev,
-      [name]: updatedIdol,
-    }));
-
-    setSelectedIdol(updatedIdol);
+    setSelectedIdol(selectedIdolData);
     setIsModalOpen(true);
   };
 
@@ -77,19 +63,26 @@ export default function IdolDetail() {
       />
 
       <div className={styles.container}>
-        {filteredIdols.map(([name, data]) => (
-          <div
-            key={name}
-            className={styles.card}
-            onClick={() => handleClick(name)}
-          >
-            <img
-              src={data.idolImg}
-              alt={data.idolName}
-              className={styles.idolImg}
-            />
-          </div>
-        ))}
+        {filteredIdols.map(([name, data]) => {
+          // callData에서 해당 아이돌의 count 가져오기 (MainPage와 동일한 방식)
+          const currentCount = callData[name]?.callCount || 0;
+
+          return (
+            <div
+              key={name}
+              className={styles.card}
+              onClick={() => handleClick(name)}
+            >
+              <img
+                src={data.idolImg}
+                alt={data.idolName}
+                className={styles.idolImg}
+              />
+              {/* count 표시가 필요하다면 여기에 추가 */}
+              {/* <div className={styles.callCount}>{currentCount}</div> */}
+            </div>
+          );
+        })}
       </div>
 
       {isModalOpen && selectedIdol && (

@@ -39,7 +39,6 @@ function Letter() {
     };
 
     useEffect(() => {
-        // localStorage에 저장된 idolId 가져오기
         const storedIdolId = localStorage.getItem("lastCalledIdolId");
         const storedIdolName = localStorage.getItem("lastCalledIdolName");
         if (storedIdolId) setIdolId(parseInt(storedIdolId));
