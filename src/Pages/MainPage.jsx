@@ -8,6 +8,7 @@ import mainBackground from '../assets/images/main-background.png';
 import LettersJson from '../data/lettersData.json';
 import mainPageStyles from '../styles/mainPage.module.css'
 import styles from "../styles/main_letter.module.css";
+import { useNavigate } from 'react-router-dom';
 
 // const breakpointColumnsObj = {
 //     default: 2, // 기본 2열
@@ -28,6 +29,12 @@ function MainPage() {
     const [centerPos, setCenterPos] = useState({ x: 0, y: 0 });
     const letterSectionRef = useRef(null);
     const sentLetter = JSON.parse(localStorage.getItem('sentLetter') || '{}');
+    const navigate = useNavigate();
+    const sectionRefs = [useRef(null), useRef(null), useRef(null)];
+
+    const goToIdolDetail = () => {
+        navigate('/idol');
+    };
 
     // LettersJson.forEach(l => console.log('main data:', l.content));
     useEffect(() => {
@@ -70,8 +77,43 @@ function MainPage() {
         }
         setActiveLetterId(id);
     };
+
+    const handleScrollDown = () => {
+        const currentScroll = window.scrollY;
+        const nextSection = sectionRefs.find(ref => {
+            if (!ref.current) return false;
+            const top = ref.current.getBoundingClientRect().top + window.scrollY;
+            return top - currentScroll > 10;
+        });
+        if (nextSection && nextSection.current) {
+            nextSection.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
     // console.log('lettersJson:', LettersJson);
 
+    const STAR_COUNT = 70;
+    const stars = Array.from({ length: STAR_COUNT }, (_, i) => {
+        const isLeft = Math.random() < 0.8;
+        const left = isLeft
+            ? Math.random() * 50
+            : 50 + Math.random() * 30;
+        const top = 80 + Math.pow(i / (STAR_COUNT - 1), 0.8) * 60;
+        const delay = Math.random() * 0.8;
+        const size = 4 + Math.random() * 2;
+        return (
+            <div
+                key={i}
+                className={mainPageStyles.star}
+                style={{
+                    top: `${top}px`,
+                    left: `${left}%`,
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    animationDelay: `${delay}s`
+                }}
+            />
+        );
+    });
 
     return (
         <div className={mainPageStyles.mainPageWrapper} style={{ position: "relative" }}>
@@ -84,10 +126,16 @@ function MainPage() {
                         onChange={handleChange}
                     />
                 </section>
-                <section className={mainPageStyles.top5IdolSection}>
-                    <h2 className={mainPageStyles.sectionTitle}>인기 아이돌 Top 5</h2>
-                    <p className={mainPageStyles.sectionSubtitle}>지금 인기 있는 아이돌의 영상통화를 확인해 보세요!</p>
+                <section ref={sectionRefs[1]} className={mainPageStyles.top5IdolSection}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <h2 className={mainPageStyles.sectionTitle}>인기 아이돌 Top 5</h2>
+                            <p className={mainPageStyles.sectionSubtitle}>지금 인기 있는 아이돌의 영상통화를 확인해 보세요!</p>
+                        </div>
+                        <span className={mainPageStyles.moreButton} onClick={goToIdolDetail}>더보기 &gt;</span>
+                    </div>
                     <div className={mainPageStyles.top5Idols}>
+
                         <div className={mainPageStyles.row}>
                             {firstRow.map(idol => (
                                 <div
@@ -132,7 +180,11 @@ function MainPage() {
                         </div>
                     </div>
                 </section>
-                <section className={mainPageStyles.letterSection} ref={letterSectionRef}>
+                <section className={mainPageStyles.letterSection}
+                    ref={el => {
+                        letterSectionRef.current = el;
+                        sectionRefs[2].current = el;
+                    }}>
                     <h2 className={mainPageStyles.sectionTitle}>Letter</h2>
                     <p className={mainPageStyles.sectionSubtitle}>영상통화를 끝낸 후 팬들이 보내는 마음들을 확인해봐요</p>
                     <div className={mainPageStyles.letters}>
@@ -164,8 +216,20 @@ function MainPage() {
                         })}
                     </div>
                 </section>
+            </div >
+            <div
+                className={mainPageStyles.scrollDownButton}
+                onClick={handleScrollDown}
+                style={{ pointerEvents: 'auto', cursor: 'pointer' }}>
+                <span ></span>
             </div>
-        </div>
+            {/* <div className={mainPageStyles.bottomFade} /> */}
+            <div className={mainPageStyles.bottomFade}>
+                <div className={mainPageStyles.stars}>
+                    {stars}
+                </div>
+            </div>
+        </div >
     );
 }
 
