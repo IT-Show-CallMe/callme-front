@@ -15,7 +15,7 @@ export default function IdolDetail() {
   const [selectedIdol, setSelectedIdol] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [callData, setCallData] = useState({}); // MainPage와 동일한 방식으로 관리
+  const [callData, setCallData] = useState({});
 
   useEffect(() => {
     // MainPage와 동일한 방식으로 localStorage에서 데이터 가져오기
@@ -25,6 +25,9 @@ export default function IdolDetail() {
 
   const handleClick = (name) => {
     const currentCount = callData[name]?.callCount || 0;
+
+    localStorage.setItem("lastCalledIdolName", idols[name].idolName);
+    localStorage.setItem("lastCalledIdolId", idols[name].id);
 
     const selectedIdolData = {
       ...idols[name],
