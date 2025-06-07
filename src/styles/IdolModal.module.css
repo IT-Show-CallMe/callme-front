@@ -22,7 +22,7 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
-.contentBox {
+.modalContainer .contentBox {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -41,7 +41,7 @@
     border-radius: 10px;
 }
 
-.card {
+.modalContainer .card {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -63,14 +63,14 @@
     font-family: 'HakgyoansimDunggeunmisoTTF-B';
 }
 
-.nameGroupWrapper p {
+.modalContainer .nameGroupWrapper p {
     font-size: 30px;
     color: #808080;
     font-weight: 100;
     margin: 0;
 }
 
-.nameGroupWrapper h1 {
+.modalContainer .nameGroupWrapper h1 {
     font-size: 50px;
     margin: 0;
 }
@@ -81,30 +81,30 @@
     gap: 8px;
     font-family: 'Pretendard-SemiBold';
     font-size: 30px;
-    margin-top: 20px;
+    margin-top: 45px;
 }
 
 .hits :nth-child(1) {
     margin-top: 5px;
 }
 
-.countClassName {
+.modalContainer .countClassName {
     font-size: 30px;
 }
 
-.HeartIconClassName {
+.modalContainer .HeartIconClassName {
     font-size: 26px;
     margin-bottom: 5px;
 }
 
-.info {
+.modalContainer .info {
     display: flex;
     justify-content: center;
     margin-top: 20px;
     font-family: 'HakgyoansimDunggeunmisoTTF-B';
 }
 
-.info button {
+.modalContainer .info button {
     width: 120px;
     height: 120px;
     font-size: 50px;
@@ -116,7 +116,7 @@
     justify-content: center;
 }
 
-.centerButton {
+.modalContainer .centerButton {
     position: absolute;
     top: 50%;
     left: 50%;
