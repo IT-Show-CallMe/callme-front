@@ -39,7 +39,6 @@
     align-items: center;
 }
 
-
 .letter {
     background-color: #FFFBF8;
     padding: 30px;
@@ -144,7 +143,7 @@
 }
 
 .textarea {
-    width: 530px;
+    width: 517px;
     min-height: 400px;
     font-size: 25px;
     line-height: 36px;
