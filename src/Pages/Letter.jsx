@@ -16,6 +16,16 @@ function Letter() {
     const [idolId, setIdolId] = useState(null);
 
     const handleSend = async () => {
+        if (!nickName.trim()) {
+            alert("닉네임을 입력해 주세요.");
+            return;
+        }
+
+        if (!message.trim()) {
+            alert("편지 내용을 작성해 주세요.");
+            return;
+        }
+
         try {
             const res = await fetch('/api/letter/message', {
                 method: "POST",
@@ -25,13 +35,13 @@ function Letter() {
 
             if (!res.ok) throw new Error("Failed to send letter");
 
-            alert("성공적으로 전송되었습니다!");
+            // alert("성공적으로 전송되었습니다!");
             localStorage.setItem('sentLetter', JSON.stringify({
                 idolId,
                 nickname: nickName,
                 message,
             }));
-            navigate("/main");
+            navigate("/letter/confirm");
         } catch (err) {
             console.error(err);
             alert("전송 중 오류가 발생했습니다.");
@@ -54,7 +64,7 @@ function Letter() {
                 <img src={leftWingImage} alt="왼쪽 날개" className={styles.leftWing} />
 
                 <div className={styles.letter}>
-                    <button className={styles.closeBtn}>×</button>
+                    {/* <button className={styles.closeBtn}>×</button> */}
 
                     <div className={styles.letterContainer}>
                         <div className={styles.headerContainer}>

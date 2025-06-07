@@ -7,6 +7,7 @@ import IncallPage from '../Pages/Call/Incall'; // 현주
 import CallIncomingPage from '../Pages/Call/CallIncomingPage'; // 현주
 import CallEndedPage from '../Pages/Call/CallEndedPage'; // 현주
 import LetterPage from '../Pages/Letter'; // 지은
+import LetterConfirm from "../Pages/LetterConfirm";
 import IdolDetailPage from '../Pages/IdolDetail'; // 지은
 import EmailInputPage from '../Pages/EmailInput'; //여원
 import IdolPhotoPage from "../Pages/IdolPhoto"; //현주
@@ -23,6 +24,7 @@ const AppRoutes = () => {
             <Route path="/email" element={<EmailInputPage />} />
             <Route path="/main" element={<MainPage />} />
             <Route path="/letter" element={<LetterPage />} />
+            <Route path="/letter/confirm" element={<LetterConfirm />} />
             <Route path='/idol' element={<IdolDetailPage />} />
             <Route path="/call/Incall/:name" element={<IncallPage />} />
             <Route path="/call/incoming/:name" element={<CallIncomingPage />} />
