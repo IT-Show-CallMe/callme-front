@@ -1,4 +1,6 @@
-import { useState } from "react";
+// EmailInput.js
+import React, { useState } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
 
 import "../styles/emailInput.css";
@@ -8,20 +10,20 @@ import WindowFrame from "../components/Nickname/WindowFrame";
 
 function EmailInput() {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const name = location.state?.name || '기본값'; // CallEndedPage에서 받은 이름
 
-  // 입력값 상태 업데이트 함수
   const handleInputChange = (e) => {
     setEmail(e.target.value);
   };
 
-  // 버튼 클릭 시 서버에 이메일 전송
   const handleSubmit = async () => {
     if (!email) {
       alert("이메일을 입력해주세요!");
       return;
     }
 
-    // 이메일 형식 검사 정규표현식
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert("올바른 이메일 형식을 입력해주세요!");
@@ -31,7 +33,9 @@ function EmailInput() {
     try {
       const response = await axios.post("/api/email", { email });
       alert(response.data);
-      setEmail("");  // 입력 필드 초기화
+      setEmail("");
+      // 이메일 저장 성공 시 사진 찍는 페이지로 이동, 이름도 같이 넘기기
+      navigate(`/photo/${name}`, { state: { email } });
     } catch (error) {
       console.error("이메일 저장 실패:", error);
       alert("이메일 저장 중 오류가 발생하였습니다. 다시 시도하세요.");
@@ -52,10 +56,7 @@ function EmailInput() {
             value={email}
             onChange={handleInputChange}
           />
-          <button
-            className="confirm-button"
-            onClick={handleSubmit}
-          >
+          <button className="confirm-button" onClick={handleSubmit}>
             확인
           </button>
         </div>
