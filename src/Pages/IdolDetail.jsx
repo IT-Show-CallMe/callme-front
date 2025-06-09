@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/IdolDetail.module.css";
-import idolData from "../data/idolJson.json";
+// import idolData from "../data/idolJson.json";
 import SearchBar from "../components/SearchBar";
 import IdolModal from "../components/IdolModal";
 import { createPortal } from "react-dom";
@@ -11,31 +11,54 @@ const ModalPortal = function (props) {
 };
 
 export default function IdolDetail() {
-  const [idols, setIdols] = useState(idolData);
+  // const [idols, setIdols] = useState(idolData);
   const [selectedIdol, setSelectedIdol] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [callData, setCallData] = useState({});
 
+  const [idols, setIdols] = useState({});
   useEffect(() => {
-    // MainPage와 동일한 방식으로 localStorage에서 데이터 가져오기
-    const stored = JSON.parse(localStorage.getItem('idolData')) || {};
-    setCallData(stored);
+    fetch("/api/idol/all")
+      .then(res => res.json())
+      .then(data => {
+        // 백엔드에서 배열로 올 수도 있으니까 가공 필요
+        const idolObject = {};
+        data.forEach(idol => {
+          idolObject[idol.id] = idol;
+        });
+        setIdols(idolObject);
+      });
   }, []);
 
-  const handleClick = (name) => {
-    const currentCount = callData[name]?.callCount || 0;
+  // useEffect(() => {
+  //   // MainPage와 동일한 방식으로 localStorage에서 데이터 가져오기
+  //   const stored = JSON.parse(localStorage.getItem('idolData')) || {};
+  //   setCallData(stored);
+  // }, []);
 
-    localStorage.setItem("lastCalledIdolName", idols[name].idolName);
-    localStorage.setItem("lastCalledIdolId", idols[name].id);
+  const handleClick = async (name) => {
+    const idol = idols[name];
+    if (!idol) return;
 
-    const selectedIdolData = {
-      ...idols[name],
-      callCount: currentCount,
-    };
+    try {
+      await fetch(`/api/idol/click/${idol.id}`);
 
-    setSelectedIdol(selectedIdolData);
-    setIsModalOpen(true);
+      const updatedCount = callData[name]?.callCount + 1 || 1;
+
+      localStorage.setItem("lastCalledIdolName", idol.idolName);
+      localStorage.setItem("lastCalledIdolId", idol.id);
+
+      setSelectedIdol({
+        ...idol,
+        idolImg: `http://localhost:3000/${idol.idolImages}`,  // 백엔드 이미지 경로 맞게 조정
+        callCount: updatedCount,
+      });
+
+      setIsModalOpen(true);
+    } catch (err) {
+      console.error("아이돌 클릭 실패:", err);
+    }
   };
 
   const handleCloseModal = () => {
@@ -77,7 +100,7 @@ export default function IdolDetail() {
               onClick={() => handleClick(name)}
             >
               <img
-                src={data.idolImg}
+                src={data.idolImages ? `http://localhost:3000/${data.idolImages}` : "images/default.png"}
                 alt={data.idolName}
                 className={styles.idolImg}
               />
