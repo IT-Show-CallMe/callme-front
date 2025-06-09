@@ -5,7 +5,7 @@ import '../styles/IdolPhoto.css';
 function IdolPhoto() {
   const { name } = useParams();
   const [imgSrc, setImgSrc] = useState('');
-  const [count, setCount] = useState(10);
+  const [count, setCount] = useState(10); // 10초 카운트다운 시작
   const [showFlash, setShowFlash] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
 
@@ -14,7 +14,7 @@ function IdolPhoto() {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
-  // name이 바뀔 때마다 imgSrc 업데이트
+  // name 변경 시 이미지 경로 설정
   useEffect(() => {
     const path = `/images/idolPhotos/${name}_with_frame.png`;
     console.log('현재 name:', name);
@@ -22,8 +22,8 @@ function IdolPhoto() {
     setImgSrc(path);
   }, [name]);
 
+  // 카메라 접근 및 정리
   useEffect(() => {
-    // 카메라 접근
     navigator.mediaDevices.getUserMedia({ video: true })
       .then((stream) => {
         if (videoRef.current) {
@@ -41,6 +41,7 @@ function IdolPhoto() {
     };
   }, []);
 
+  // 카운트다운
   useEffect(() => {
     if (count > 0) {
       const timer = setTimeout(() => setCount(count - 1), 1000);
@@ -51,6 +52,7 @@ function IdolPhoto() {
     }
   }, [count]);
 
+  // dataURL -> Blob 변환 함수
   const dataURLtoBlob = (dataurl) => {
     const arr = dataurl.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
@@ -63,6 +65,7 @@ function IdolPhoto() {
     return new Blob([u8arr], { type: mime });
   };
 
+  // 사진 캡처 및 서버 전송
   const handleCapture = async () => {
     const video = videoRef.current;
     const idolImg = idolImageRef.current;
@@ -121,48 +124,66 @@ function IdolPhoto() {
     const dataUrl = canvas.toDataURL('image/png');
     setCapturedImage(dataUrl);
 
-    const email = prompt('이메일 주소를 입력하세요');
+    // 서버로 사진 전송 함수
+    const sendImageToServer = async (dataUrl) => {
+      const blob = dataURLtoBlob(dataUrl);
+      const formData = new FormData();
+      formData.append('captureImg', blob, 'capture.png');
 
-    if (email) {
       try {
-        const imageBlob = dataURLtoBlob(dataUrl);
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('image', imageBlob, `photo_with_${name}.png`);
-
-        const response = await fetch('/api/send-photo-email', {
+        const response = await fetch('http://localhost:3000/email/send', {
           method: 'POST',
           body: formData,
         });
 
-        if (response.ok) {
-          alert('이메일이 전송되었습니다.');
-        } else {
-          const errData = await response.json();
-          alert('이메일 전송 실패: ' + (errData.message || '알 수 없는 오류'));
+        if (!response.ok) {
+          throw new Error(`서버 응답 에러: ${response.statusText}`);
         }
+        const text = await response.text();
+        console.log('서버 응답:', text);
       } catch (error) {
-        alert('서버 요청 중 오류가 발생했습니다.');
-        console.error(error);
+        console.error('이미지 전송 실패:', error);
       }
-    }
+    };
 
-    const shutterSound = new Audio('/images/sound/찰칵!.mp3');
-    shutterSound.play().catch(err => console.warn('사운드 재생 실패:', err));
+    // 사진 서버 전송 실행
+    await sendImageToServer(dataUrl);
 
-    setShowFlash(true);
+   
+     // 찰칵 사운드 재생, 플래시 효과 유지
+  const shutterSound = new Audio('/images/sound/찰칵!.mp3');
+  shutterSound.play().catch(err => console.warn('사운드 재생 실패:', err));
 
+  setShowFlash(true);
+
+  setTimeout(() => {
+    setShowFlash(false);
     setTimeout(() => {
-      setShowFlash(false);
-      setTimeout(() => {
-        navigate('/email');
-      }, 2000);
-    }, 500);
-  };
+      // 여기서 navigate 시 capturedImage 넘기기
+      navigate('/email', { state: { capturedImage: dataUrl } });
+    }, 2000);
+  }, 500);
+};
 
   return (
-    <div className="photo-background" ref={containerRef} style={{ position: 'relative', width: '100%', height: '100vh', backgroundColor: '#000' }}>
-      <div className="photo-frame-container" style={{ position: 'relative', width: '100%', height: '100%' }}>
+    <div
+      className="photo-background"
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        backgroundColor: '#000',
+      }}
+    >
+      <div
+        className="photo-frame-container"
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+        }}
+      >
         {!capturedImage && (
           <video
             ref={videoRef}
@@ -195,10 +216,10 @@ function IdolPhoto() {
             }}
             style={{
               position: 'absolute',
-              top: '10%',
+              top: '12.5%',
               left: '50%',
               transform: 'translateX(-50%)',
-              maxWidth: '60%',
+              width: '90%',
               pointerEvents: 'none',
               userSelect: 'none',
             }}
@@ -206,29 +227,35 @@ function IdolPhoto() {
         )}
 
         {count !== null && (
-          <div className="countdown" style={{
-            position: 'absolute',
-            fontSize: '5rem',
-            color: 'white',
-            fontWeight: 'bold',
-            textShadow: '0 0 10px black',
-            userSelect: 'none',
-          }}>
+          <div
+            className="countdown"
+            style={{
+              position: 'absolute',
+              fontSize: '5rem',
+              color: 'white',
+              fontWeight: 'bold',
+              textShadow: '0 0 10px black',
+              userSelect: 'none',
+            }}
+          >
             {count}
           </div>
         )}
 
         {showFlash && (
-          <div className="flash" style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'white',
-            opacity: 0.8,
-            pointerEvents: 'none',
-          }} />
+          <div
+            className="flash"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'white',
+              opacity: 0.8,
+              pointerEvents: 'none',
+            }}
+          />
         )}
       </div>
     </div>
