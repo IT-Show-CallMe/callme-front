@@ -21,9 +21,8 @@ function Landing(){
     <div className="Home-container" onClick={handleClick}>
         <img src="images/back_short.png" alt="배경이미지" className="background-img" />
         <img src="images/home_imgback.png" alt="home background" className="idol-back"/>
-      <div className="Landing-text">
-        <h1>call me</h1>
-      </div>
+        <img src="images/landing-logo.png" className="Landing-text"/>
+      
       <div className="image-grid">
         {imagesFiles.map((file, i) => {
           const name = file.split("/")[1].split("_")[0]; // ex: mark
