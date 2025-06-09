@@ -34,7 +34,10 @@
   transform: translateY(-15%);
 }
 
-
+element.style {
+    width: 52%;
+    height: 70%;
+}
 
 .overlay-image {
   position: absolute;
