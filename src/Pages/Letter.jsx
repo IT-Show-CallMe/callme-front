@@ -41,6 +41,7 @@ function Letter() {
                 nickname: nickName,
                 message,
             }));
+            alert("성공");
             navigate("/letter/confirm");
         } catch (err) {
             console.error(err);
