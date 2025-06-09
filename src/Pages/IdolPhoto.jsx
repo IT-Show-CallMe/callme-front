@@ -149,21 +149,20 @@ function IdolPhoto() {
     // 사진 서버 전송 실행
     await sendImageToServer(dataUrl);
 
-   
-     // 찰칵 사운드 재생, 플래시 효과 유지
-  const shutterSound = new Audio('/images/sound/찰칵!.mp3');
-  shutterSound.play().catch(err => console.warn('사운드 재생 실패:', err));
+    // 찰칵 사운드 재생, 플래시 효과 유지
+    const shutterSound = new Audio('/images/sound/찰칵!.mp3');
+    shutterSound.play().catch(err => console.warn('사운드 재생 실패:', err));
 
-  setShowFlash(true);
+    setShowFlash(true);
 
-  setTimeout(() => {
-    setShowFlash(false);
     setTimeout(() => {
-      // 여기서 navigate 시 capturedImage 넘기기
-      navigate('/email', { state: { capturedImage: dataUrl } });
-    }, 2000);
-  }, 500);
-};
+      setShowFlash(false);
+      setTimeout(() => {
+        // capturedImage 넘기면서 /letter 페이지로 이동
+        navigate('/letter', { state: { capturedImage: dataUrl } });
+      }, 500);
+    }, 500);
+  };
 
   return (
     <div
