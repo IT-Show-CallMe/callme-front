@@ -11,6 +11,7 @@ import LetterConfirm from "../Pages/LetterConfirm";
 import IdolDetailPage from '../Pages/IdolDetail'; // 지은
 import EmailInputPage from '../Pages/EmailInput'; //여원
 import IdolPhotoPage from "../Pages/IdolPhoto"; //현주
+import EmailConsentPage from '../Pages/EmailConsent'; //현주
 
 const AppRoutes = () => {
     return (
@@ -20,8 +21,8 @@ const AppRoutes = () => {
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/" element={<LandingPage />} />
             <Route path="/nickname" element={<NicknamePage />} />
-
             <Route path="/email" element={<EmailInputPage />} />
+            <Route path="/emailconsent" element={<EmailConsentPage />} />
             <Route path="/main" element={<MainPage />} />
             <Route path="/letter" element={<LetterPage />} />
             <Route path="/letter/confirm" element={<LetterConfirm />} />
