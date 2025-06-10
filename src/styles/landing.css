@@ -40,17 +40,13 @@
     object-fit: cover; /* 이미지가 화면을 꽉 채우도록 설정 */
   }
   
-  .Landing-text  h1{
+  .Landing-text{
     position: absolute;
+    width: 1000px;
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 3;
-    color: white;
-    -webkit-text-stroke: 3px #71ABFB;
-    font-size: 8vw;
-    font-weight: 700;
-    font-family: 'HakgyoansimDunggeunmisoTTF-B', sans-serif;
+    z-index: 2;
     white-space: nowrap;
   }
   
@@ -138,7 +134,7 @@
     left: 20.8vw;
     width: auto;
     height: 69.3vh;
-    z-index: 1;
+    z-index: 2;
   }
   
   .krn {
