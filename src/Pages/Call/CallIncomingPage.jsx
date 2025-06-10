@@ -47,6 +47,7 @@ function CallIncomingPage() {
   };
 
   const handleStartCall = () => {
+      console.log('idol:', idol);
     const now = new Date().toISOString();
     const storedData = JSON.parse(localStorage.getItem("idolData")) || {};
     if (storedData[name]) {
@@ -62,7 +63,7 @@ function CallIncomingPage() {
     console.log("Updated call data:", storedData[name]);
     setIsTransitioning(true);
     setTimeout(() => {
-      navigate(`/call/incall/${name}`, { state: { name } });
+     navigate(`/call/incall/${name}`, { state: { name, id: idol.id } }); 
     }, 600);
   };
 

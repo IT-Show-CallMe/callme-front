@@ -1,4 +1,3 @@
-// EmailInput.js
 import React, { useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
@@ -55,6 +54,11 @@ function EmailInput() {
             className="input-email"
             value={email}
             onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit();
+              }
+            }}
           />
           <button className="confirm-button" onClick={handleSubmit}>
             확인
