@@ -1,11 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import IncallPhoneImage from '../../assets/images/call-phone.png';
 import IncallBackgroundImage from '../../assets/images/incall-background.png';
 import endCallButtonImage from '../../assets/images/call-down.png';
 import SpeechBubble from '../../components/SpeechBubble';
 import PhoneLayout from '../../components/Phone';
-import idolData from '../../data/idolVideo.json';
+// import idolData from '../../data/idolVideo.json';  // 이제 사용 안함
+
+const SERVER_BASE_URL = 'http://localhost:3000';
 
 const Incall = () => {
   const navigate = useNavigate();
@@ -14,24 +17,61 @@ const Incall = () => {
 
   // location.state에서 name 받거나 기본값 설정
   const name = location.state?.name || '기본값';
-  const idol = idolData[name];
 
-  // idol 데이터 없으면 렌더링 안 하고 안내 메시지 출력
-  if (!idol) {
-    return (
-      <div style={{ textAlign: 'center', marginTop: '100px', fontSize: '20px', color: 'red' }}>
-        아이돌 데이터를 찾을 수 없습니다.<br />
-        이름: {name}
-      </div>
-    );
-  }
-
-  const [currentVideo, setCurrentVideo] = useState(idol.startVideo || '');
+  // 상태 선언
+  const [idolId, setIdolId] = useState(null);
+  const [idolInfo, setIdolInfo] = useState(null);
+  const [currentVideo, setCurrentVideo] = useState('');
   const [videoKey, setVideoKey] = useState(0);
   const [hasIntroEnded, setHasIntroEnded] = useState(false);
   const [showWaitingScreen, setShowWaitingScreen] = useState(true);
   const [bubbleVisible, setBubbleVisible] = useState(false);
 
+  // 1. /idol/all 에서 id와 기타 정보 가져오기 (idolName === name 매칭)
+  useEffect(() => {
+    const fetchIdolList = async () => {
+      try {
+        const res = await axios.get(`${SERVER_BASE_URL}/idol/all`);
+        const matched = res.data.find((item) => item.idolName === name);
+        if (matched) {
+          setIdolId(matched.id);
+          setIdolInfo(matched);
+        } else {
+          console.warn('아이돌 이름과 일치하는 항목을 찾을 수 없습니다:', name);
+        }
+      } catch (err) {
+        console.error('아이돌 리스트 로드 실패:', err);
+      }
+    };
+
+    fetchIdolList();
+  }, [name]);
+
+  useEffect(() => {
+  if(currentVideo) {
+    console.log('currentVideo URL:', currentVideo);
+  }
+}, [currentVideo]);
+
+  // 2. idolId가 있으면 /idol/intro/:id 에서 intro 영상 URL 가져오기 (절대경로로 변환)
+  useEffect(() => {
+    const fetchIntroVideo = async () => {
+      if (!idolId) return;
+      try {
+        const response = await axios.get(`${SERVER_BASE_URL}/idol/intro/${idolId}`);
+        const introPath = response.data.intro; // 상대 경로 예: uploads/intro/정재현-인트로.mp4
+        if (introPath) {
+          setCurrentVideo(`${SERVER_BASE_URL}/${introPath}`);
+        }
+      } catch (err) {
+        console.error('인트로 영상 로딩 실패:', err);
+      }
+    };
+
+    fetchIntroVideo();
+  }, [idolId]);
+
+  // 3. 카메라 접근 및 대기 화면 처리
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
@@ -46,33 +86,39 @@ const Incall = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  // 4. 말풍선 관련 (idolInfo.messages 및 endVideo는 DB에서 별도 로딩 필요 - 현재는 임시 빈 배열로 대체)
+  const messages = idolInfo?.messages || [];
+  const endVideoPath = idolInfo?.endVideo || '';
+  const endVideo = endVideoPath ? `${SERVER_BASE_URL}/${endVideoPath}` : '';
+
   const handleVideoEnded = () => {
-    if (!hasIntroEnded && currentVideo === idol.startVideo) {
+    if (!hasIntroEnded && currentVideo === (idolInfo?.intro ? `${SERVER_BASE_URL}/${idolInfo.intro}` : currentVideo)) {
       setHasIntroEnded(true);
       setBubbleVisible(true);
-    } else if (idol.endVideo && currentVideo === idol.endVideo) {
+    } else if (endVideo && currentVideo === endVideo) {
       navigate('/call/ended', { state: { name } });
     }
   };
 
   const handleOptionSelect = (selectedMessage) => {
-    const matched = idol.messages.find(m => m.message === selectedMessage);
+    // 메시지에 매칭되는 비디오가 있는지 찾기 (임시 처리)
+    const matched = messages.find((m) => m.message === selectedMessage);
     if (matched?.video) {
-      setCurrentVideo(matched.video);
-      setVideoKey(prev => prev + 1);
-    } else if (selectedMessage === `잘가 ${idol.name}` || selectedMessage === `잘가 ${idol.name}야`) {
-      if (idol.endVideo) {
-        setCurrentVideo(idol.endVideo);
-        setVideoKey(prev => prev + 1);
+      setCurrentVideo(`${SERVER_BASE_URL}/${matched.video}`);
+      setVideoKey((prev) => prev + 1);
+    } else if (selectedMessage === `잘가 ${name}` || selectedMessage === `잘가 ${name}야`) {
+      if (endVideo) {
+        setCurrentVideo(endVideo);
+        setVideoKey((prev) => prev + 1);
       }
     }
     // 말풍선 유지
   };
 
-  const speechOptions = idol.messages
-    .map(m => m.message)
-    .filter(msg => msg && msg.trim() !== '')
-    .concat(idol.endVideo ? `잘가 ${idol.name}` : []);
+  const speechOptions = messages
+    .map((m) => m.message)
+    .filter((msg) => msg && msg.trim() !== '')
+    .concat(endVideo ? `잘가 ${name}` : []);
 
   const speechBubbleStyle = {
     position: 'absolute',
@@ -97,8 +143,16 @@ const Incall = () => {
     navigate('/call/ended', { state: { name } });
   };
 
+  if (!idolInfo) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: 100, fontSize: 20, color: 'gray' }}>
+        아이돌 정보를 불러오는 중입니다...
+      </div>
+    );
+  }
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '50px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 50 }}>
       <PhoneLayout
         hideWings
         hidePhoneImage
@@ -108,8 +162,8 @@ const Incall = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-start',
-          gap: '50px',
-          paddingTop: '100px',
+          gap: 50,
+          paddingTop: 100,
           width: '100vw',
           maxWidth: '150%',
         }}
@@ -129,15 +183,15 @@ const Incall = () => {
                     textAlign: 'center',
                   }}
                 >
-                  <p style={{ fontSize: '18px', color: 'white', fontWeight: 'bold' }}>
+                  <p style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}>
                     영상 통화를 준비 중입니다. 잠시만 기다려 주세요...
                   </p>
                   <button
                     onClick={() => setShowWaitingScreen(false)}
                     style={{
-                      marginTop: '20px',
+                      marginTop: 20,
                       padding: '10px 20px',
-                      fontSize: '16px',
+                      fontSize: 16,
                       cursor: 'pointer',
                     }}
                   >
@@ -146,7 +200,7 @@ const Incall = () => {
                 </div>
               )}
 
-              {idx === 0 && (
+              {idx === 0 && currentVideo && (
                 <video
                   key={videoKey}
                   src={currentVideo}
@@ -189,13 +243,13 @@ const Incall = () => {
       <p
         style={{
           position: 'absolute',
-          bottom: '100px',
+          bottom: 100,
           left: '50%',
           transform: 'translateX(-50%)',
           fontFamily: 'Pretendard',
           fontWeight: 300,
           color: '#BDBDBD',
-          fontSize: '20px',
+          fontSize: 20,
           textAlign: 'center',
           zIndex: 10,
         }}
