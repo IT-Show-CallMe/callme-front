@@ -71,12 +71,12 @@
     left: 54.1vw;
     width: 17.9vw;
     height: 31.9vh;
-    z-index: 3;
+    z-index: 5;
   }
   
   .mjh {
     top: 68.4vh;
-    left: 26vw;
+    left: 27vw;
     width: auto;
     height: 41.7vh;
     z-index: 4;
@@ -126,7 +126,7 @@
     left: 70.4vw;
     width: 19.5vw;
     height: 61.7vh;
-    z-index: 3;
+    z-index: 5;
   }
   
   .hn {
@@ -142,7 +142,7 @@
     left: 42.7vw;
     width: 17.9vw;
     height: 44.4vh;
-    z-index: 2;
+    z-index: 4;
   }
   
   .yj {
@@ -150,7 +150,7 @@
     left: 64.5vw;
     width: 23.8vw;
     height: 49.3vh;
-    z-index: 1;
+    z-index: 4;
   }
   
   .yuj {
@@ -166,7 +166,7 @@
     left: 52.1vw;
     width: auto;
     height: 77.3vh;
-    z-index: 2;
+    z-index: 4;
   }
   
   .sw {
