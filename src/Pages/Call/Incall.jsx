@@ -6,32 +6,30 @@ import IncallBackgroundImage from '../../assets/images/incall-background.png';
 import endCallButtonImage from '../../assets/images/call-down.png';
 import SpeechBubble from '../../components/SpeechBubble';
 import PhoneLayout from '../../components/Phone';
-// import idolData from '../../data/idolVideo.json';  // 이제 사용 안함
 
-const SERVER_BASE_URL = 'http://localhost:3000';
+const BASE_URL = "http://localhost:3000/";
 
 const Incall = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userCameraRef = useRef(null);
 
-  // location.state에서 name 받거나 기본값 설정
   const name = location.state?.name || '기본값';
 
-  // 상태 선언
   const [idolId, setIdolId] = useState(null);
   const [idolInfo, setIdolInfo] = useState(null);
+  const [choices, setChoices] = useState([]); // 말풍선 선택지
   const [currentVideo, setCurrentVideo] = useState('');
   const [videoKey, setVideoKey] = useState(0);
   const [hasIntroEnded, setHasIntroEnded] = useState(false);
   const [showWaitingScreen, setShowWaitingScreen] = useState(true);
   const [bubbleVisible, setBubbleVisible] = useState(false);
 
-  // 1. /idol/all 에서 id와 기타 정보 가져오기 (idolName === name 매칭)
+  // 1. 아이돌 리스트에서 id 찾기
   useEffect(() => {
     const fetchIdolList = async () => {
       try {
-        const res = await axios.get(`${SERVER_BASE_URL}/idol/all`);
+        const res = await axios.get(`${BASE_URL}idol/all`);
         const matched = res.data.find((item) => item.idolName === name);
         if (matched) {
           setIdolId(matched.id);
@@ -43,35 +41,41 @@ const Incall = () => {
         console.error('아이돌 리스트 로드 실패:', err);
       }
     };
-
     fetchIdolList();
   }, [name]);
 
-  useEffect(() => {
-  if(currentVideo) {
-    console.log('currentVideo URL:', currentVideo);
-  }
-}, [currentVideo]);
-
-  // 2. idolId가 있으면 /idol/intro/:id 에서 intro 영상 URL 가져오기 (절대경로로 변환)
+  // 2. intro 영상 가져오기
   useEffect(() => {
     const fetchIntroVideo = async () => {
       if (!idolId) return;
       try {
-        const response = await axios.get(`${SERVER_BASE_URL}/idol/intro/${idolId}`);
-        const introPath = response.data.intro; // 상대 경로 예: uploads/intro/정재현-인트로.mp4
-        if (introPath) {
-          setCurrentVideo(`${SERVER_BASE_URL}/${introPath}`);
-        }
+        const response = await axios.get(`${BASE_URL}idol/intro/${idolId}`);
+        const introUrl = response.data.intro.startsWith('http')
+          ? response.data.intro
+          : BASE_URL + response.data.intro;
+        setCurrentVideo(introUrl);
       } catch (err) {
         console.error('인트로 영상 로딩 실패:', err);
       }
     };
-
     fetchIntroVideo();
   }, [idolId]);
 
-  // 3. 카메라 접근 및 대기 화면 처리
+  // 3. 말풍선 선택지 가져오기
+  useEffect(() => {
+    const fetchChoices = async () => {
+      if (!idolId) return;
+      try {
+        const res = await axios.get(`${BASE_URL}idolVideo/choices/${idolId}`);
+        setChoices(res.data || []);
+      } catch (err) {
+        console.error('말풍선 선택지 로딩 실패:', err);
+      }
+    };
+    fetchChoices();
+  }, [idolId]);
+
+  // 4. 카메라 및 대기화면
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
@@ -86,13 +90,14 @@ const Incall = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // 4. 말풍선 관련 (idolInfo.messages 및 endVideo는 DB에서 별도 로딩 필요 - 현재는 임시 빈 배열로 대체)
-  const messages = idolInfo?.messages || [];
-  const endVideoPath = idolInfo?.endVideo || '';
-  const endVideo = endVideoPath ? `${SERVER_BASE_URL}/${endVideoPath}` : '';
+  // 5. 영상 종료 이벤트
+  const endVideoRaw = idolInfo?.endVideo || '';
+  const endVideo = endVideoRaw.startsWith('http')
+    ? endVideoRaw
+    : BASE_URL + endVideoRaw;
 
   const handleVideoEnded = () => {
-    if (!hasIntroEnded && currentVideo === (idolInfo?.intro ? `${SERVER_BASE_URL}/${idolInfo.intro}` : currentVideo)) {
+    if (!hasIntroEnded && currentVideo === (idolInfo?.intro || currentVideo)) {
       setHasIntroEnded(true);
       setBubbleVisible(true);
     } else if (endVideo && currentVideo === endVideo) {
@@ -100,31 +105,53 @@ const Incall = () => {
     }
   };
 
-  const handleOptionSelect = (selectedMessage) => {
-    // 메시지에 매칭되는 비디오가 있는지 찾기 (임시 처리)
-    const matched = messages.find((m) => m.message === selectedMessage);
-    if (matched?.video) {
-      setCurrentVideo(`${SERVER_BASE_URL}/${matched.video}`);
-      setVideoKey((prev) => prev + 1);
-    } else if (selectedMessage === `잘가 ${name}` || selectedMessage === `잘가 ${name}야`) {
+  // 6. 말풍선 선택지 클릭 핸들러
+  const handleOptionSelect = async (selectedChoiceText) => {
+    // 선택한 텍스트에 대응하는 choice 객체 찾기
+    const selectedChoice = choices.find((c) => c.choices === selectedChoiceText);
+
+    if (selectedChoice) {
+      try {
+        // 선택한 choice id로 비디오 URL 요청
+        const res = await axios.get(`${BASE_URL}idolVideo/video/${selectedChoice.id}`);
+        const videoUrlRaw = res.data.videos;
+        const videoUrl = videoUrlRaw.startsWith('http') ? videoUrlRaw : BASE_URL + videoUrlRaw;
+        setCurrentVideo(videoUrl);
+        setVideoKey((prev) => prev + 1);
+      } catch (err) {
+        console.error('선택지 영상 로딩 실패:', err);
+      }
+    } else if (selectedChoiceText === '잘 가' || selectedChoiceText === `잘 가 ${name}`) {
       if (endVideo) {
         setCurrentVideo(endVideo);
         setVideoKey((prev) => prev + 1);
       }
     }
-    // 말풍선 유지
   };
 
-  const speechOptions = messages
-    .map((m) => m.message)
-    .filter((msg) => msg && msg.trim() !== '')
-    .concat(endVideo ? `잘가 ${name}` : []);
+// 말풍선 옵션 배열 생성
+const speechOptions = choices
+  .map((c) => c.choices)
+  .filter((msg) => msg && msg.trim() !== '');
 
+// '잘 가' 관련 문구 중복 제거 로직
+const existingFarewells = speechOptions.some(msg => {
+  const normalized = msg.replace(/\s/g, ''); // 공백 제거
+  return normalized.includes('잘가');
+});
+
+if (endVideo && !existingFarewells) {
+  speechOptions.push('잘 가');
+}
+
+  // 스타일 정의는 기존과 동일
   const speechBubbleStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: bubbleVisible ? 'translate(-80%, -50%)' : 'translate(-150%, -50%)',
+    transform: bubbleVisible
+      ? 'translate(-80%, -50%)'
+      : 'translate(-150%, -50%)',
     transition: 'transform 0.8s ease-in-out',
     zIndex: 1,
   };
@@ -133,7 +160,9 @@ const Incall = () => {
     display: 'flex',
     gap: '20px',
     transition: 'transform 1s ease-in-out',
-    transform: hasIntroEnded ? 'translate(-70%, -90%)' : 'translate(-50%, -90%)',
+    transform: hasIntroEnded
+      ? 'translate(-70%, -90%)'
+      : 'translate(-50%, -90%)',
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -152,7 +181,9 @@ const Incall = () => {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 50 }}>
+    <div
+      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 50 }}
+    >
       <PhoneLayout
         hideWings
         hidePhoneImage
@@ -239,23 +270,6 @@ const Incall = () => {
           <SpeechBubble options={speechOptions} onSelect={handleOptionSelect} />
         </div>
       )}
-
-      <p
-        style={{
-          position: 'absolute',
-          bottom: 100,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          fontFamily: 'Pretendard',
-          fontWeight: 300,
-          color: '#BDBDBD',
-          fontSize: 20,
-          textAlign: 'center',
-          zIndex: 10,
-        }}
-      >
-        빨간버튼을 누르시면 자동으로 끊어집니다.
-      </p>
     </div>
   );
 };
