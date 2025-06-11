@@ -21,7 +21,7 @@ function Landing(){
     <div className="Home-container" onClick={handleClick}>
         <img src="images/back_short.png" alt="배경이미지" className="background-img" />
         <img src="images/home_imgback.png" alt="home background" className="idol-back"/>
-        <img src="images/landing-logo.png" className="Landing-text"/>
+        <img src="images/logo-img.png" className="Landing-text"/>
       
       <div className="image-grid">
         {imagesFiles.map((file, i) => {
