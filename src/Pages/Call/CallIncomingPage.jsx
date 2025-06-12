@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios'; // axios 추가
+import axios from 'axios';
 import PhoneLayout from '../../components/Phone';
 import startButtonImage from '../../assets/images/button-yes.png';
 import backButtonImage from '../../assets/images/button-no.png';
@@ -8,46 +8,74 @@ import defaultPhoneImage from '../../assets/images/phone.png';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function CallIncomingPage() {
-  const { name } = useParams(); // URL에서 :name 추출
+  const { name } = useParams();
   const navigate = useNavigate();
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const [idol, setIdol] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // 페이지 진입 시 아이돌 데이터 요청 + 벨소리 정지 처리
   useEffect(() => {
-    // 👇 name(한글) URL 인코딩
     const fetchIdol = async () => {
       try {
         const response = await axios.get(`api/intro/${encodeURIComponent(name)}`);
-        setIdol(response.data); // 서버에서 intro 정보만 오니까 intro 속성
+        setIdol(response.data);
       } catch (err) {
-        console.error("아이돌 데이터를 불러오는데 실패했어요.", err);
         setError(err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchIdol();
+
+    // 벨소리 정지 및 초기화 (안정성 위해 항상 실행)
+    if (window.ringingAudio) {
+      window.ringingAudio.pause();
+      window.ringingAudio.currentTime = 0;
+      window.ringingAudio = null;
+      console.log('페이지 진입 시 기존 벨소리 멈춤');
+    }
   }, [name]);
 
-  if (loading) {
-    return <div>로딩 중...</div>;
+    // 벨소리 재생 시도
+  if (!window.ringingAudio) {
+    const audio = new Audio('/images/sound/따르릉.mp3');
+    audio.loop = true;
+    audio.volume = 1.0;
+    window.ringingAudio = audio;
+    audio.play().then(() => {
+      console.log('✅ 벨소리 재생 시작');
+    }).catch(e => {
+      console.warn('❌ 벨소리 재생 실패:', e);
+    });
   }
 
-  if (error || !idol) {
-    return <div>해당 아이돌 데이터를 불러오지 못했습니다. 이름: {name}</div>;
-  }
 
-  // 👇 아이콘 클릭 시 /idol 페이지로 이동하는 함수
+  // 뒤로 가기 버튼
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+  // 아이돌 목록으로 이동
   const handleGoToIdolList = () => {
     navigate('/idol');
   };
 
+  // 응답 버튼 클릭 시 벨소리 정지 + 로컬 저장소 기록 + 화면 전환
   const handleStartCall = () => {
-      console.log('idol:', idol);
+    console.log('응답 버튼 눌림, 벨소리 멈춤 시도');
+    if (window.ringingAudio) {
+      window.ringingAudio.pause();
+      window.ringingAudio.currentTime = 0;
+      window.ringingAudio = null;
+      console.log('벨소리 오디오 객체 발견, 정지시킴');
+    } else {
+      console.log('벨소리 오디오 객체 없음');
+    }
+
+    // 통화 기록 로컬저장소에 저장
     const now = new Date().toISOString();
     const storedData = JSON.parse(localStorage.getItem("idolData")) || {};
     if (storedData[name]) {
@@ -60,19 +88,28 @@ function CallIncomingPage() {
       };
     }
     localStorage.setItem("idolData", JSON.stringify(storedData));
-    console.log("Updated call data:", storedData[name]);
+
+    // 화면 전환 애니메이션 및 네비게이트
     setIsTransitioning(true);
     setTimeout(() => {
-     navigate(`/call/incall/${name}`, { state: { name, id: idol.id } }); 
+      navigate(`/call/incall/${name}`, { state: { name, id: idol.id } });
     }, 600);
   };
 
-  const handleGoBack = () => {
-    navigate(-1);
-  };
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (error || !idol) {
+    return <div>해당 아이돌 데이터를 불러오지 못했습니다. 이름: {name}</div>;
+  }
 
   return (
-    <div className={`transition-wrapper ${isTransitioning ? 'zoom-out' : ''}`}>
+    <div
+      className={`transition-wrapper ${isTransitioning ? 'zoom-out' : ''}`}
+      style={{ cursor: 'pointer' }}
+    >
+      {/* 아이돌 목록 돌아가기 버튼 */}
       <div
         style={{
           position: 'absolute',
@@ -81,7 +118,7 @@ function CallIncomingPage() {
           zIndex: 10,
           cursor: 'pointer'
         }}
-        onClick={handleGoToIdolList}
+        onClick={(e) => { e.stopPropagation(); handleGoToIdolList(); }}
       >
         <i className="bi bi-chevron-left" style={{ fontSize: '4rem', color: '#358CCA' }}></i>
       </div>
@@ -92,18 +129,18 @@ function CallIncomingPage() {
         phoneImageClassName="shaking-phone"
         shakeAll={true}
       >
-        <div className="phone-buttons shaking-phone">
+        <div className="phone-buttons shaking-phone" onClick={e => e.stopPropagation()}>
           <img
             src={backButtonImage}
             alt="Go Back"
             onClick={handleGoBack}
-            style={{ width: '80%', height: '80%' }}
+            style={{ width: '80%', height: '80%', cursor: 'pointer' }}
           />
           <img
             src={startButtonImage}
             alt="Start Call"
             onClick={handleStartCall}
-            style={{ width: '80%', height: '40%' }}
+            style={{ width: '80%', height: '40%', cursor: 'pointer' }}
           />
         </div>
       </PhoneLayout>
