@@ -12,6 +12,7 @@ import IdolDetailPage from '../Pages/IdolDetail'; // 지은
 import EmailInputPage from '../Pages/EmailInput'; //여원
 import IdolPhotoPage from "../Pages/IdolPhoto"; //현주
 import EmailConsentPage from '../Pages/EmailConsent'; //현주
+import IdolFrameSelectPage from '../Pages/idolFrameSelect'; //현주
 
 const AppRoutes = () => {
     return (
@@ -31,6 +32,7 @@ const AppRoutes = () => {
             <Route path="/call/incoming/:name" element={<CallIncomingPage />} />
             <Route path="/call/ended" element={<CallEndedPage />} />
             <Route path="/photo/:name" element={<IdolPhotoPage />} />
+            <Route path="/frame" element={<IdolFrameSelectPage />} />
         </Routes>
     );
 };
