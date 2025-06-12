@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef  } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/IdolPhoto.css';
 
@@ -14,14 +15,15 @@ function IdolPhoto() {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
-  // name 변경 시 이미지 경로 설정
-  useEffect(() => {
-    const path = `/images/idolPhotos/${name}_with_frame.png`;
-    console.log('현재 name:', name);
-    console.log('설정된 이미지 경로:', path);
-    setImgSrc(path);
-  }, [name]);
+  const location = useLocation();
+const frame = location.state?.frame || "default"; // 기본값 "default"
 
+  useEffect(() => {
+  const suffix = frame === "cute" ? "-cute-frame.png" : "_with_frame.png";
+  const path = `/images/idolPhotos/${name}${suffix}`;
+  console.log('설정된 이미지 경로:', path);
+  setImgSrc(path);
+}, [name, frame]);
   // 카메라 접근 및 정리
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -204,25 +206,16 @@ function IdolPhoto() {
         )}
 
         {!capturedImage && (
-          <img
-            ref={idolImageRef}
-            src={imgSrc}
-            alt={`${name}와 함께 사진`}
-            className={`idol-photo-image idol-position-${name}`}
-            onError={() => {
-              console.warn(`이미지를 불러올 수 없습니다: ${imgSrc}`);
-              setImgSrc('/images/idolPhotos/default_with_frame.png');
-            }}
-            style={{
-              position: 'absolute',
-              top: '12.5%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '90%',
-              pointerEvents: 'none',
-              userSelect: 'none',
-            }}
-          />
+    <img
+  ref={idolImageRef}
+  src={imgSrc}
+  alt={`${name}와 함께 사진`}
+  className={`idol-photo-image idol-position-${name} ${frame === "cute" ? "idol-frame-cute" : "idol-frame-default"}`}
+  onError={() => {
+    console.warn(`이미지를 불러올 수 없습니다: ${imgSrc}`);
+    setImgSrc('/images/idolPhotos/default_with_frame.png');
+  }}
+/>
         )}
 
         {count !== null && (
