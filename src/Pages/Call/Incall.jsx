@@ -90,6 +90,15 @@ const Incall = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
+useEffect(() => {
+  if (window.ringingAudio) {
+    window.ringingAudio.pause();
+    window.ringingAudio.currentTime = 0;
+    window.ringingAudio = null;
+    console.log('incall 페이지 진입 시 벨소리 멈춤');
+  }
+}, []);
+
   // 5. 영상 종료 이벤트
   const endVideoRaw = idolInfo?.endVideo || '';
   const endVideo = endVideoRaw.startsWith('http')
@@ -134,15 +143,14 @@ const speechOptions = choices
   .map((c) => c.choices)
   .filter((msg) => msg && msg.trim() !== '');
 
-// '잘 가' 관련 문구 중복 제거 로직
-const existingFarewells = speechOptions.some(msg => {
-  const normalized = msg.replace(/\s/g, ''); // 공백 제거
-  return normalized.includes('잘가');
-});
+const hasFarewell = speechOptions.some(msg => msg.replace(/\s/g, '').includes('잘가'));
+const hasBbye = speechOptions.some(msg => msg.replace(/\s/g, '').includes('빠잉'));
 
-if (endVideo && !existingFarewells) {
+// 빠잉 없고, 잘 가도 없을 때만 잘 가 추가
+if (endVideo && !hasFarewell && !hasBbye) {
   speechOptions.push('잘 가');
 }
+
 
   // 스타일 정의는 기존과 동일
   const speechBubbleStyle = {
