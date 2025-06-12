@@ -90,14 +90,14 @@ const Incall = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
-useEffect(() => {
-  if (window.ringingAudio) {
-    window.ringingAudio.pause();
-    window.ringingAudio.currentTime = 0;
-    window.ringingAudio = null;
-    console.log('incall 페이지 진입 시 벨소리 멈춤');
-  }
-}, []);
+// useEffect(() => {
+//   if (window.ringingAudio) {
+//     window.ringingAudio.pause();
+//     window.ringingAudio.currentTime = 0;
+//     window.ringingAudio = null;
+//     console.log('incall 페이지 진입 시 벨소리 멈춤');
+//   }
+// }, []);
 
   // 5. 영상 종료 이벤트
   const endVideoRaw = idolInfo?.endVideo || '';
