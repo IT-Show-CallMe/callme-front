@@ -29,16 +29,16 @@ function EmailInput() {
       return;
     }
 
-    try {
-      const response = await axios.post("/api/email", { email });
-      alert(response.data);
-      setEmail("");
-      // 이메일 저장 성공 시 사진 찍는 페이지로 이동, 이름도 같이 넘기기
-      navigate(`/photo/${name}`, { state: { email } });
-    } catch (error) {
-      console.error("이메일 저장 실패:", error);
-      alert("이메일 저장 중 오류가 발생하였습니다. 다시 시도하세요.");
-    }
+try {
+  const response = await axios.post("/api/email", { email });
+  alert(response.data);
+  setEmail("");
+  // 이메일 저장 성공 시 /frame 페이지로 이동, name과 email 함께 넘김
+  navigate("/frame", { state: { name, email } });
+} catch (error) {
+  console.error("이메일 저장 실패:", error);
+  alert("이메일 저장 중 오류가 발생하였습니다. 다시 시도하세요.");
+}
   };
 
   return (

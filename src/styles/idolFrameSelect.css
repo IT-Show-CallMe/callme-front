@@ -1,0 +1,40 @@
+.photo-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.frame-selection-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+
+.idol-photo1,
+.idol-photo2 {
+    width: 900px;
+    height: auto;
+    object-fit: contain;
+}
+
+.idol-photo1{
+    width: 600px;
+}
+
+.instruction-text {
+     font-family: 'Pretendard Variable', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    color: #DEDEDE;
+    margin-top: 100px;
+}

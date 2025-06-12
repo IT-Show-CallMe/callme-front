@@ -109,3 +109,10 @@ element.style {
   0% { opacity: 0.8; }
   100% { opacity: 0; }
 }
+
+/* 큐트 프레임일 때 스타일 조정 */
+.idol-frame-cute {
+  left: 22%;
+  top: 25%;
+  width: 55%;
+}
