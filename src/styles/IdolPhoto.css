@@ -59,7 +59,7 @@ element.style {
 
 .video-feed {
   position: absolute;
-  width: 52%;
+  width: 80%;
   height: 70%;
   object-fit: cover;
   border-radius: 10px;
@@ -70,6 +70,18 @@ element.style {
    transform: scaleX(-1);
 }
 
+.video-feed.mirror-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 52%;       /* 크기 70%로 줄임 (원하는 크기로 조절 가능) */
+  height: 65%;
+  max-height: 70%;  /* 최대 높이도 제한 */
+  transform: translate(-50%, -50%) scaleX(-1); /* 중앙 정렬 및 좌우 반전 */
+  object-fit: cover; /* 영상 꽉 채우기 */
+  border-radius: 100px; /* 원하면 둥글게 */
+  overflow: hidden;
+}
 .countdown {
   position: absolute;
   top: 40%;               /* 중앙에 가깝게 */
