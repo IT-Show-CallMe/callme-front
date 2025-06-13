@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef  } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import '../styles/IdolPhoto.css';
 
 function IdolPhoto() {
   const { name } = useParams();
   const [imgSrc, setImgSrc] = useState('');
-  const [count, setCount] = useState(10); // 10초 카운트다운 시작
+  const [count, setCount] = useState(5); // 5초 카운트다운 시작
   const [showFlash, setShowFlash] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
 
@@ -16,17 +15,19 @@ function IdolPhoto() {
   const navigate = useNavigate();
 
   const location = useLocation();
-const frame = location.state?.frame || "default"; // 기본값 "default"
+  const frame = location.state?.frame || 'default'; // 기본값 "default"
 
   useEffect(() => {
-  const suffix = frame === "cute" ? "-cute-frame.png" : "_with_frame.png";
-  const path = `/images/idolPhotos/${name}${suffix}`;
-  console.log('설정된 이미지 경로:', path);
-  setImgSrc(path);
-}, [name, frame]);
+    const suffix = frame === 'cute' ? '-cute-frame.png' : '_with_frame.png';
+    const path = `/images/idolPhotos/${name}${suffix}`;
+    console.log('설정된 이미지 경로:', path);
+    setImgSrc(path);
+  }, [name, frame]);
+
   // 카메라 접근 및 정리
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
       .then((stream) => {
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
@@ -38,7 +39,7 @@ const frame = location.state?.frame || "default"; // 기본값 "default"
 
     return () => {
       if (videoRef.current?.srcObject) {
-        videoRef.current.srcObject.getTracks().forEach(track => track.stop());
+        videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
       }
     };
   }, []);
@@ -67,6 +68,22 @@ const frame = location.state?.frame || "default"; // 기본값 "default"
     return new Blob([u8arr], { type: mime });
   };
 
+  // 캔버스에 둥근 사각형 그리기 함수
+  const roundRect = (ctx, x, y, width, height, radius) => {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    ctx.clip();
+  };
+
   // 사진 캡처 및 서버 전송
   const handleCapture = async () => {
     const video = videoRef.current;
@@ -87,6 +104,11 @@ const frame = location.state?.frame || "default"; // 기본값 "default"
     canvas.height = height;
     const ctx = canvas.getContext('2d');
 
+    ctx.clearRect(0, 0, width, height);
+
+    // 비디오 및 전체 캔버스 둥근 모서리 (radius: 80)
+    roundRect(ctx, 0, 0, width, height, 80);
+
     const offsetX = containerRect.left;
     const offsetY = containerRect.top;
 
@@ -96,21 +118,23 @@ const frame = location.state?.frame || "default"; // 기본값 "default"
     let drawVideoWidth, drawVideoHeight;
 
     if (videoAspect > videoBoxAspect) {
-      drawVideoWidth = videoRect.width;
+      drawVideoWidth = videoRect.width + 17;
       drawVideoHeight = drawVideoWidth / videoAspect;
     } else {
       drawVideoHeight = videoRect.height;
-      drawVideoWidth = drawVideoHeight * videoAspect;
+      drawVideoWidth = drawVideoHeight * videoAspect + 17;
     }
 
-    const videoDrawX = videoRect.left - offsetX + (videoRect.width - drawVideoWidth) / 2;
+    const offsetRight = 15; // 오른쪽으로 20px 이동
+
+    const videoDrawX = videoRect.left - offsetX + (videoRect.width - drawVideoWidth) / 2 + offsetRight;
     const videoDrawY = videoRect.top - offsetY + (videoRect.height - drawVideoHeight) / 2;
 
-    // 좌우 반전해서 그리기
     ctx.save();
     ctx.translate(videoDrawX + drawVideoWidth, videoDrawY);
     ctx.scale(-1, 1);
-    ctx.drawImage(video, 0, 0, drawVideoWidth, drawVideoHeight);
+    // drawImage의 원본 크기와 캔버스에 그릴 크기 지정해서 품질 최적화
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, drawVideoWidth, drawVideoHeight);
     ctx.restore();
 
     // 아이돌 이미지 덮어쓰기
@@ -153,7 +177,7 @@ const frame = location.state?.frame || "default"; // 기본값 "default"
 
     // 찰칵 사운드 재생, 플래시 효과 유지
     const shutterSound = new Audio('/images/sound/찰칵!.mp3');
-    shutterSound.play().catch(err => console.warn('사운드 재생 실패:', err));
+    shutterSound.play().catch((err) => console.warn('사운드 재생 실패:', err));
 
     setShowFlash(true);
 
@@ -206,16 +230,18 @@ const frame = location.state?.frame || "default"; // 기본값 "default"
         )}
 
         {!capturedImage && (
-    <img
-  ref={idolImageRef}
-  src={imgSrc}
-  alt={`${name}와 함께 사진`}
-  className={`idol-photo-image idol-position-${name} ${frame === "cute" ? "idol-frame-cute" : "idol-frame-default"}`}
-  onError={() => {
-    console.warn(`이미지를 불러올 수 없습니다: ${imgSrc}`);
-    setImgSrc('/images/idolPhotos/default_with_frame.png');
-  }}
-/>
+          <img
+            ref={idolImageRef}
+            src={imgSrc}
+            alt={`${name}와 함께 사진`}
+            className={`idol-photo-image idol-position-${name} ${
+              frame === 'cute' ? 'idol-frame-cute' : 'idol-frame-default'
+            }`}
+            onError={() => {
+              console.warn(`이미지를 불러올 수 없습니다: ${imgSrc}`);
+              setImgSrc('/images/idolPhotos/default_with_frame.png');
+            }}
+          />
         )}
 
         {count !== null && (
