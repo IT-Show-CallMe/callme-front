@@ -94,8 +94,9 @@ export default function LetterComponent({ to, from, content, isActive, onOpen, o
                 alt="편지지"
                 style={{
                     cursor: 'pointer',
-                    width: "400px",
-                    height: "auto",
+                    width: "360px",
+                    height: "180px",
+                    padding: "10px",
                     userSelect: 'none',
                     opacity: isActive ? 0.3 : 1, // 활성화되면 살짝 투명하게
                     transition: 'opacity 0.3s ease'

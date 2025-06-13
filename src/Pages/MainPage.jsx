@@ -1,14 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
-import idolJsonData from "../data/idolJson.json";
+import { useNavigate } from 'react-router-dom';
 import IdolModal from '../components/IdolModal';
 import SearchBar from "../components/SearchBar";
 import IdolCard from "../components/IdolCard";
 import LetterComponent from '../components/LetterComponent'
-import mainBackground from '../assets/images/main-background.png';
+import CaptureTimeImgSection from '../components/CaptureTimeView'
+// 임의의 json
+import idolJsonData from "../data/idolJson.json";
 import LettersJson from '../data/lettersData.json';
-import mainPageStyles from '../styles/mainPage.module.css'
+// style
+import mainPageStyles from '../styles/mainPage.module.css';
 import styles from "../styles/main_letter.module.css";
-import { useNavigate } from 'react-router-dom';
+import mainBackground from '../assets/images/main-background.png';
 
 // const breakpointColumnsObj = {
 //     default: 2, // 기본 2열
@@ -121,10 +124,7 @@ function MainPage() {
             <div className={mainPageStyles.contentWrapper}>
                 <section className={mainPageStyles.Header}>
                     <h1 className={mainPageStyles.title}>Welcome to CallMe!</h1>
-                    <SearchBar
-                        value={keyword}
-                        onChange={handleChange}
-                    />
+                    <button className={mainPageStyles.titleButton}>영상통화할 아이돌 검색하러 가기</button>
                 </section>
                 <section ref={sectionRefs[1]} className={mainPageStyles.top5IdolSection}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -155,6 +155,8 @@ function MainPage() {
                                         nameClassName={mainPageStyles.nameClassName}
                                         countClassName={mainPageStyles.countClassName}
                                         HeartIconName={mainPageStyles.HeartIconName}
+                                        nameGroupWrapperClassName={mainPageStyles.nameGroupWrapperCustom}
+                                        hitsClassName={mainPageStyles.hitsCustom}
                                     />
                                 </div>
                             ))}
@@ -174,11 +176,18 @@ function MainPage() {
                                         nameClassName={mainPageStyles.nameClassName}
                                         countClassName={mainPageStyles.countClassName}
                                         HeartIconName={mainPageStyles.HeartIconName}
+                                        nameGroupWrapperClassName={mainPageStyles.nameGroupWrapperCustom}
+                                        hitsClassName={mainPageStyles.hitsCustom}
                                     />
                                 </div>
                             ))}
                         </div>
                     </div>
+                </section>
+                <section className={mainPageStyles.captureTimeSection} style={{ justifyContent: 'center' }}>
+                    <h2 className={mainPageStyles.sectionTitle}>Capture Time</h2>
+                    <p className={mainPageStyles.sectionSubtitle}>아이돌과 함께 찍은 사진들을 확인해봐요</p>
+                    <CaptureTimeImgSection />
                 </section>
                 <section className={mainPageStyles.letterSection}
                     ref={el => {
@@ -194,7 +203,8 @@ function MainPage() {
                             return (
                                 <div
                                     key={letter.id}
-                                    className={`${mainPageStyles.letterItem} ${idx % 2 === 0 ? mainPageStyles.left : mainPageStyles.right}`}
+                                    // className={`${mainPageStyles.letterItem} ${idx % 2 === 0 ? mainPageStyles.left : mainPageStyles.right}`}
+                                    className={mainPageStyles.letterItem}
                                     style={{
                                         zIndex: isActive ? 999 : idx,
                                     }}
@@ -209,8 +219,6 @@ function MainPage() {
                                         centerPos={centerPos}
                                         className={styles.letterViewSmall}
                                     />
-
-
                                 </div>
                             );
                         })}

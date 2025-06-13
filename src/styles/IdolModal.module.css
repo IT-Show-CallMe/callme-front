@@ -59,7 +59,7 @@
 .nameGroupWrapper {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
     font-family: 'HakgyoansimDunggeunmisoTTF-B';
 }
 

@@ -59,7 +59,7 @@
   flex-direction: column;
   /* text-align: center; */
   align-items: flex-start;
-  gap: 100px;
+  gap: 150px;
   /* gap: 50px; */
   /* padding-left: 230px; */
   padding: 200px 0 0;
@@ -94,9 +94,31 @@
   /* transform: scaleY(0.9); */
 }
 
+.titleButton {
+  display: inline-flex;
+  height: 74px;
+  padding: 10px 94px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  background: #71ABFB;
+  box-shadow: 0px 4px 20px 0px rgba(224, 224, 224, 0.15);
+  border: none;
+  color: #FFF;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
 /* 인기 아이돌 */
 .top5IdolSection,
-.letterSection {
+.letterSection,
+.captureTimeSection {
   width: 900px;
   max-width: 90vw;
   margin: 0 auto;
@@ -181,13 +203,13 @@
 }
 
 .idolCardFrame .groupClassName {
-  padding: 7px 0 3px 0;
+  padding: 14px 0 3px 0;
   margin: 0;
   color: #1A1A1A;
-  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  font-size: 19px;
 }
 
 .idolCardFrame .nameClassName {
@@ -217,6 +239,14 @@
 }
 
 
+.nameGroupWrapperCustom {
+  gap: 0;
+}
+
+.hitsCustom {
+  margin-top: 35px;
+}
+
 /* letter */
 .letterSection {
   position: relative;
@@ -238,9 +268,9 @@
 
 .letters {
   animation: float 2.5s ease-in-out infinite;
-  display: flex;
-  flex-direction: column;
-  /* text-align: initial; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
 }
 
 .letterItem {
