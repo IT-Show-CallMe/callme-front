@@ -53,3 +53,36 @@
     bottom: 50px;
     right: 60px;
 }
+
+.letterAnimation {
+    width: 1150px;
+    height: auto;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.letterAnimationContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating {
+    position: relative;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -20px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
