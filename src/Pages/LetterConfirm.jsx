@@ -71,7 +71,7 @@ function LetterConfirm() {
                             alt={`letter frame ${animationIndex}`}
                             className={`${styles.letterAnimation} ${animationIndex === 4 ? styles.floating : ""}`}
                         />
-                        <p style={{ color: "#BDBDBD", fontSize: "24px", marginTop: "60px" }}>
+                        <p style={{ color: "#BDBDBD", fontSize: "24px", marginTop: "60px", textAlign: "center" }}>
                             적은 편지는 메인 화면에서 볼 수 있습니다.
                         </p>
                     </div>
