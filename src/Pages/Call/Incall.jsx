@@ -278,7 +278,25 @@ if (endVideo && !hasFarewell && !hasBbye) {
           <SpeechBubble options={speechOptions} onSelect={handleOptionSelect} />
         </div>
       )}
+      <div
+  style={{
+    position: 'fixed',
+      fontFamily: 'Pretendard',
+    fontWeight: 300,   // light
+    bottom: 90,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    color: '#BDBDBD',
+    padding: '10px 20px',
+    borderRadius: '20px',
+    fontSize: 20,
+    zIndex: 1000,
+  }}
+>
+ 빨간 버튼을 누르시면 자동으로 끊어집니다.
+</div>
     </div>
+    
   );
 };
 
