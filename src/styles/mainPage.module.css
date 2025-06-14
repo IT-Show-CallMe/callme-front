@@ -292,6 +292,423 @@
   top: -300px;
 }
 
+/* MainPage CSS에 추가할 편지 도착 애니메이션 스타일 */
+/* MainPage CSS에 추가할 편지 도착 애니메이션 스타일 */
+
+/* 편지 도착 컨테이너 */
+.letterArrivalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* 도착하는 편지 전체 */
+.arrivingLetter {
+  position: relative;
+  animation: letterArrivalToSection 4s ease-out forwards;
+}
+
+/* 도착하는 편지 이미지 - 크기 대폭 증가 */
+.arrivingLetterImage {
+  width: 300px;
+  /* 기존 100px에서 300px로 증가 */
+  height: auto;
+  animation: arrivalFloat 4s ease-in-out infinite, arrivalScale 4s ease-out forwards;
+  z-index: 2;
+  position: relative;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
+}
+
+/* 도착하는 왼쪽 날개 - 크기 비례 증가 */
+.arrivingLeftWing {
+  position: absolute;
+  width: 120px;
+  /* 기존 50px에서 120px로 증가 */
+  height: auto;
+  left: -110px;
+  /* 위치도 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  animation: arrivalLeftWingFlap 0.4s ease-in-out infinite, arrivalWingFloat 4s ease-in-out infinite;
+  z-index: 1;
+  filter: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.3));
+}
+
+/* 도착하는 오른쪽 날개 - 크기 비례 증가 */
+.arrivingRightWing {
+  position: absolute;
+  width: 120px;
+  /* 기존 50px에서 120px로 증가 */
+  height: auto;
+  right: -110px;
+  /* 위치도 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  animation: arrivalRightWingFlap 0.4s ease-in-out infinite, arrivalWingFloat 4s ease-in-out infinite;
+  z-index: 1;
+  filter: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.3));
+}
+
+/* 편지 도착 메시지 */
+.letterArrivalMessage {
+  margin-top: 50px;
+  font-size: 24px;
+  /* 크기 증가 */
+  font-weight: bold;
+  color: #ff6b9d;
+  text-align: center;
+  animation: messageAppear 4s ease-out forwards;
+  opacity: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 편지 도착 메인 애니메이션 - Letter 섹션으로 이동 */
+@keyframes letterArrivalToSection {
+  0% {
+    transform: translate(-150vw, -80vh) scale(0.2) rotate(-45deg);
+    opacity: 0.7;
+  }
+
+  15% {
+    transform: translate(-80vw, -40vh) scale(0.5) rotate(-20deg);
+    opacity: 0.9;
+  }
+
+  30% {
+    transform: translate(-30vw, -10vh) scale(0.8) rotate(-5deg);
+    opacity: 1;
+  }
+
+  45% {
+    transform: translate(0vw, 20vh) scale(1.1) rotate(3deg);
+    opacity: 1;
+  }
+
+  60% {
+    transform: translate(0vw, 40vh) scale(1.2) rotate(-2deg);
+    opacity: 1;
+  }
+
+  75% {
+    transform: translate(0vw, 60vh) scale(1.1) rotate(1deg);
+    opacity: 1;
+  }
+
+  90% {
+    transform: translate(0vw, 75vh) scale(0.95) rotate(-1deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(0vw, 80vh) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* 도착 편지지 떠다니는 효과 */
+@keyframes arrivalFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-20px) rotate(4deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(-3deg);
+  }
+
+  75% {
+    transform: translateY(-25px) rotate(3deg);
+  }
+}
+
+/* 도착 편지지 크기 변화 */
+@keyframes arrivalScale {
+  0% {
+    transform: scale(0.2);
+  }
+
+  45% {
+    transform: scale(1.1);
+  }
+
+  60% {
+    transform: scale(1.2);
+  }
+
+  80% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 도착 왼쪽 날개 펄럭임 */
+@keyframes arrivalLeftWingFlap {
+
+  0%,
+  100% {
+    transform: translateY(-50%) rotate(-10deg);
+  }
+
+  50% {
+    transform: translateY(-50%) rotate(-35deg);
+  }
+}
+
+/* 도착 오른쪽 날개 펄럭임 */
+@keyframes arrivalRightWingFlap {
+
+  0%,
+  100% {
+    transform: translateY(-50%) rotate(10deg);
+  }
+
+  50% {
+    transform: translateY(-50%) rotate(35deg);
+  }
+}
+
+/* 도착 날개 떠다니는 효과 */
+@keyframes arrivalWingFloat {
+
+  0%,
+  100% {
+    transform: translateY(-50%) translateX(0px);
+  }
+
+  25% {
+    transform: translateY(-58%) translateX(-5px);
+  }
+
+  50% {
+    transform: translateY(-42%) translateX(3px);
+  }
+
+  75% {
+    transform: translateY(-55%) translateX(-3px);
+  }
+}
+
+/* 메시지 나타나는 애니메이션 */
+@keyframes messageAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.7);
+  }
+
+  60% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.7);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(0) scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 반짝이는 효과 - 크기 증가 */
+.arrivingLetter::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  right: -60px;
+  bottom: -60px;
+  background: radial-gradient(circle, rgba(255, 107, 157, 0.4) 0%, rgba(255, 182, 193, 0.3) 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  animation: arrivalSparkle 4s ease-in-out forwards;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+@keyframes arrivalSparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(0deg);
+  }
+
+  30% {
+    opacity: 0.8;
+    transform: scale(1.3) rotate(120deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.8) rotate(240deg);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(1.2) rotate(360deg);
+  }
+}
+
+/* 추가 파티클 효과 */
+.arrivingLetter::after {
+  content: '✨💌✨';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  font-size: 30px;
+  animation: particleFloat 4s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+@keyframes particleFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.9;
+  }
+
+  25% {
+    transform: translateY(-30px) rotate(90deg);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(180deg);
+    opacity: 0.7;
+  }
+
+  75% {
+    transform: translateY(-40px) rotate(270deg);
+    opacity: 1;
+  }
+}
+
+/* 추가 반짝이는 별들 */
+.arrivingLetter .sparkle1,
+.arrivingLetter .sparkle2,
+.arrivingLetter .sparkle3 {
+  position: absolute;
+  font-size: 20px;
+  animation: sparkleRotate 2s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.arrivingLetter .sparkle1 {
+  content: '⭐';
+  top: -50px;
+  left: -50px;
+  animation-delay: 0s;
+}
+
+.arrivingLetter .sparkle2 {
+  content: '✨';
+  bottom: -50px;
+  right: -50px;
+  animation-delay: 0.7s;
+}
+
+.arrivingLetter .sparkle3 {
+  content: '💫';
+  top: -30px;
+  right: 30px;
+  animation-delay: 1.4s;
+}
+
+@keyframes sparkleRotate {
+
+  0%,
+  100% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .arrivingLetterImage {
+    width: 200px;
+    /* 모바일에서도 큰 크기 유지 */
+  }
+
+  .arrivingLeftWing,
+  .arrivingRightWing {
+    width: 80px;
+  }
+
+  .arrivingLeftWing {
+    left: -70px;
+  }
+
+  .arrivingRightWing {
+    right: -70px;
+  }
+
+  .letterArrivalMessage {
+    font-size: 18px;
+    margin-top: 30px;
+  }
+
+  .arrivingLetter::after {
+    font-size: 24px;
+    top: -50px;
+    right: -50px;
+  }
+
+  .arrivingLetter::before {
+    top: -40px;
+    left: -40px;
+    right: -40px;
+    bottom: -40px;
+  }
+}
+
+/* 태블릿 대응 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .arrivingLetterImage {
+    width: 250px;
+  }
+
+  .arrivingLeftWing,
+  .arrivingRightWing {
+    width: 100px;
+  }
+
+  .arrivingLeftWing {
+    left: -90px;
+  }
+
+  .arrivingRightWing {
+    right: -90px;
+  }
+
+  .letterArrivalMessage {
+    font-size: 20px;
+    margin-top: 40px;
+  }
+}
+
 .scrollDownButton {
   position: fixed;
   bottom: 40px;

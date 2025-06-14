@@ -19,7 +19,7 @@ export default function IdolDetail() {
 
   const [idols, setIdols] = useState({});
   useEffect(() => {
-    fetch("/api/idol/all")
+    fetch("http://localhost:3000/idol/all")
       .then(res => res.json())
       .then(data => {
         // 백엔드에서 배열로 올 수도 있으니까 가공 필요

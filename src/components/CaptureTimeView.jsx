@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
 import mainPageStyles from '../styles/MainPage.module.css';
 
 function CaptureTimeSection() {
@@ -6,49 +7,17 @@ function CaptureTimeSection() {
     const scrollRef = useRef(null);
 
     useEffect(() => {
-        // 사진 배열 (최신순으로 이미 정렬됨: 최신이 앞쪽)
-        const dummyPhotos = [
-            {
-                id: 5,
-                url: '/images/captureTimeViewImgEx.png',
-                idol: '아이유',
-                timestamp: '2025-06-12T09:30:00Z',
-                consent: true
-            },
-            {
-                id: 4,
-                url: '/images/captureTimeViewImgEx.png',
-                idol: '카리나',
-                timestamp: '2025-06-11T14:00:00Z',
-                consent: true
-            },
-            {
-                id: 3,
-                url: '/images/captureTimeViewImgEx.png',
-                idol: '장원영',
-                timestamp: '2025-06-13T10:00:00Z',
-                consent: true
-            },
-            {
-                id: 2,
-                url: '/images/captureTimeViewImgEx.png',
-                idol: '아이유',
-                timestamp: '2025-06-12T09:30:00Z',
-                consent: true
-            },
-            {
-                id: 1,
-                url: '/images/captureTimeViewImgEx.png',
-                idol: '카리나',
-                timestamp: '2025-06-11T14:00:00Z',
-                consent: true
-            },
-
-        ];
-
-        const filtered = dummyPhotos.filter(photo => photo.consent);
-        setPhotos(filtered);
+        axios.get('http://localhost:3000/email/capPhoto')
+            .then(response => {
+                setPhotos(response.data);
+            })
+            .catch(error => {
+                console.error('사진 가져오기 실패', error);
+            });
     }, []);
+
+    // const filtered = dummyPhotos.filter(photo => photo.consent);
+    // setPhotos(filtered);
 
     const scroll = (direction) => {
         if (!scrollRef.current) return;
@@ -63,7 +32,6 @@ function CaptureTimeSection() {
     return (
 
         <div style={{ position: 'relative', width: '100%', display: 'flex', margin: '0 auto', justifyContent: 'center' }}>
-            {/* 이미지 가로 스크롤 컨테이너 (버튼 포함 영역) */}
             <div style={{ position: 'relative', display: 'flex', width: '1500px', alignItems: 'center', justifyContent: 'center' }}>
                 {/* 좌측 버튼 */}
                 <button
@@ -100,9 +68,9 @@ function CaptureTimeSection() {
                 >
                     {photos.map((photo) => (
                         <img
-                            key={photo.id}
-                            src={photo.url}
-                            alt={`${photo.idol}과의 사진`}
+                            key={photo.id || idx}
+                            src={`http://localhost:3000/${photo.capPhoto}`}
+                            alt={`캡쳐 사진 ${photo.id}`}
                             className={mainPageStyles.captureImage}
                             style={{
                                 width: '600px',

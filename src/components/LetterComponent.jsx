@@ -8,15 +8,24 @@ import fullyOpenImg from '../assets/images/letter_fully_open.png';
 import leftWingImage from "../assets/images/wing-left.png";
 import rightWingImage from "../assets/images/wing-right.png";
 import emojiImage from "../assets/images/letteremoji.png";
-// import bgImage from "/images/back_short.png";
 
 import styles from './letterComponent.module.css'
 
 const letterImages = [closedImg, slightlyOpenImg, moreOpenImg, fullyOpenImg];
 
-// id, to, from, content, 
-export default function LetterComponent({ to, from, content, isActive, onOpen, onClose, centerPos, className }) {
-    console.log('LetterComponent content:', content);
+export default function LetterComponent({
+    letterId,
+    to,
+    from,
+    content,
+    isActive,
+    onOpen,
+    onClose,
+    centerPos,
+    className,
+    isLoading = false
+}) {
+    console.log('LetterComponent - letterId:', letterId, 'content:', content, 'isLoading:', isLoading);
     const [openStep, setOpenStep] = useState(0);
     const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
     const letterRef = useRef(null);
@@ -34,7 +43,7 @@ export default function LetterComponent({ to, from, content, isActive, onOpen, o
 
     useEffect(() => {
         let interval;
-        if (isActive) {
+        if (isActive && !isLoading) {
             setOpenStep(1);
             let currStep = 1;
             interval = setInterval(() => {
@@ -47,7 +56,7 @@ export default function LetterComponent({ to, from, content, isActive, onOpen, o
             setOpenStep(0);
         }
         return () => clearInterval(interval);
-    }, [isActive]);
+    }, [isActive, isLoading]);
 
     const handleClick = () => {
         if (!isActive) {
@@ -87,8 +96,9 @@ export default function LetterComponent({ to, from, content, isActive, onOpen, o
             transition: step === 1 ? 'none' : 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
         };
     };
+
     const closedLetter = (
-        <div onClick={handleClick}>
+        <div onClick={handleClick} ref={letterRef}>
             <img
                 src={letterImages[0]}
                 alt="편지지"
@@ -124,21 +134,39 @@ export default function LetterComponent({ to, from, content, isActive, onOpen, o
 
             {/* 편지 내용 */}
             <div style={getAnimationStyle(openStep)}>
-                {openStep < 3 && (
-                    <img
-                        src={letterImages[openStep]}
-                        alt="편지지"
-                        style={{
-                            cursor: 'pointer',
-                            transition: 'all 0.5s ease-in-out',
-                            width: "400px",
-                            height: "auto",
-                            userSelect: 'none',
-                            transform: `scale(${0.6 + (openStep * 0.15)})`,
-                        }}
-                    />
+                {(openStep < 3 || isLoading) && (
+                    <div style={{ position: 'relative' }}>
+                        <img
+                            src={letterImages[openStep] || letterImages[2]}
+                            alt="편지지"
+                            style={{
+                                cursor: 'pointer',
+                                transition: 'all 0.5s ease-in-out',
+                                width: "400px",
+                                height: "auto",
+                                userSelect: 'none',
+                                transform: `scale(${0.6 + (openStep * 0.15)})`,
+                                opacity: isLoading ? 0.7 : 1
+                            }}
+                        />
+                        {isLoading && (
+                            <div style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                color: '#333',
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                pointerEvents: 'none'
+                            }}>
+                                편지 내용을<br />불러오는 중...
+                            </div>
+                        )}
+                    </div>
                 )}
-                {openStep === 3 && (
+                {openStep === 3 && !isLoading && (
                     <div
                         onClick={handleClick}
                         style={{
@@ -162,34 +190,6 @@ export default function LetterComponent({ to, from, content, isActive, onOpen, o
         </>,
         document.body
     ) : null;
-    // 중앙 이동용 스타일
-    // const centerStyle = isActive
-    //     ? {
-    //         position: "absolute",
-    //         // left: `${centerPos.x}px`,
-    //         // top: `${centerPos.y}px`,
-    //         left: "50%",
-    //         top: "50%",
-    //         zIndex: 1000,
-    //         width: "400px",
-    //         transform: "translate(-50%, -50%) scale(1.2)",
-    //         transition: "all 0.7s cubic-bezier(.7,1.5,.7,1)",
-    //     }
-    //     : { };
-
-    // 애니메이션용 transform
-    // const getTransform = () => {
-    //     if (openStep === 0) return "none";
-    //     const scales = [0.6, 0.8, 0.95, 1];
-    //     const translates = [
-    //         "translate(-40vw, -30vh)",
-    //         "translate(-20vw, -15vh)",
-    //         "translate(-8vw, -6vh)",
-    //         "translate(0, 0)",
-    //     ];
-    //     return `scale(${scales[openStep]}) ${translates[openStep]}`;
-    // }
-    // console.log('2LetterComponent content:', content);
 
     return (
         <>
