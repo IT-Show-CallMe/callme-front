@@ -75,7 +75,7 @@ element.style {
   top: 50%;
   left: 50%;
   width: 52%;       /* 크기 70%로 줄임 (원하는 크기로 조절 가능) */
-  height: 65%;
+  height: 68%;
   max-height: 70%;  /* 최대 높이도 제한 */
   transform: translate(-50%, -50%) scaleX(-1); /* 중앙 정렬 및 좌우 반전 */
   object-fit: cover; /* 영상 꽉 채우기 */
