@@ -5,7 +5,7 @@ import '../styles/IdolPhoto.css';
 function IdolPhoto() {
   const { name } = useParams();
   const [imgSrc, setImgSrc] = useState('');
-  const [count, setCount] = useState(10000); // 5초 카운트다운 시작
+  const [count, setCount] = useState(5); // 5초 카운트다운 시작
   const [showFlash, setShowFlash] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
 
