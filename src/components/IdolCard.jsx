@@ -1,3 +1,4 @@
+
 import modalStyles from "../styles/IdolModal.module.css";
 
 export default function IdolCard({

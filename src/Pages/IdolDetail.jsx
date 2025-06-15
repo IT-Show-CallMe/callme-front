@@ -31,11 +31,6 @@ export default function IdolDetail() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   // MainPage와 동일한 방식으로 localStorage에서 데이터 가져오기
-  //   const stored = JSON.parse(localStorage.getItem('idolData')) || {};
-  //   setCallData(stored);
-  // }, []);
 
   const handleClick = async (name) => {
     const idol = idols[name];

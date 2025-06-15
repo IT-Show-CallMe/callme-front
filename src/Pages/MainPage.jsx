@@ -32,6 +32,7 @@ function MainPage() {
     const sentLetter = JSON.parse(localStorage.getItem('sentLetter') || '{}');
     const navigate = useNavigate();
     const sectionRefs = [useRef(null), useRef(null), useRef(null)];
+    const [currentIdolName, setCurrentIdolName] = useState("");
 
     // 편지 관련 상태 추가
     const [letters, setLetters] = useState([]);
@@ -42,7 +43,6 @@ function MainPage() {
     // 편지 도착 애니메이션 상태
     const [showLetterArrival, setShowLetterArrival] = useState(false);
     const [newLetterData, setNewLetterData] = useState(null);
-
 
     const baseUrl = 'http://localhost:3000'; // 개발 중인 서버 주소
     // const imageUrl = `${baseUrl}/${idol.idolImages}`; // idolImages에는 'uploads/idol_img/p_김선우.png' 같은 문자열
@@ -105,6 +105,7 @@ function MainPage() {
         return () => clearInterval(interval);
     }, []);
 
+
     useEffect(() => {
         const fetchTop5Idols = async () => {
             try {
@@ -113,6 +114,7 @@ function MainPage() {
 
                 // 데이터 가공
                 const formatted = data.map(idol => ({
+                    id: idol.id,
                     name: idol.idolName,
                     idolGroup: idol.idolGroupKor,
                     idolImg: `${baseUrl}/${idol.idolImages}`,
@@ -129,9 +131,33 @@ function MainPage() {
         fetchTop5Idols();
     }, []);
 
+
+    // IdolCard 
+    const [hoveredIdolId, setHoveredIdolId] = useState(null);
+    const handleCallStart = async (idolId, idolName) => {
+        localStorage.setItem("lastCalledIdolId", idolId);
+        localStorage.setItem("lastCalledIdolName", idolName);
+        try {
+            // 1. 서버에 통화 요청 전송
+            await fetch(`http://localhost:3000/idol/click/${idolId}`, {
+                method: "GET",
+                // headers: {
+                //     "Content-Type": "application/json"
+                // },
+                // body: JSON.stringify({ idolName })
+            });
+            setCurrentIdolName(idolName);
+
+            navigate(`/call/incoming/${encodeURIComponent(idolName)}`);
+        } catch (error) {
+            console.error("통화 시작 중 에러 발생:", error);
+        }
+    };
+
     const goToIdolDetail = () => {
         navigate('/idol');
     };
+
 
     // 모든 편지 목록 가져오기
     const fetchAllLetters = async () => {
@@ -209,6 +235,7 @@ function MainPage() {
 
     const closeModal = () => setSelectedIdol(null);
 
+
     const handleLetterOpen = async (letterId) => {
         if (letterSectionRef.current) {
             const rect = letterSectionRef.current.getBoundingClientRect();
@@ -240,6 +267,52 @@ function MainPage() {
         }
     };
 
+    const renderIdolRow = (rowData, rowKeyPrefix) => (
+        <div className={mainPageStyles.row}>
+            {rowData.map((idol, index) => (
+                <div
+                    key={idol.name}
+                    className={mainPageStyles.idolCardFrame}
+                    onMouseEnter={() => setHoveredIdolId(`${rowKeyPrefix}-${index}`)}
+                    onMouseLeave={() => setHoveredIdolId(null)}
+                    style={{ cursor: 'pointer' }}
+                >
+                    <IdolCard
+                        imgUrl={idol.idolImg}
+                        group={idol.idolGroup}
+                        name={idol.name}
+                        count={idol.count}
+                        showCallButton={false}
+                        groupClassName={mainPageStyles.groupClassName}
+                        nameClassName={mainPageStyles.nameClassName}
+                        countClassName={mainPageStyles.countClassName}
+                        HeartIconName={mainPageStyles.HeartIconName}
+                        nameGroupWrapperClassName={mainPageStyles.nameGroupWrapperCustom}
+                        hitsClassName={mainPageStyles.hitsCustom}
+                    />
+
+                    {hoveredIdolId === `${rowKeyPrefix}-${index}` && (
+                        <div className={mainPageStyles.callOverlay}>
+                            <button className={mainPageStyles.callButton}
+                                key={idol.id}
+                                onClick={() => handleCallStart(idol.id, idol.name)}>
+                                <div className={mainPageStyles.callCircle}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="29" viewBox="0 0 26 29" fill="none">
+                                        <path d="M8.13271 18.0644C6.15284 15.3542 5.46177 13.679 4.80758 10.4056C4.50246 7.88854 4.75981 6.26336 5.60324 3.91503L5.78008 3.43508L5.80372 3.36302C6.16333 2.51937 10.1158 -1.29027 11.9405 3.26792C13.3301 6.73928 13.876 7.45529 11.8878 8.97086L10.695 9.88042L10.6834 9.97153C10.6418 10.3905 10.5948 12.2228 12.5062 14.7294C14.6775 17.5767 16.6782 17.7564 16.7024 17.7585L16.703 17.7593L17.8958 16.8497C19.8835 15.3334 20.4296 16.0494 23.4094 18.3081C27.3222 21.274 22.6023 24.0774 21.6937 24.2009L21.6179 24.2046L20.5927 24.3097C18.332 24.5115 16.9219 24.3935 14.911 23.655C12.1314 22.2746 10.6188 21.232 8.13271 18.0644Z" fill="black" />
+                                    </svg>
+                                </div>
+                                <div className={mainPageStyles.callTextWrapper}>
+                                    <div className={mainPageStyles.callMainText}>전화하러 가기</div>
+                                    <div className={mainPageStyles.callSubText}>지금 바로 통화해보세요</div>
+                                </div>
+                            </button>
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+
     const STAR_COUNT = 70;
     const stars = Array.from({ length: STAR_COUNT }, (_, i) => {
         const isLeft = Math.random() < 0.8;
@@ -270,7 +343,7 @@ function MainPage() {
             <div className={mainPageStyles.contentWrapper}>
                 <section className={mainPageStyles.Header}>
                     <h1 className={mainPageStyles.title}>Welcome to CallMe!</h1>
-                    <button className={mainPageStyles.titleButton}>영상통화할 아이돌 검색하러 가기</button>
+                    <button className={mainPageStyles.titleButton} onClick={goToIdolDetail}>영상통화할 아이돌 검색하러 가기</button>
                 </section>
                 <section ref={sectionRefs[1]} className={mainPageStyles.top5IdolSection}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -281,51 +354,8 @@ function MainPage() {
                         <span className={mainPageStyles.moreButton} onClick={goToIdolDetail}>더보기 &gt;</span>
                     </div>
                     <div className={mainPageStyles.top5Idols}>
-                        <div className={mainPageStyles.row}>
-                            {firstRow.map(idol => (
-                                <div
-                                    key={idol.name}
-                                    className={mainPageStyles.idolCardFrame}
-                                    onClick={() => openModal(idol.name)}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    <IdolCard
-                                        imgUrl={idol.idolImg}
-                                        group={idol.idolGroup}
-                                        name={idol.name}
-                                        count={idol.count}
-                                        showCallButton={false}
-                                        groupClassName={mainPageStyles.groupClassName}
-                                        nameClassName={mainPageStyles.nameClassName}
-                                        countClassName={mainPageStyles.countClassName}
-                                        HeartIconName={mainPageStyles.HeartIconName}
-                                        nameGroupWrapperClassName={mainPageStyles.nameGroupWrapperCustom}
-                                        hitsClassName={mainPageStyles.hitsCustom}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                        <div className={mainPageStyles.row}>
-                            {secondRow.map(idol => (
-                                <div key={idol.name} className={mainPageStyles.idolCardFrame}
-                                    onClick={() => openModal(idol.name)}
-                                    style={{ cursor: 'pointer' }}>
-                                    <IdolCard
-                                        imgUrl={idol.idolImg}
-                                        group={idol.idolGroup}
-                                        name={idol.name}
-                                        count={idol.count}
-                                        showCallButton={false}
-                                        groupClassName={mainPageStyles.groupClassName}
-                                        nameClassName={mainPageStyles.nameClassName}
-                                        countClassName={mainPageStyles.countClassName}
-                                        HeartIconName={mainPageStyles.HeartIconName}
-                                        nameGroupWrapperClassName={mainPageStyles.nameGroupWrapperCustom}
-                                        hitsClassName={mainPageStyles.hitsCustom}
-                                    />
-                                </div>
-                            ))}
-                        </div>
+                        {renderIdolRow(firstRow, 'first')}
+                        {renderIdolRow(secondRow, 'second')}
                     </div>
                 </section>
                 <section className={mainPageStyles.captureTimeSection} style={{ justifyContent: 'center' }}>

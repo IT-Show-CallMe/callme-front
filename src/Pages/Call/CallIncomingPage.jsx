@@ -63,8 +63,8 @@ function CallIncomingPage() {
     });
 
     return () => {
-      audio.pause(); 
-      audio.currentTime = 0;    
+      audio.pause();
+      audio.currentTime = 0;
     }
   }, [])
 
@@ -80,7 +80,7 @@ function CallIncomingPage() {
   };
 
   // 응답 버튼 클릭 시 벨소리 정지 + 로컬 저장소 기록 + 화면 전환
-  const handleStartCall = () => {
+  const handleStartCall = async () => {
     console.log('응답 버튼 눌림, 벨소리 멈춤 시도');
     if (window.ringingAudio) {
       window.ringingAudio.pause();
@@ -89,6 +89,14 @@ function CallIncomingPage() {
       console.log('벨소리 오디오 객체 발견, 정지시킴');
     } else {
       console.log('벨소리 오디오 객체 없음');
+    }
+
+    try {
+      // 클릭 수 증가 API 호출 (idol.id 사용)
+      await axios.get(`http://localhost:3000/idol/click/${idol.id}`);
+      console.log('클릭 수 증가 성공');
+    } catch (err) {
+      console.error('클릭 수 증가 실패:', err);
     }
 
     // 통화 기록 로컬저장소에 저장
