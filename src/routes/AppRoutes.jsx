@@ -13,6 +13,7 @@ import EmailInputPage from '../Pages/EmailInput'; //여원
 import IdolPhotoPage from "../Pages/IdolPhoto"; //현주
 import EmailConsentPage from '../Pages/EmailConsent'; //현주
 import IdolFrameSelectPage from '../Pages/idolFrameSelect'; //현주
+import EmailCheckPage from '../Pages/EmailCheck'; //현주
 
 const AppRoutes = () => {
     return (
@@ -24,6 +25,7 @@ const AppRoutes = () => {
             <Route path="/nickname" element={<NicknamePage />} />
             <Route path="/email" element={<EmailInputPage />} />
             <Route path="/emailconsent" element={<EmailConsentPage />} />
+            <Route path="/emailcheck" element={<EmailCheckPage />} />
             <Route path="/main" element={<MainPage />} />
             <Route path="/letter" element={<LetterPage />} />
             <Route path="/letter/confirm" element={<LetterConfirm />} />
@@ -33,6 +35,8 @@ const AppRoutes = () => {
             <Route path="/call/ended" element={<CallEndedPage />} />
             <Route path="/photo/:name" element={<IdolPhotoPage />} />
             <Route path="/frame" element={<IdolFrameSelectPage />} />
+        
+            
         </Routes>
     );
 };
