@@ -95,6 +95,7 @@
 }
 
 .titleButton {
+  cursor: pointer;
   display: inline-flex;
   height: 74px;
   padding: 10px 94px;
@@ -182,6 +183,8 @@
   /* padding-top: 50px; */
 }
 
+
+
 .row {
   display: flex;
   justify-content: center;
@@ -211,6 +214,87 @@
   line-height: normal;
   font-size: 19px;
 }
+
+.idolCardFrame {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.idolCardFrame:hover {
+  transform: scale(1.02);
+}
+
+
+.callOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.53);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.callButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.2s ease;
+}
+
+.callButton:hover {
+  transform: scale(1.05);
+}
+
+.callCircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(52, 204, 87, 0.93);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.callTextWrapper {
+  text-align: center;
+}
+
+.callMainText {
+  color: #FFF;
+  font-family: "Hakgyoansim Dunggeunmiso OTF", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.callSubText {
+  color: #FFF;
+  font-family: "Hakgyoansim Dunggeunmiso OTF", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+}
+
 
 .idolCardFrame .nameClassName {
   color: #1A1A1A;
