@@ -28,7 +28,7 @@
 | 나지은 | [@jieun0240](https://github.com/jieun0240) | 프론트엔드 개발 |
 | 왕현주 | [@wanghyunjooooo](https://github.com/wanghyunjooooo) | 프론트엔드 개발 |
 | 안채연 | [@Anchaeyeon](https://github.com/Anchaeyeon) | 백엔드 개발 |
-| 이여원 | [@33ueowon](https://github.com/33ueowon) | 프론트엔드 + 디자인 |
+| 이여원 | [@33ueowon](https://github.com/33ueowon) | 프론트엔드 개발 + 디자인 |
 | 박서연 |  | 디자인 |
 
 > 팀원들은 페이지별 UI, 기능별 컴포넌트 및 API 구현을 나눠 진행했습니다.  
