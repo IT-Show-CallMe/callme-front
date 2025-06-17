@@ -104,16 +104,20 @@ const Incall = () => {
   const endVideo = endVideoRaw.startsWith('http')
     ? endVideoRaw
     : BASE_URL + endVideoRaw;
+const handleVideoEnded = () => {
+  const isIntro = currentVideo === (idolInfo?.intro || currentVideo);
+  const isEnd = currentVideo === endVideo;
+  const isOutroFile = currentVideo.includes('아웃트로.mp4');
 
-  const handleVideoEnded = () => {
-    if (!hasIntroEnded && currentVideo === (idolInfo?.intro || currentVideo)) {
-      setHasIntroEnded(true);
-      setBubbleVisible(true);
-    } else if (endVideo && currentVideo === endVideo) {
-      navigate('/call/ended', { state: { name } });
-    }
-  };
+  console.log('📽 영상 종료됨:', currentVideo);
 
+  if (!hasIntroEnded && isIntro) {
+    setHasIntroEnded(true);
+    setBubbleVisible(true);
+  } else if (isEnd || isOutroFile) {
+    navigate('/call/ended', { state: { name } });
+  }
+};
   // 6. 말풍선 선택지 클릭 핸들러
   const handleOptionSelect = async (selectedChoiceText) => {
     // 선택한 텍스트에 대응하는 choice 객체 찾기
@@ -246,6 +250,7 @@ if (endVideo && !hasFarewell && !hasBbye) {
                   autoPlay
                   playsInline
                   onEnded={handleVideoEnded}
+                    onPlay={() => console.log('▶️ 현재 재생 중인 영상:', currentVideo)}
                   onError={(e) => console.error('Video playback error:', e)}
                   className="self-camera"
                 />
