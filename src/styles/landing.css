@@ -186,6 +186,7 @@
     transform: translateX(-50%);
     z-index: 20;
 }
+
   /* 모바일 화면 대응을 위한 미디어 쿼리 (선택사항) */
   @media screen and (max-width: 768px) {
     .Home-text {
