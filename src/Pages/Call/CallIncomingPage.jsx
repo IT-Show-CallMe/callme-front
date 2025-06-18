@@ -30,31 +30,11 @@ function CallIncomingPage() {
     };
     fetchIdol();
 
-    // // 벨소리 정지 및 초기화 (안정성 위해 항상 실행)
-    // if (window.ringingAudio) {
-    //   window.ringingAudio.pause();
-    //   window.ringingAudio.currentTime = 0;
-    //   window.ringingAudio = null;
-    //   console.log('페이지 진입 시 기존 벨소리 멈춤');
-    // }
   }, [name]);
-
-  //   // 벨소리 재생 시도
-  // if (!window.ringingAudio) {
-  //   const audio = new Audio('/images/sound/따르릉.mp3');
-  //   audio.loop = true;
-  //   audio.volume = 1.0;
-  //   window.ringingAudio = audio;
-  //   audio.play().then(() => {
-  //     console.log('✅ 벨소리 재생 시작');
-  //   }).catch(e => {
-  //     console.warn('❌ 벨소리 재생 실패:', e);
-  //   });
-  // }
   useEffect(() => {
     const audio = new Audio('/images/sound/따르릉.mp3');
     audio.loop = true;
-    audio.volume = 1.0;
+    audio.volume = 0.5;
     window.ringingAudio = audio;
     audio.play().then(() => {
       console.log('✅ 벨소리 재생 시작');
