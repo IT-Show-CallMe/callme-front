@@ -31,7 +31,6 @@ function EmailInput() {
 
 try {
   const response = await axios.post("/api/email", { email });
-  alert(response.data);
   setEmail("");
  navigate("/emailcheck", { state: { name, email } });
 } catch (error) {
