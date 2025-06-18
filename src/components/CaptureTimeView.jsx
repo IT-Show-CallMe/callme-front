@@ -7,7 +7,7 @@ function CaptureTimeSection() {
     const scrollRef = useRef(null);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/email/capPhoto')
+        axios.get('http://15.165.15.236:3000/email/capPhoto')
             .then(response => {
                 setPhotos(response.data);
             })
