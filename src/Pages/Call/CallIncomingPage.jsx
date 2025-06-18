@@ -93,7 +93,7 @@ function CallIncomingPage() {
 
     try {
       // 클릭 수 증가 API 호출 (idol.id 사용)
-      await axios.get(`http://localhost:3000/idol/click/${idol.id}`);
+      await axios.get(`http://15.165.15.236:3000/idol/click/${idol.id}`);
       console.log('클릭 수 증가 성공');
     } catch (err) {
       console.error('클릭 수 증가 실패:', err);
