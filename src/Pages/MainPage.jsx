@@ -44,7 +44,7 @@ function MainPage() {
     const [showLetterArrival, setShowLetterArrival] = useState(false);
     const [newLetterData, setNewLetterData] = useState(null);
 
-    const baseUrl = 'http://15.165.15.236:3000'; // 개발 중인 서버 주소
+    const baseUrl = 'https://callme.mirim-it-show.site'; // 개발 중인 서버 주소
     // const imageUrl = `${baseUrl}/${idol.idolImages}`; // idolImages에는 'uploads/idol_img/p_김선우.png' 같은 문자열
 
     // 새 편지 도착 확인 (localStorage에서 sentLetter 확인)
@@ -109,7 +109,7 @@ function MainPage() {
     useEffect(() => {
         const fetchTop5Idols = async () => {
             try {
-                const res = await fetch("http://15.165.15.236:3000/idol/top5Idol"); // 포트 주의
+                const res = await fetch("https://callme.mirim-it-show.site/idol/top5Idol"); // 포트 주의
                 const data = await res.json();
 
                 // 데이터 가공
@@ -139,7 +139,7 @@ function MainPage() {
         localStorage.setItem("lastCalledIdolName", idolName);
         try {
             // 1. 서버에 통화 요청 전송
-            await fetch(`http://15.165.15.236:3000/idol/click/${idolId}`, {
+            await fetch(`https://callme.mirim-it-show.site/idol/click/${idolId}`, {
                 method: "GET",
                 // headers: {
                 //     "Content-Type": "application/json"
@@ -163,7 +163,7 @@ function MainPage() {
     const fetchAllLetters = async () => {
         setIsLoadingLetters(true);
         try {
-            const response = await fetch('http://15.165.15.236:3000/letter/allLetter');
+            const response = await fetch('https://callme.mirim-it-show.site/letter/allLetter');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -182,7 +182,7 @@ function MainPage() {
     const fetchMessageDetail = async (messageId) => {
         setIsLoadingDetail(true);
         try {
-            const response = await fetch(`http://15.165.15.236:3000/letter/message/${messageId}`);
+            const response = await fetch(`https://callme.mirim-it-show.site/letter/message/${messageId}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
