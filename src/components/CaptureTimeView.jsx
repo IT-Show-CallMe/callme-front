@@ -7,7 +7,7 @@ function CaptureTimeSection() {
     const scrollRef = useRef(null);
 
     useEffect(() => {
-        axios.get('http://15.165.15.236:3000/email/capPhoto')
+        axios.get('https://callme.mirim-it-show.site/email/capPhoto')
             .then(response => {
                 setPhotos(response.data);
             })
@@ -69,7 +69,7 @@ function CaptureTimeSection() {
                     {photos.map((photo) => (
                         <img
                             key={photo.id || idx}
-                            src={`http://15.165.15.236:3000/${photo.capPhoto}`}
+                            src={`https://callme.mirim-it-show.site/${photo.capPhoto}`}
                             alt={`캡쳐 사진 ${photo.id}`}
                             className={mainPageStyles.captureImage}
                             style={{

@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://15.165.15.236:3000/',
+        target: 'https://callme.mirim-it-show.site',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }
