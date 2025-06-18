@@ -44,7 +44,7 @@ function MainPage() {
     const [showLetterArrival, setShowLetterArrival] = useState(false);
     const [newLetterData, setNewLetterData] = useState(null);
 
-    const baseUrl = 'http://15.165.15.236:3000/'; // 개발 중인 서버 주소
+    const baseUrl = 'http://15.165.15.236:3000'; // 개발 중인 서버 주소
     // const imageUrl = `${baseUrl}/${idol.idolImages}`; // idolImages에는 'uploads/idol_img/p_김선우.png' 같은 문자열
 
     // 새 편지 도착 확인 (localStorage에서 sentLetter 확인)
