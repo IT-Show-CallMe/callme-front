@@ -8,7 +8,7 @@ import endCallButtonImage from "../../assets/images/call-down.png";
 import SpeechBubble from "../../components/SpeechBubble";
 import PhoneLayout from "../../components/Phone";
 
-const BASE_URL = "https://callme.mirim-it-show.site";
+const BASE_URL = "https://callme.mirim-it-show.site/";
 
 const Incall = () => {
   const navigate = useNavigate();
