@@ -1,17 +1,17 @@
 // EmailConsentPage.js
-import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import callEndedIcon from '../assets/images/wings.png';
+import React, { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import callEndedIcon from "../assets/images/wings.png";
 
 const EmailConsent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const name = location.state?.name || '기본값';
+  const name = location.state?.name || "기본값";
 
   useEffect(() => {
-    const link = document.createElement('link');
+    const link = document.createElement("link");
     link.href = "https://fonts.googleapis.com/css2?family=Modak&display=swap";
-    link.rel = 'stylesheet';
+    link.rel = "stylesheet";
     document.head.appendChild(link);
   }, []);
 
@@ -23,12 +23,12 @@ const EmailConsent = () => {
           <div className="mainMessage">사진 전송을 위해 이메일 <br/>수집에 동의하십니까?</div>
         </div>
         <div className="buttonContainer">
-          <button className="yesButton" onClick={() => navigate('/letter')}>
+          <button className="yesButton" onClick={() => navigate("/letter")}>
             아니오
           </button>
           <button
             className="noButton"
-            onClick={() => navigate('/email', { state: { name } })}
+            onClick={() => navigate("/email", { state: { name } })}
           >
             예
           </button>

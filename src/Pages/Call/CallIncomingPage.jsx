@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import PhoneLayout from '../../components/Phone';
-import startButtonImage from '../../assets/images/button-yes.png';
-import backButtonImage from '../../assets/images/button-no.png';
-import defaultPhoneImage from '../../assets/images/phone.png';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import PhoneLayout from "../../components/Phone";
+import startButtonImage from "../../assets/images/button-yes.png";
+import backButtonImage from "../../assets/images/button-no.png";
+import defaultPhoneImage from "../../assets/images/phone.png";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function CallIncomingPage() {
   const { name } = useParams();
@@ -32,14 +32,14 @@ function CallIncomingPage() {
 
   }, [name]);
   useEffect(() => {
-    const audio = new Audio('/images/sound/따르릉.mp3');
+    const audio = new Audio("/images/sound/따르릉.mp3");
     audio.loop = true;
     audio.volume = 0.5;
     window.ringingAudio = audio;
     audio.play().then(() => {
-      console.log('✅ 벨소리 재생 시작');
+      console.log("✅ 벨소리 재생 시작");
     }).catch(e => {
-      console.warn('❌ 벨소리 재생 실패:', e);
+      console.warn("❌ 벨소리 재생 실패:", e);
     });
 
     return () => {
@@ -56,27 +56,27 @@ function CallIncomingPage() {
 
   // 아이돌 목록으로 이동
   const handleGoToIdolList = () => {
-    navigate('/idol');
+    navigate("/idol");
   };
 
   // 응답 버튼 클릭 시 벨소리 정지 + 로컬 저장소 기록 + 화면 전환
   const handleStartCall = async () => {
-    console.log('응답 버튼 눌림, 벨소리 멈춤 시도');
+    console.log("응답 버튼 눌림, 벨소리 멈춤 시도");
     if (window.ringingAudio) {
       window.ringingAudio.pause();
       window.ringingAudio.currentTime = 0;
       window.ringingAudio = null;
-      console.log('벨소리 오디오 객체 발견, 정지시킴');
+      console.log("벨소리 오디오 객체 발견, 정지시킴");
     } else {
-      console.log('벨소리 오디오 객체 없음');
+      console.log("벨소리 오디오 객체 없음");
     }
 
     try {
       // 클릭 수 증가 API 호출 (idol.id 사용)
       await axios.get(`api/idol/click/${idol.id}`);
-      console.log('클릭 수 증가 성공');
+      console.log("클릭 수 증가 성공");
     } catch (err) {
-      console.error('클릭 수 증가 실패:', err);
+      console.error("클릭 수 증가 실패:", err);
     }
 
     // 통화 기록 로컬저장소에 저장
@@ -110,21 +110,21 @@ function CallIncomingPage() {
 
   return (
     <div
-      className={`transition-wrapper ${isTransitioning ? 'zoom-out' : ''}`}
-      style={{ cursor: 'pointer' }}
+      className={`transition-wrapper ${isTransitioning ? "zoom-out" : ""}`}
+      style={{ cursor: "pointer" }}
     >
       {/* 아이돌 목록 돌아가기 버튼 */}
       <div
         style={{
-          position: 'absolute',
-          top: '90px',
-          left: '80px',
+          position: "absolute",
+          top: "90px",
+          left: "80px",
           zIndex: 10,
-          cursor: 'pointer'
+          cursor: "pointer"
         }}
         onClick={(e) => { e.stopPropagation(); handleGoToIdolList(); }}
       >
-        <i className="bi bi-chevron-left" style={{ fontSize: '4rem', color: '#358CCA' }}></i>
+        <i className="bi bi-chevron-left" style={{ fontSize: "4rem", color: "#358CCA" }}></i>
       </div>
 
       <PhoneLayout
@@ -138,13 +138,13 @@ function CallIncomingPage() {
             src={backButtonImage}
             alt="Go Back"
             onClick={handleGoBack}
-            style={{ width: '80%', height: '80%', cursor: 'pointer' }}
+            style={{ width: "80%", height: "80%", cursor: "pointer" }}
           />
           <img
             src={startButtonImage}
             alt="Start Call"
             onClick={handleStartCall}
-            style={{ width: '80%', height: '40%', cursor: 'pointer' }}
+            style={{ width: "80%", height: "40%", cursor: "pointer" }}
           />
         </div>
       </PhoneLayout>
