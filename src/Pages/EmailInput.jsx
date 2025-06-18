@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import "../styles/emailInput.css";
@@ -11,7 +11,7 @@ function EmailInput() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const name = location.state?.name || '기본값'; // CallEndedPage에서 받은 이름
+  const name = location.state?.name || "기본값"; // CallEndedPage에서 받은 이름
 
   const handleInputChange = (e) => {
     setEmail(e.target.value);

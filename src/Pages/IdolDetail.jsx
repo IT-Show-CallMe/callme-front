@@ -5,7 +5,7 @@ import IdolModal from "../components/IdolModal";
 import { createPortal } from "react-dom";
 
 const ModalPortal = function (props) {
-  const modalArea = document.getElementById('modal');
+  const modalArea = document.getElementById("modal");
   return createPortal(props.children, modalArea);
 };
 
@@ -15,7 +15,7 @@ export default function IdolDetail() {
   const [searchTerm, setSearchTerm] = useState("");
   const [idols, setIdols] = useState([]);
 
-  const baseUrl = 'http://15.165.15.236:3000/'; // MainPage와 동일한 베이스 URL
+  const baseUrl = "http://15.165.15.236:3000/"; // MainPage와 동일한 베이스 URL
 
   // 서버에서 모든 아이돌 데이터 가져오기 (MainPage와 유사한 방식)
   useEffect(() => {
