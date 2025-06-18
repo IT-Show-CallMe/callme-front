@@ -168,7 +168,7 @@ function IdolPhoto() {
       }
     };
 
-    await sendImageToServer(dataUrl);
+    sendImageToServer(dataUrl);
 
     const shutterSound = new Audio('/images/sound/찰칵!.mp3');
     shutterSound.play().catch((err) => console.warn('사운드 재생 실패:', err));
