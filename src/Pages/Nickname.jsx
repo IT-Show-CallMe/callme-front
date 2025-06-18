@@ -17,7 +17,7 @@ const Nickname = () => {
             return;
         }
         try{
-            const response = await axios.post("http://localhost:5000/users",{
+            const response = await axios.post("http://15.165.15.236:3000/users",{
                 nickname,
             });
             alert(response.data);
