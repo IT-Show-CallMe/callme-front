@@ -218,16 +218,25 @@ const Incall = () => {
 
               {idx === 0 && currentVideo && (
                 <video
-                  key={videoKey}
-                  src={currentVideo}
-                  autoPlay
-                  playsInline
-                  preload="auto"
-                  onEnded={handleVideoEnded}
-                  onPlay={() => console.log('▶️ 현재 재생 중인 영상:', currentVideo)}
-                  onError={(e) => console.error('Video playback error:', e)}
-                  className="self-camera"
-                />
+                key={videoKey}
+                src={currentVideo}
+                autoPlay
+                playsInline
+                preload="auto"
+                onEnded={handleVideoEnded}
+                onPlay={(e) => {
+                  console.log('▶️ 현재 재생 중인 영상:', currentVideo);
+                  
+                  // 🔊 이한님 영상일 경우 소리 키움
+                  if (currentVideo.includes("이한")) {
+                    e.target.volume = 1; // 최대 볼륨 (0.0 ~ 1.0 사이)
+                  } else {
+                    e.target.volume = 0.5; // 다른 영상은 기본 볼륨
+                  }
+                }}
+                onError={(e) => console.error('Video playback error:', e)}
+                className="self-camera"
+              />
               )}
 
               {idx === 1 && (
