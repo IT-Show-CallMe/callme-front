@@ -17,7 +17,7 @@ function Landing() {
   const [clickCount, setClickCount] = useState(0);
 
   useEffect(() => {
-    const audio = new Audio('/images/sound/callme.mp3');
+    const audio = new Audio("/images/sound/callme.mp3");
     audio.loop = true;
     audio.volume = 1.0;
     audioRef.current = audio;
@@ -43,10 +43,10 @@ function Landing() {
       audioRef.current.play()
         .then(() => {
           setAudioStarted(true);
-          console.log('✅ 클릭 후 벨소리 재생 시작');
+          console.log("✅ 클릭 후 벨소리 재생 시작");
         })
         .catch(e => {
-          console.warn('❌ 클릭 후 벨소리 재생 실패:', e);
+          console.warn("❌ 클릭 후 벨소리 재생 실패:", e);
         });
     }
 

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, useParams, useNavigate } from 'react-router-dom';
-import '../styles/IdolPhoto.css';
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
+import "../styles/IdolPhoto.css";
 
 function IdolPhoto() {
   const { name } = useParams();
-  const [imgSrc, setImgSrc] = useState('');
+  const [imgSrc, setImgSrc] = useState("");
   const [count, setCount] = useState(5);
   const [showFlash, setShowFlash] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -14,12 +14,12 @@ function IdolPhoto() {
   const containerRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const frame = location.state?.frame || 'default';
+  const frame = location.state?.frame || "default";
 
   useEffect(() => {
-    const suffix = frame === 'cute' ? '-cute-frame.png' : '_with_frame.png';
+    const suffix = frame === "cute" ? "-cute-frame.png" : "_with_frame.png";
     const path = `/images/idolPhotos/${name}${suffix}`;
-    console.log('설정된 이미지 경로:', path);
+    console.log("설정된 이미지 경로:", path);
     setImgSrc(path);
   }, [name, frame]);
 
@@ -32,7 +32,7 @@ function IdolPhoto() {
         }
       })
       .catch((err) => {
-        console.error('카메라 접근 실패:', err);
+        console.error("카메라 접근 실패:", err);
       });
 
     // 스트림 정지 코드 제거 (화면 멈춤 방지)
@@ -52,7 +52,7 @@ function IdolPhoto() {
   }, [count]);
 
   const dataURLtoBlob = (dataurl) => {
-    const arr = dataurl.split(',');
+    const arr = dataurl.split(",");
     const mime = arr[0].match(/:(.*?);/)[1];
     const bstr = atob(arr[1]);
     let n = bstr.length;
@@ -83,7 +83,7 @@ function IdolPhoto() {
     const container = containerRef.current;
 
     if (!video || !idolImg || !container) {
-      console.warn('요소들이 준비되지 않았습니다.');
+      console.warn("요소들이 준비되지 않았습니다.");
       return;
     }
 
@@ -91,10 +91,10 @@ function IdolPhoto() {
     const width = containerRect.width;
     const height = containerRect.height;
 
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, width, height);
 
     const offsetX = containerRect.left;
@@ -108,7 +108,7 @@ function IdolPhoto() {
       default: { offsetRight: 0, offsetTop: 0 },
       cute: { offsetRight: -10, offsetTop: -20 },
     };
-    const { offsetRight, offsetTop } = frame === 'cute' ? frameOffsets.cute : frameOffsets.default;
+    const { offsetRight, offsetTop } = frame === "cute" ? frameOffsets.cute : frameOffsets.default;
 
     let drawVideoWidth, drawVideoHeight;
 
@@ -146,38 +146,38 @@ function IdolPhoto() {
       idolRect.height
     );
 
-    const dataUrl = canvas.toDataURL('image/png');
+    const dataUrl = canvas.toDataURL("image/png");
     setCapturedImage(dataUrl);
 
     const sendImageToServer = async (dataUrl) => {
       const blob = dataURLtoBlob(dataUrl);
       const formData = new FormData();
-      formData.append('captureImg', blob, 'capture.png');
+      formData.append("captureImg", blob, "capture.png");
 
       try {
-        const response = await fetch('http://15.165.15.236:3000/email/send', {
-          method: 'POST',
+        const response = await fetch("http://15.165.15.236:3000/email/send", {
+          method: "POST",
           body: formData,
         });
 
         if (!response.ok) throw new Error(`서버 응답 에러: ${response.statusText}`);
         const text = await response.text();
-        console.log('서버 응답:', text);
+        console.log("서버 응답:", text);
       } catch (error) {
-        console.error('이미지 전송 실패:', error);
+        console.error("이미지 전송 실패:", error);
       }
     };
 
     sendImageToServer(dataUrl);
 
-    const shutterSound = new Audio('/images/sound/찰칵!.mp3');
-    shutterSound.play().catch((err) => console.warn('사운드 재생 실패:', err));
+    const shutterSound = new Audio("/images/sound/찰칵!.mp3");
+    shutterSound.play().catch((err) => console.warn("사운드 재생 실패:", err));
 
     setShowFlash(true);
     setTimeout(() => {
       setShowFlash(false);
       setTimeout(() => {
-        navigate('/letter', { state: { capturedImage: dataUrl } });
+        navigate("/letter", { state: { capturedImage: dataUrl } });
       }, 500);
     }, 500);
   };
@@ -187,18 +187,18 @@ function IdolPhoto() {
       className="photo-background"
       ref={containerRef}
       style={{
-        position: 'relative',
-        width: '100%',
-        height: '100vh',
-        backgroundColor: '#000',
+        position: "relative",
+        width: "100%",
+        height: "100vh",
+        backgroundColor: "#000",
       }}
     >
       <div
         className="photo-frame-container"
         style={{
-          position: 'relative',
-          width: '100%',
-          height: '100%',
+          position: "relative",
+          width: "100%",
+          height: "100%",
         }}
       >
         {!capturedImage && (
@@ -208,7 +208,7 @@ function IdolPhoto() {
             playsInline
             muted
             className="video-feed mirror-video"
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
           />
         )}
 
@@ -217,7 +217,7 @@ function IdolPhoto() {
             src={capturedImage}
             alt="Captured"
             className="captured-photo"
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
         )}
 
@@ -227,11 +227,11 @@ function IdolPhoto() {
             src={imgSrc}
             alt={`${name}와 함께 사진`}
             className={`idol-photo-image idol-position-${name} ${
-              frame === 'cute' ? 'idol-frame-cute' : 'idol-frame-default'
+              frame === "cute" ? "idol-frame-cute" : "idol-frame-default"
             }`}
             onError={() => {
               console.warn(`이미지를 불러올 수 없습니다: ${imgSrc}`);
-              setImgSrc('/images/idolPhotos/default_with_frame.png');
+              setImgSrc("/images/idolPhotos/default_with_frame.png");
             }}
           />
         )}
@@ -240,12 +240,12 @@ function IdolPhoto() {
           <div
             className="countdown"
             style={{
-              position: 'absolute',
-              fontSize: '5rem',
-              color: 'white',
-              fontWeight: 'bold',
-              textShadow: '0 0 10px black',
-              userSelect: 'none',
+              position: "absolute",
+              fontSize: "5rem",
+              color: "white",
+              fontWeight: "bold",
+              textShadow: "0 0 10px black",
+              userSelect: "none",
             }}
           >
             {count}
@@ -256,14 +256,14 @@ function IdolPhoto() {
           <div
             className="flash"
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 0,
               left: 0,
-              width: '100%',
-              height: '100%',
-              backgroundColor: 'white',
+              width: "100%",
+              height: "100%",
+              backgroundColor: "white",
               opacity: 0.8,
-              pointerEvents: 'none',
+              pointerEvents: "none",
             }}
           />
         )}

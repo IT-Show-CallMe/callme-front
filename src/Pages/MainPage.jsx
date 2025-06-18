@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import IdolModal from '../components/IdolModal';
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import IdolModal from "../components/IdolModal";
 import SearchBar from "../components/SearchBar";
 import IdolCard from "../components/IdolCard";
-import LetterComponent from '../components/LetterComponent'
-import CaptureTimeImgSection from '../components/CaptureTimeView'
+import LetterComponent from "../components/LetterComponent";
+import CaptureTimeImgSection from "../components/CaptureTimeView";
 // 임의의 json
 import idolJsonData from "../data/idolJson.json";
-// import LettersJson from '../data/lettersData.json'; // 제거
+// import LettersJson from "../data/lettersData.json"; // 제거
 // style
-import mainPageStyles from '../styles/mainPage.module.css';
+import mainPageStyles from "../styles/mainPage.module.css";
 import styles from "../styles/main_letter.module.css";
-import mainBackground from '../assets/images/main-background.png';
+import mainBackground from "../assets/images/main-background.png";
 
-import leftWingImage from '../assets/images/wing-left.png';
-import rightWingImage from '../assets/images/wing-right.png';
-import animationLetterImage from '../assets/images/animationLetter.png';
+import leftWingImage from "../assets/images/wing-left.png";
+import rightWingImage from "../assets/images/wing-right.png";
+import animationLetterImage from "../assets/images/animationLetter.png";
 
 function MainPage() {
     const [keyword, setKeyword] = useState("");
