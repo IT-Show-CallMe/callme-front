@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import mainPageStyles from '../styles/MainPage.module.css';
+import mainPageStyles from '../styles/mainPage.module.css';
 
 function CaptureTimeSection() {
     const [photos, setPhotos] = useState([]);
