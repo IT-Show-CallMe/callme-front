@@ -5,7 +5,7 @@ import '../styles/IdolPhoto.css';
 function IdolPhoto() {
   const { name } = useParams();
   const [imgSrc, setImgSrc] = useState('');
-  const [count, setCount] = useState(5); // 5초 카운트다운 시작
+  const [count, setCount] = useState(5);
   const [showFlash, setShowFlash] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
 
@@ -13,9 +13,8 @@ function IdolPhoto() {
   const idolImageRef = useRef(null);
   const containerRef = useRef(null);
   const navigate = useNavigate();
-
   const location = useLocation();
-  const frame = location.state?.frame || 'default'; // 기본값 "default"
+  const frame = location.state?.frame || 'default';
 
   useEffect(() => {
     const suffix = frame === 'cute' ? '-cute-frame.png' : '_with_frame.png';
@@ -24,7 +23,6 @@ function IdolPhoto() {
     setImgSrc(path);
   }, [name, frame]);
 
-  // 카메라 접근 및 정리
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true })
@@ -37,14 +35,12 @@ function IdolPhoto() {
         console.error('카메라 접근 실패:', err);
       });
 
+    // 스트림 정지 코드 제거 (화면 멈춤 방지)
     return () => {
-      if (videoRef.current?.srcObject) {
-        videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
-      }
+      // 빈 함수로 둡니다.
     };
   }, []);
 
-  // 카운트다운
   useEffect(() => {
     if (count > 0) {
       const timer = setTimeout(() => setCount(count - 1), 1000);
@@ -55,7 +51,6 @@ function IdolPhoto() {
     }
   }, [count]);
 
-  // dataURL -> Blob 변환 함수
   const dataURLtoBlob = (dataurl) => {
     const arr = dataurl.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
@@ -68,7 +63,6 @@ function IdolPhoto() {
     return new Blob([u8arr], { type: mime });
   };
 
-  // 캔버스에 둥근 사각형 그리기 함수
   const roundRect = (ctx, x, y, width, height, radius) => {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
@@ -81,120 +75,112 @@ function IdolPhoto() {
     ctx.lineTo(x, y + radius);
     ctx.quadraticCurveTo(x, y, x + radius, y);
     ctx.closePath();
-    ctx.clip();
   };
 
-// 사진 캡처 및 서버 전송
-const handleCapture = async () => {
-  const video = videoRef.current;
-  const idolImg = idolImageRef.current;
-  const container = containerRef.current;
+  const handleCapture = async () => {
+    const video = videoRef.current;
+    const idolImg = idolImageRef.current;
+    const container = containerRef.current;
 
-  if (!video || !idolImg || !container) {
-    console.warn('요소들이 준비되지 않았습니다.');
-    return;
-  }
-
-  const containerRect = container.getBoundingClientRect();
-  const width = containerRect.width;
-  const height = containerRect.height;
-
-  const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext('2d');
-
-  ctx.clearRect(0, 0, width, height);
-
-  // 비디오 및 전체 캔버스 둥근 모서리 (radius: 80)
-  roundRect(ctx, 0, 0, width, height, 80);
-
-  const offsetX = containerRect.left;
-  const offsetY = containerRect.top;
-
-  const videoRect = video.getBoundingClientRect();
-  const videoAspect = video.videoWidth / video.videoHeight;
-  const videoBoxAspect = videoRect.width / videoRect.height;
-
-  // ✅ 프레임 종류에 따라 오프셋 값 설정
-  const frameOffsets = {
-    default: { offsetRight: 15, offsetTop: 0 },
-    cute: { offsetRight: -10, offsetTop: -20 },
-  };
-  const { offsetRight, offsetTop } = frame === 'cute' ? frameOffsets.cute : frameOffsets.default;
-
-  let drawVideoWidth, drawVideoHeight;
-
-  if (videoAspect > videoBoxAspect) {
-    drawVideoWidth = videoRect.width + 17;
-    drawVideoHeight = drawVideoWidth / videoAspect;
-  } else {
-    drawVideoHeight = videoRect.height;
-    drawVideoWidth = drawVideoHeight * videoAspect + 17;
-  }
-
-  const videoDrawX =
-    videoRect.left - offsetX + (videoRect.width - drawVideoWidth) / 2 + offsetRight;
-  const videoDrawY =
-    videoRect.top - offsetY + (videoRect.height - drawVideoHeight) / 2 + offsetTop;
-
-  ctx.save();
-  ctx.translate(videoDrawX + drawVideoWidth, videoDrawY);
-  ctx.scale(-1, 1); // 미러링
-  ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, drawVideoWidth, drawVideoHeight);
-  ctx.restore();
-
-  // 아이돌 이미지 덮어쓰기
-  const idolRect = idolImg.getBoundingClientRect();
-  ctx.drawImage(
-    idolImg,
-    idolRect.left - offsetX,
-    idolRect.top - offsetY,
-    idolRect.width,
-    idolRect.height
-  );
-
-  const dataUrl = canvas.toDataURL('image/png');
-  setCapturedImage(dataUrl);
-
-  // 서버로 사진 전송
-  const sendImageToServer = async (dataUrl) => {
-    const blob = dataURLtoBlob(dataUrl);
-    const formData = new FormData();
-    formData.append('captureImg', blob, 'capture.png');
-
-    try {
-      const response = await fetch('http://15.165.15.236:3000/email/send', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`서버 응답 에러: ${response.statusText}`);
-      }
-      const text = await response.text();
-      console.log('서버 응답:', text);
-    } catch (error) {
-      console.error('이미지 전송 실패:', error);
+    if (!video || !idolImg || !container) {
+      console.warn('요소들이 준비되지 않았습니다.');
+      return;
     }
-  };
 
-  await sendImageToServer(dataUrl);
+    const containerRect = container.getBoundingClientRect();
+    const width = containerRect.width;
+    const height = containerRect.height;
 
-  // 찰칵 사운드 재생 및 플래시
-  const shutterSound = new Audio('/images/sound/찰칵!.mp3');
-  shutterSound.play().catch((err) => console.warn('사운드 재생 실패:', err));
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, width, height);
 
-  setShowFlash(true);
+    const offsetX = containerRect.left;
+    const offsetY = containerRect.top;
 
-  setTimeout(() => {
-    setShowFlash(false);
+    const videoRect = video.getBoundingClientRect();
+    const videoAspect = video.videoWidth / video.videoHeight;
+    const videoBoxAspect = videoRect.width / videoRect.height;
+
+    const frameOffsets = {
+      default: { offsetRight: 0, offsetTop: 0 },
+      cute: { offsetRight: -10, offsetTop: -20 },
+    };
+    const { offsetRight, offsetTop } = frame === 'cute' ? frameOffsets.cute : frameOffsets.default;
+
+    let drawVideoWidth, drawVideoHeight;
+
+    if (videoAspect > videoBoxAspect) {
+      drawVideoWidth = videoRect.width + 17;
+      drawVideoHeight = drawVideoWidth / videoAspect;
+    } else {
+      drawVideoHeight = videoRect.height;
+      drawVideoWidth = drawVideoHeight * videoAspect + 17;
+    }
+
+    let videoDrawX = videoRect.left - offsetX + (videoRect.width - drawVideoWidth) / 2 + offsetRight;
+    const videoDrawY = videoRect.top - offsetY + (videoRect.height - drawVideoHeight) / 2 + offsetTop;
+    videoDrawX += 15; // 왼쪽 보정
+
+    // 비디오 미러링 및 둥근 사각형 클리핑
+    ctx.save();
+    ctx.translate(videoDrawX + drawVideoWidth, videoDrawY);
+    ctx.scale(-1, 1);
+
+    ctx.beginPath();
+    roundRect(ctx, 0, 0, drawVideoWidth, drawVideoHeight, Math.min(drawVideoWidth, drawVideoHeight) / 5);
+    ctx.clip();
+
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, drawVideoWidth, drawVideoHeight);
+    ctx.restore();
+
+    // 아이돌 프레임 덮기
+    const idolRect = idolImg.getBoundingClientRect();
+    ctx.drawImage(
+      idolImg,
+      idolRect.left - offsetX,
+      idolRect.top - offsetY,
+      idolRect.width,
+      idolRect.height
+    );
+
+    const dataUrl = canvas.toDataURL('image/png');
+    setCapturedImage(dataUrl);
+
+    const sendImageToServer = async (dataUrl) => {
+      const blob = dataURLtoBlob(dataUrl);
+      const formData = new FormData();
+      formData.append('captureImg', blob, 'capture.png');
+
+      try {
+        const response = await fetch('http://15.165.15.236:3000/email/send', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) throw new Error(`서버 응답 에러: ${response.statusText}`);
+        const text = await response.text();
+        console.log('서버 응답:', text);
+      } catch (error) {
+        console.error('이미지 전송 실패:', error);
+      }
+    };
+
+    await sendImageToServer(dataUrl);
+
+    const shutterSound = new Audio('/images/sound/찰칵!.mp3');
+    shutterSound.play().catch((err) => console.warn('사운드 재생 실패:', err));
+
+    setShowFlash(true);
     setTimeout(() => {
-      navigate('/letter', { state: { capturedImage: dataUrl } });
+      setShowFlash(false);
+      setTimeout(() => {
+        navigate('/letter', { state: { capturedImage: dataUrl } });
+      }, 500);
     }, 500);
-  }, 500);
-};
-
+  };
 
   return (
     <div
