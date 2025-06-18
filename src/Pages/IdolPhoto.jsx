@@ -164,7 +164,7 @@ const handleCapture = async () => {
     formData.append('captureImg', blob, 'capture.png');
 
     try {
-      const response = await fetch('http://localhost:3000/email/send', {
+      const response = await fetch('http://15.165.15.236:3000/email/send', {
         method: 'POST',
         body: formData,
       });
