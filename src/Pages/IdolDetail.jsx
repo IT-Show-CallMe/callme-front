@@ -15,13 +15,13 @@ export default function IdolDetail() {
   const [searchTerm, setSearchTerm] = useState("");
   const [idols, setIdols] = useState([]);
 
-  const baseUrl = "http://15.165.15.236:3000/"; // MainPage와 동일한 베이스 URL
+  const baseUrl = "https://callme.mirim-it-show.site/"; // MainPage와 동일한 베이스 URL
 
   // 서버에서 모든 아이돌 데이터 가져오기 (MainPage와 유사한 방식)
   useEffect(() => {
     const fetchAllIdols = async () => {
       try {
-        const res = await fetch("http://15.165.15.236:3000/idol/all");
+        const res = await fetch("https://callme.mirim-it-show.site/idol/all");
         const data = await res.json();
 
         // 데이터 가공 (MainPage의 fetchTop5Idols와 유사한 구조)
@@ -52,7 +52,7 @@ export default function IdolDetail() {
       localStorage.setItem("lastCalledIdolId", idolData.id);
 
       // 서버 요청 (클릭 카운트 증가)
-      const res = await fetch(`http://15.165.15.236:3000/idol/click/${idolData.id}`, {
+      const res = await fetch(`https://callme.mirim-it-show.site/idol/click/${idolData.id}`, {
         method: "GET",
       });
       const result = await res.json();
