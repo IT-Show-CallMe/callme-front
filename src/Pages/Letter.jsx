@@ -27,7 +27,7 @@ function Letter() {
         }
 
         try {
-            const res = await fetch('http://localhost:3000/letter/add', {
+            const res = await fetch('http://15.165.15.236:3000/letter/add', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ idolId, nickname: nickName, message }),
