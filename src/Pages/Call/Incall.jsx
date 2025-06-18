@@ -1,3 +1,4 @@
+// [코드 상단 import는 동일하며 생략하지 않음]
 import React, { useRef, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -18,14 +19,13 @@ const Incall = () => {
 
   const [idolId, setIdolId] = useState(null);
   const [idolInfo, setIdolInfo] = useState(null);
-  const [choices, setChoices] = useState([]); // 말풍선 선택지
+  const [choices, setChoices] = useState([]);
   const [currentVideo, setCurrentVideo] = useState('');
   const [videoKey, setVideoKey] = useState(0);
   const [hasIntroEnded, setHasIntroEnded] = useState(false);
   const [showWaitingScreen, setShowWaitingScreen] = useState(true);
   const [bubbleVisible, setBubbleVisible] = useState(false);
 
-  // 1. 아이돌 리스트에서 id 찾기
   useEffect(() => {
     const fetchIdolList = async () => {
       try {
@@ -44,7 +44,6 @@ const Incall = () => {
     fetchIdolList();
   }, [name]);
 
-  // 2. intro 영상 가져오기
   useEffect(() => {
     const fetchIntroVideo = async () => {
       if (!idolId) return;
@@ -61,7 +60,6 @@ const Incall = () => {
     fetchIntroVideo();
   }, [idolId]);
 
-  // 3. 말풍선 선택지 가져오기
   useEffect(() => {
     const fetchChoices = async () => {
       if (!idolId) return;
@@ -75,7 +73,6 @@ const Incall = () => {
     fetchChoices();
   }, [idolId]);
 
-  // 4. 카메라 및 대기화면
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
@@ -90,42 +87,31 @@ const Incall = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
-// useEffect(() => {
-//   if (window.ringingAudio) {
-//     window.ringingAudio.pause();
-//     window.ringingAudio.currentTime = 0;
-//     window.ringingAudio = null;
-//     console.log('incall 페이지 진입 시 벨소리 멈춤');
-//   }
-// }, []);
-
-  // 5. 영상 종료 이벤트
   const endVideoRaw = idolInfo?.endVideo || '';
   const endVideo = endVideoRaw.startsWith('http')
     ? endVideoRaw
     : BASE_URL + endVideoRaw;
-const handleVideoEnded = () => {
-  const isIntro = currentVideo === (idolInfo?.intro || currentVideo);
-  const isEnd = currentVideo === endVideo;
-  const isOutroFile = currentVideo.includes('아웃트로.mp4');
 
-  console.log('📽 영상 종료됨:', currentVideo);
+  const handleVideoEnded = () => {
+    const isIntro = currentVideo === (idolInfo?.intro || currentVideo);
+    const isEnd = currentVideo === endVideo;
+    const isOutroFile = currentVideo.includes('아웃트로.mp4');
 
-  if (!hasIntroEnded && isIntro) {
-    setHasIntroEnded(true);
-    setBubbleVisible(true);
-  } else if (isEnd || isOutroFile) {
-    navigate('/call/ended', { state: { name } });
-  }
-};
-  // 6. 말풍선 선택지 클릭 핸들러
+    console.log('📽 영상 종료됨:', currentVideo);
+
+    if (!hasIntroEnded && isIntro) {
+      setHasIntroEnded(true);
+      setBubbleVisible(true);
+    } else if (isEnd || isOutroFile) {
+      navigate('/call/ended', { state: { name } });
+    }
+  };
+
   const handleOptionSelect = async (selectedChoiceText) => {
-    // 선택한 텍스트에 대응하는 choice 객체 찾기
     const selectedChoice = choices.find((c) => c.choices === selectedChoiceText);
 
     if (selectedChoice) {
       try {
-        // 선택한 choice id로 비디오 URL 요청
         const res = await axios.get(`${BASE_URL}idolVideo/video/${selectedChoice.id}`);
         const videoUrlRaw = res.data.videos;
         const videoUrl = videoUrlRaw.startsWith('http') ? videoUrlRaw : BASE_URL + videoUrlRaw;
@@ -142,21 +128,10 @@ const handleVideoEnded = () => {
     }
   };
 
-// 말풍선 옵션 배열 생성
-const speechOptions = choices
-  .map((c) => c.choices)
-  .filter((msg) => msg && msg.trim() !== '');
+  const speechOptions = choices
+    .map((c) => c.choices)
+    .filter((msg) => msg && msg.trim() !== '');
 
-const hasFarewell = speechOptions.some(msg => msg.replace(/\s/g, '').includes('잘가'));
-const hasBbye = speechOptions.some(msg => msg.replace(/\s/g, '').includes('빠잉'));
-
-// 빠잉 없고, 잘 가도 없을 때만 잘 가 추가
-if (endVideo && !hasFarewell && !hasBbye) {
-  speechOptions.push('잘 가');
-}
-
-
-  // 스타일 정의는 기존과 동일
   const speechBubbleStyle = {
     position: 'absolute',
     top: '50%',
@@ -193,9 +168,7 @@ if (endVideo && !hasFarewell && !hasBbye) {
   }
 
   return (
-    <div
-      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 50 }}
-    >
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 50 }}>
       <PhoneLayout
         hideWings
         hidePhoneImage
@@ -249,8 +222,9 @@ if (endVideo && !hasFarewell && !hasBbye) {
                   src={currentVideo}
                   autoPlay
                   playsInline
+                  preload="auto"
                   onEnded={handleVideoEnded}
-                    onPlay={() => console.log('▶️ 현재 재생 중인 영상:', currentVideo)}
+                  onPlay={() => console.log('▶️ 현재 재생 중인 영상:', currentVideo)}
                   onError={(e) => console.error('Video playback error:', e)}
                   className="self-camera"
                 />
@@ -262,6 +236,7 @@ if (endVideo && !hasFarewell && !hasBbye) {
                   autoPlay
                   playsInline
                   muted
+                  preload="auto"
                   className="self-camera"
                   style={{ transform: 'scaleX(-1)' }}
                 />
@@ -283,25 +258,25 @@ if (endVideo && !hasFarewell && !hasBbye) {
           <SpeechBubble options={speechOptions} onSelect={handleOptionSelect} />
         </div>
       )}
+
       <div
-  style={{
-    position: 'fixed',
-      fontFamily: 'Pretendard',
-    fontWeight: 300,   // light
-    bottom: 90,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    color: '#BDBDBD',
-    padding: '10px 20px',
-    borderRadius: '20px',
-    fontSize: 20,
-    zIndex: 1000,
-  }}
->
- 빨간 버튼을 누르시면 자동으로 끊어집니다.
-</div>
+        style={{
+          position: 'fixed',
+          fontFamily: 'Pretendard',
+          fontWeight: 300,
+          bottom: 90,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          color: '#BDBDBD',
+          padding: '10px 20px',
+          borderRadius: '20px',
+          fontSize: 20,
+          zIndex: 1000,
+        }}
+      >
+        빨간 버튼을 누르시면 자동으로 끊어집니다.
+      </div>
     </div>
-    
   );
 };
 
