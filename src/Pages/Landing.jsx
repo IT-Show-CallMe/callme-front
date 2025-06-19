@@ -19,7 +19,7 @@ function Landing() {
   useEffect(() => {
     const audio = new Audio("/images/sound/callme.mp3");
     audio.loop = true;
-    audio.volume = 1.0;
+    audio.volume = 0.2;
     audioRef.current = audio;
 
     // 자동 재생 시도 (대부분 브라우저에서 차단됨)
