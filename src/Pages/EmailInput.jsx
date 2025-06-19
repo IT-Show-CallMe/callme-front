@@ -30,7 +30,7 @@ function EmailInput() {
     }
 
 try {
-  const response = await axios.post("/api/email", { email });
+  const response = await axios.post("https://callme.mirim-it-show.site/email", { email });
   setEmail("");
  navigate("/emailcheck", { state: { name, email } });
 } catch (error) {
