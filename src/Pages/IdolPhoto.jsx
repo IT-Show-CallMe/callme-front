@@ -78,110 +78,107 @@ function IdolPhoto() {
   };
 
   const handleCapture = async () => {
-    const video = videoRef.current;
-    const idolImg = idolImageRef.current;
-    const container = containerRef.current;
+  const video = videoRef.current;
+  const idolImg = idolImageRef.current;
+  const container = containerRef.current;
 
-    if (!video || !idolImg || !container) {
-      console.warn("요소들이 준비되지 않았습니다.");
-      return;
-    }
+  if (!video || !idolImg || !container) {
+    console.warn("요소들이 준비되지 않았습니다.");
+    return;
+  }
 
-    const containerRect = container.getBoundingClientRect();
-    const width = containerRect.width;
-    const height = containerRect.height;
+  const containerRect = container.getBoundingClientRect();
+  
+  // 프레임 이미지의 실제 크기 계산
+  const idolRect = idolImg.getBoundingClientRect();
+  const videoRect = video.getBoundingClientRect();
+  
+  // 캔버스 크기를 프레임 크기에 맞춤
+  const canvas = document.createElement("canvas");
+  canvas.width = idolRect.width;
+  canvas.height = idolRect.height;
+  const ctx = canvas.getContext("2d");
+  
+  // 투명 배경 유지 (배경 채우지 않음)
 
-    const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, width, height);
+  const offsetX = containerRect.left;
+  const offsetY = containerRect.top;
 
-    const offsetX = containerRect.left;
-    const offsetY = containerRect.top;
+  const videoAspect = video.videoWidth / video.videoHeight;
+  const videoBoxAspect = videoRect.width / videoRect.height;
 
-    const videoRect = video.getBoundingClientRect();
-    const videoAspect = video.videoWidth / video.videoHeight;
-    const videoBoxAspect = videoRect.width / videoRect.height;
-
-    const frameOffsets = {
-      default: { offsetRight: 0, offsetTop: 0 },
-      cute: { offsetRight: -10, offsetTop: -20 },
-    };
-    const { offsetRight, offsetTop } = frame === "cute" ? frameOffsets.cute : frameOffsets.default;
-
-    let drawVideoWidth, drawVideoHeight;
-
-    if (videoAspect > videoBoxAspect) {
-      drawVideoWidth = videoRect.width + 17;
-      drawVideoHeight = drawVideoWidth / videoAspect;
-    } else {
-      drawVideoHeight = videoRect.height;
-      drawVideoWidth = drawVideoHeight * videoAspect + 17;
-    }
-
-    let videoDrawX = videoRect.left - offsetX + (videoRect.width - drawVideoWidth) / 2 + offsetRight;
-    const videoDrawY = videoRect.top - offsetY + (videoRect.height - drawVideoHeight) / 2 + offsetTop;
-    videoDrawX += 15; // 왼쪽 보정
-
-    // 비디오 미러링 및 둥근 사각형 클리핑
-    ctx.save();
-    ctx.translate(videoDrawX + drawVideoWidth, videoDrawY);
-    ctx.scale(-1, 1);
-
-    ctx.beginPath();
-    roundRect(ctx, 0, 0, drawVideoWidth, drawVideoHeight, Math.min(drawVideoWidth, drawVideoHeight) / 5);
-    ctx.clip();
-
-    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, drawVideoWidth, drawVideoHeight);
-    ctx.restore();
-
-    // 아이돌 프레임 덮기
-    const idolRect = idolImg.getBoundingClientRect();
-    ctx.drawImage(
-      idolImg,
-      idolRect.left - offsetX,
-      idolRect.top - offsetY,
-      idolRect.width,
-      idolRect.height
-    );
-
-    const dataUrl = canvas.toDataURL("image/jpeg", 0.5); 
-    setCapturedImage(dataUrl);
-
-    const sendImageToServer = async (dataUrl) => {
-      const blob = dataURLtoBlob(dataUrl);
-      console.log(blob)
-      const formData = new FormData();
-      formData.append("captureImg", blob, "capture.png");
-
-      try {
-        const response = await fetch("https://callme.mirim-it-show.site/email/send", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (!response.ok) throw new Error(`서버 응답 에러: ${response.statusText}`);
-        const text = await response.text();
-        console.log("서버 응답:", text);
-      } catch (error) {
-        console.error("이미지 전송 실패:", error);
-      }
-    };
-
-    sendImageToServer(dataUrl);
-
-    const shutterSound = new Audio("/images/sound/찰칵!.mp3");
-    shutterSound.play().catch((err) => console.warn("사운드 재생 실패:", err));
-
-    setShowFlash(true);
-    setTimeout(() => {
-      setShowFlash(false);
-      setTimeout(() => {
-        navigate("/letter", { state: { capturedImage: dataUrl } });
-      }, 500);
-    }, 500);
+  const frameOffsets = {
+    default: { offsetRight: 0, offsetTop: 0 },
+    cute: { offsetRight: -10, offsetTop: -20 },
   };
+  const { offsetRight, offsetTop } = frame === "cute" ? frameOffsets.cute : frameOffsets.default;
+
+  let drawVideoWidth, drawVideoHeight;
+
+  if (videoAspect > videoBoxAspect) {
+    drawVideoWidth = videoRect.width + 17;
+    drawVideoHeight = drawVideoWidth / videoAspect;
+  } else {
+    drawVideoHeight = videoRect.height;
+    drawVideoWidth = drawVideoHeight * videoAspect + 17;
+  }
+
+  // 비디오 위치를 프레임 기준으로 조정
+  let videoDrawX = (videoRect.left - idolRect.left) + (videoRect.width - drawVideoWidth) / 2 + offsetRight + 15;
+  const videoDrawY = (videoRect.top - idolRect.top) + (videoRect.height - drawVideoHeight) / 2 + offsetTop;
+
+  // 비디오 미러링 및 둥근 사각형 클리핑
+  ctx.save();
+  ctx.translate(videoDrawX + drawVideoWidth, videoDrawY);
+  ctx.scale(-1, 1);
+
+  ctx.beginPath();
+  roundRect(ctx, 0, 0, drawVideoWidth, drawVideoHeight, Math.min(drawVideoWidth, drawVideoHeight) / 5);
+  ctx.clip();
+
+  ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, drawVideoWidth, drawVideoHeight);
+  ctx.restore();
+
+  // 아이돌 프레임을 맨 위에 그리기 (프레임 기준점이 (0,0))
+  ctx.drawImage(idolImg, 0, 0, idolRect.width, idolRect.height);
+
+  // PNG로 저장, 용량 최적화를 위해 압축률 조정
+  const dataUrl = canvas.toDataURL("image/png", 0.3); 
+  setCapturedImage(dataUrl);
+
+  const sendImageToServer = async (dataUrl) => {
+    const blob = dataURLtoBlob(dataUrl);
+    console.log(blob)
+    const formData = new FormData();
+    formData.append("captureImg", blob, "capture.png");
+
+    try {
+      const response = await fetch("https://callme.mirim-it-show.site/email/send", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error(`서버 응답 에러: ${response.statusText}`);
+      const text = await response.text();
+      console.log("서버 응답:", text);
+    } catch (error) {
+      console.error("이미지 전송 실패:", error);
+    }
+  };
+
+  sendImageToServer(dataUrl);
+
+  const shutterSound = new Audio("/images/sound/찰칵!.mp3");
+  shutterSound.play().catch((err) => console.warn("사운드 재생 실패:", err));
+
+  setShowFlash(true);
+  setTimeout(() => {
+    setShowFlash(false);
+    setTimeout(() => {
+      navigate("/letter", { state: { capturedImage: dataUrl } });
+    }, 500);
+  }, 500);
+};
 
   return (
     <div
