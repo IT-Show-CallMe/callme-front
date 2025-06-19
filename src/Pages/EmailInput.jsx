@@ -40,22 +40,6 @@ try {
   };
 
   
-      useEffect(() => {
-      let countdown = 60; // 60초
-      const intervalId = setInterval(() => {
-          countdown -= 1;
-  
-          console.clear(); // 콘솔 지우기
-          console.log(`⏳ 랜딩페이지 자동 이동까지 남은 시간: ${countdown}초`);
-  
-          if (countdown <= 0) {
-              clearInterval(intervalId);
-              navigate('/'); // 랜딩페이지로 이동
-          }
-      }, 1000); // 1초마다 실행
-  
-      return () => clearInterval(intervalId);
-  }, [navigate]);
 
   return (
     <div className="container">
