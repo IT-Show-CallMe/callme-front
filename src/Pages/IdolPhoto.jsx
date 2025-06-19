@@ -77,7 +77,7 @@ function IdolPhoto() {
     ctx.closePath();
   };
 
-  const handleCapture = async () => {
+const handleCapture = async () => {
   const video = videoRef.current;
   const idolImg = idolImageRef.current;
   const container = containerRef.current;
@@ -93,10 +93,11 @@ function IdolPhoto() {
   const idolRect = idolImg.getBoundingClientRect();
   const videoRect = video.getBoundingClientRect();
   
-  // 캔버스 크기를 프레임 크기에 맞춤
+  // 캔버스 크기를 더 작게 조정 (용량 최적화)
   const canvas = document.createElement("canvas");
-  canvas.width = idolRect.width;
-  canvas.height = idolRect.height;
+  const scaleFactor = 0.7; // 크기 70%로 축소
+  canvas.width = idolRect.width * scaleFactor;
+  canvas.height = idolRect.height * scaleFactor;
   const ctx = canvas.getContext("2d");
   
   // 투명 배경 유지 (배경 채우지 않음)
@@ -123,9 +124,13 @@ function IdolPhoto() {
     drawVideoWidth = drawVideoHeight * videoAspect + 17;
   }
 
-  // 비디오 위치를 프레임 기준으로 조정
-  let videoDrawX = (videoRect.left - idolRect.left) + (videoRect.width - drawVideoWidth) / 2 + offsetRight + 15;
-  const videoDrawY = (videoRect.top - idolRect.top) + (videoRect.height - drawVideoHeight) / 2 + offsetTop;
+  // 비디오 위치를 프레임 기준으로 조정 (스케일 적용)
+  let videoDrawX = ((videoRect.left - idolRect.left) + (videoRect.width - drawVideoWidth) / 2 + offsetRight + 15) * scaleFactor;
+  const videoDrawY = ((videoRect.top - idolRect.top) + (videoRect.height - drawVideoHeight) / 2 + offsetTop) * scaleFactor;
+
+  // 비디오 크기도 스케일 적용
+  drawVideoWidth *= scaleFactor;
+  drawVideoHeight *= scaleFactor;
 
   // 비디오 미러링 및 둥근 사각형 클리핑
   ctx.save();
@@ -139,11 +144,11 @@ function IdolPhoto() {
   ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, drawVideoWidth, drawVideoHeight);
   ctx.restore();
 
-  // 아이돌 프레임을 맨 위에 그리기 (프레임 기준점이 (0,0))
-  ctx.drawImage(idolImg, 0, 0, idolRect.width, idolRect.height);
+  // 아이돌 프레임을 맨 위에 그리기 (스케일 적용)
+  ctx.drawImage(idolImg, 0, 0, canvas.width, canvas.height);
 
-  // PNG로 저장, 용량 최적화를 위해 압축률 조정
-  const dataUrl = canvas.toDataURL("image/png", 0.3); 
+  // PNG로 저장, 극도로 압축하여 용량 최소화
+  const dataUrl = canvas.toDataURL("image/png", 0.1); 
   setCapturedImage(dataUrl);
 
   const sendImageToServer = async (dataUrl) => {
