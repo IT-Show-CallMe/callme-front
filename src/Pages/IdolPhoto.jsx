@@ -146,11 +146,12 @@ function IdolPhoto() {
       idolRect.height
     );
 
-    const dataUrl = canvas.toDataURL("image/png");
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.5); 
     setCapturedImage(dataUrl);
 
     const sendImageToServer = async (dataUrl) => {
       const blob = dataURLtoBlob(dataUrl);
+      console.log(blob)
       const formData = new FormData();
       formData.append("captureImg", blob, "capture.png");
 
