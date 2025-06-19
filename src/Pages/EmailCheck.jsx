@@ -19,7 +19,7 @@ const EmailCheck = () => {
     // 이메일 불러오기
     const fetchEmail = async () => {
       try {
-        const response = await axios.get("http://15.165.15.236:3000/email/getEmail");
+        const response = await axios.get("https://callme.mirim-it-show.site/email/getEmail");
         setEmail(response.data.email);
       } catch (error) {
         console.error("이메일 불러오기 실패:", error);
