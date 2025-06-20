@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../styles/idolFrameSelect.css";
+import "../styles/IdolFrameSelect.css";
 
 function IdolFrameSelect() {
   const navigate = useNavigate();
