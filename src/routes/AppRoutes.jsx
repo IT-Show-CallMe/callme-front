@@ -12,7 +12,7 @@ import IdolDetailPage from '../Pages/IdolDetail'; // 지은
 import EmailInputPage from '../Pages/EmailInput'; //여원
 import IdolPhotoPage from "../Pages/IdolPhoto"; //현주
 import EmailConsentPage from '../Pages/EmailConsent'; //현주
-import IdolFrameSelectPage from '../Pages/idolFrameSelect'; //현주
+import IdolFrameSelectPage from '../Pages/IdolFrameSelect'; //현주
 import EmailCheckPage from '../Pages/EmailCheck'; //현주
 
 const AppRoutes = () => {
