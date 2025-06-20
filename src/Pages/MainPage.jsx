@@ -115,7 +115,7 @@ function MainPage() {
                     // 되야하는 동작 : 10초 후 자동으로 새로운 편지 표시를 숨김
                     setTimeout(() => {
                         setShowNewLetterIndicator(false);
-                    }, 100000);
+                    }, 5000);
                 }, 4000);
             }
         };
