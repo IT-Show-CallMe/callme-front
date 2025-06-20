@@ -44,6 +44,7 @@ function LetterConfirm() {
     }, [animationIndex]);
 
     if (!letter) return <p>편지 정보를 불러오는 중...</p>;
+    
 
     return (
         <div className={styles.container}>
