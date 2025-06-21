@@ -31,7 +31,7 @@ function CaptureTimeSection() {
 
     return (
 
-        <div style={{ position: 'relative', width: '100%', display: 'flex', margin: '0 auto', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', width: '100%', display: 'flex', marginTop: '10%', justifyContent: 'center' }}>
             <div style={{ position: 'relative', display: 'flex', width: '1500px', alignItems: 'center', justifyContent: 'center' }}>
                 {/* 좌측 버튼 */}
                 <button

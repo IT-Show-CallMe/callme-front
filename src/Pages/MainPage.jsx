@@ -31,7 +31,7 @@ function MainPage() {
     const letterSectionRef = useRef(null);
     const sentLetter = JSON.parse(localStorage.getItem('sentLetter') || '{}');
     const navigate = useNavigate();
-    const sectionRefs = [useRef(null), useRef(null), useRef(null)];
+    const sectionRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
     const [currentIdolName, setCurrentIdolName] = useState("");
 
     // 편지 관련 상태 추가
@@ -53,6 +53,9 @@ function MainPage() {
     const baseUrl = 'https://callme.mirim-it-show.site'; // 개발 중인 서버 주소
     // const imageUrl = `${baseUrl}/${idol.idolImages}`; // idolImages에는 'uploads/idol_img/p_김선우.png' 같은 문자열
 
+    const [showNewLetterIndicator, setShowNewLetterIndicator] = useState(false);
+    const [newLetterContent, setNewLetterContent] = useState('');
+
     // 새 편지 도착 확인 (localStorage에서 sentLetter 확인)
 
     useEffect(() => {
@@ -62,8 +65,11 @@ function MainPage() {
                 setNewLetterData(sentLetterData);
                 setShowLetterArrival(true);
 
+
+
                 // 바뀐 부분 : 새로운 편지 내용 저장
                 // 되야하는 동작 : 편지 내용을 상태에 저장하여 슬라이딩 텍스트로 표시
+
                 setNewLetterContent(sentLetterData.message || '새로운 편지가 도착했습니다!');
 
                 // 단계별 스크롤 애니메이션
@@ -107,6 +113,13 @@ function MainPage() {
                     fetchAllLetters();
                     localStorage.removeItem('sentLetter');
 
+
+                    setShowNewLetterIndicator(true);
+
+                    setTimeout(() => {
+                        setShowNewLetterIndicator(false);
+                    }, 10000);
+
                     // 바뀐 부분 : 편지 도착 후 새로운 편지 표시 활성화
                     // 되야하는 동작 : 편지 도착 애니메이션이 끝나면 새로운 편지 표시를 활성화
                     setShowNewLetterIndicator(true);
@@ -116,6 +129,7 @@ function MainPage() {
                     setTimeout(() => {
                         setShowNewLetterIndicator(false);
                     }, 5000);
+
                 }, 4000);
             }
         };
@@ -281,6 +295,9 @@ function MainPage() {
             });
         }
         setActiveLetterId(letterId);
+        if (showNewLetterIndicator) {
+            setShowNewLetterIndicator(false);
+        }
 
 
         // 바뀐 부분 : 편지를 열 때 새로운 편지 표시 제거
@@ -307,6 +324,12 @@ function MainPage() {
         });
         if (nextSection && nextSection.current) {
             nextSection.current.scrollIntoView({ behavior: 'smooth' });
+            const sectionTop = nextSection.current.getBoundingClientRect().top + window.scrollY;
+
+            window.scrollTo({
+                top: sectionTop - 1000, // 여기 100이 여백 (원하면 120~150으로 늘리기 가능)
+                behavior: 'smooth',
+            });
         }
     };
 
@@ -379,7 +402,7 @@ function MainPage() {
             />
         );
     });
-
+    // const sectionRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
     return (
         <div className={mainPageStyles.mainPageWrapper} style={{ position: "relative" }}>
             <img src={mainBackground} alt="main background" style={{ width: '100%' }} className={mainPageStyles.mainBackground} />
@@ -401,7 +424,8 @@ function MainPage() {
                         {renderIdolRow(secondRow, 'second')}
                     </div>
                 </section>
-                <section className={mainPageStyles.captureTimeSection} style={{ justifyContent: 'center' }}>
+                <section className={mainPageStyles.captureTimeSection} style={{ justifyContent: 'center' }}
+                    ref={el => (sectionRefs[2].current = el)}>
                     <h2 className={mainPageStyles.sectionTitle}>Capture Time</h2>
                     <p className={mainPageStyles.sectionSubtitle}>아이돌과 함께 찍은 사진들을 확인해봐요</p>
                     <CaptureTimeImgSection />
@@ -409,7 +433,7 @@ function MainPage() {
                 <section className={mainPageStyles.letterSection}
                     ref={el => {
                         letterSectionRef.current = el;
-                        sectionRefs[2].current = el;
+                        sectionRefs[3].current = el;
                     }}>
                     <h2 className={mainPageStyles.sectionTitle}>Letter</h2>
                     <p className={mainPageStyles.sectionSubtitle}>영상통화를 끝낸 후 팬들이 보내는 마음들을 확인해봐요</p>
@@ -424,6 +448,7 @@ function MainPage() {
                                 const isActive = activeLetterId === letter.id;
                                 // 활성화된 편지의 경우 상세 데이터 사용, 아니면 기본 편지 데이터 사용
                                 const letterData = isActive && activeLetterDetail ? activeLetterDetail : letter;
+                                const isFirstLetter = idx === 0;
 
                                 // 바뀐 부분 : 첫 번째 편지인지 확인
                                 // 되야하는 동작 : 첫 번째 편지에만 새로운 편지 표시를 보여줌
@@ -449,15 +474,24 @@ function MainPage() {
                                             className={styles.letterViewSmall}
                                             isLoading={isActive && isLoadingDetail}
                                         />
+
+
+
                                         {/* 바뀐 부분 : 새로운 편지 표시 추가 */}
                                         {/* 되야하는 동작 : 첫 번째 편지에 깜빡이는 숫자 1과 슬라이딩 텍스트 표시 */}
+
                                         {isFirstLetter && showNewLetterIndicator && (
                                             <>
                                                 {/* 깜빡이는 숫자 1 표시 */}
                                                 <div style={{
                                                     position: 'absolute',
+
+                                                    top: '-10px',
+                                                    right: '-10px',
+
                                                     top: '31px',
                                                     left: '-21px',
+
                                                     width: '30px',
                                                     height: '30px',
                                                     backgroundColor: '#ff4757',
@@ -469,13 +503,21 @@ function MainPage() {
                                                     fontWeight: 'bold',
                                                     fontSize: '16px',
                                                     zIndex: 1001,
+
+                                                    animation: 'blinkNumber 1.5s ease-in-out infinite',
+
                                                     // animation: 'blinkNumber 1.5s ease-in-out infinite',
+
                                                     boxShadow: '0 2px 10px rgba(255, 71, 87, 0.5)'
                                                 }}>
                                                     1
                                                 </div>
 
+
+                                                {/* 슬라이딩 텍스트 */}
+
                                                 {/* 슬라이딩 텍스트
+
                                                 <div style={{
                                                     position: 'absolute',
                                                     bottom: '-35px',
@@ -502,7 +544,11 @@ function MainPage() {
                                                     }}>
                                                         💌 {newLetterContent}
                                                     </div>
+
+                                                </div>
+
                                                 </div> */}
+
                                             </>
                                         )}
                                     </div>

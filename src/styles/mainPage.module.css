@@ -124,6 +124,7 @@
 .captureTimeSection {
   width: 900px;
   max-width: 90vw;
+  padding-top: 10%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
