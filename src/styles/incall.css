@@ -10,7 +10,7 @@
   @font-face { font-family: 'HakgyoansimDunggeunmisoTTF-B'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimDunggeunmisoTTF-B.woff2') format('woff2'); font-weight: 700; font-style: normal; }
 html, body {
     font-family: 'Pretendard-SemiBold', sans-serif;
-    font-weight: 600; /* 꼭 맞춰줘야 제대로 적용됨 */
+    font-weight: 600; 
     margin: 0;
     padding: 0;
     height: 100%;

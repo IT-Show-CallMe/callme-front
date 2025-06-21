@@ -44,6 +44,12 @@ function MainPage() {
     const [showLetterArrival, setShowLetterArrival] = useState(false);
     const [newLetterData, setNewLetterData] = useState(null);
 
+    // 바뀐 부분 : 새로운 편지 알림 관련 상태 추가
+    // 되야하는 동작 : 새로운 편지가 도착했을 때 첫 번째 편지에 깜빡이는 숫자 표시와 내용 슬라이딩 텍스트 보여주기
+    const [showNewLetterIndicator, setShowNewLetterIndicator] = useState(false);
+    const [newLetterContent, setNewLetterContent] = useState('');
+
+
     const baseUrl = 'https://callme.mirim-it-show.site'; // 개발 중인 서버 주소
     // const imageUrl = `${baseUrl}/${idol.idolImages}`; // idolImages에는 'uploads/idol_img/p_김선우.png' 같은 문자열
 
@@ -58,6 +64,11 @@ function MainPage() {
             if (sentLetterData && Object.keys(sentLetterData).length > 0) {
                 setNewLetterData(sentLetterData);
                 setShowLetterArrival(true);
+
+
+
+                // 바뀐 부분 : 새로운 편지 내용 저장
+                // 되야하는 동작 : 편지 내용을 상태에 저장하여 슬라이딩 텍스트로 표시
 
                 setNewLetterContent(sentLetterData.message || '새로운 편지가 도착했습니다!');
 
@@ -102,11 +113,23 @@ function MainPage() {
                     fetchAllLetters();
                     localStorage.removeItem('sentLetter');
 
+
                     setShowNewLetterIndicator(true);
 
                     setTimeout(() => {
                         setShowNewLetterIndicator(false);
                     }, 10000);
+
+                    // 바뀐 부분 : 편지 도착 후 새로운 편지 표시 활성화
+                    // 되야하는 동작 : 편지 도착 애니메이션이 끝나면 새로운 편지 표시를 활성화
+                    setShowNewLetterIndicator(true);
+
+                    // 바뀐 부분 : 10초 후 새로운 편지 표시 제거
+                    // 되야하는 동작 : 10초 후 자동으로 새로운 편지 표시를 숨김
+                    setTimeout(() => {
+                        setShowNewLetterIndicator(false);
+                    }, 5000);
+
                 }, 4000);
             }
         };
@@ -276,6 +299,13 @@ function MainPage() {
             setShowNewLetterIndicator(false);
         }
 
+
+        // 바뀐 부분 : 편지를 열 때 새로운 편지 표시 제거
+        // 되야하는 동작 : 사용자가 편지를 열면 새로운 편지 표시를 숨김
+        if (showNewLetterIndicator) {
+            setShowNewLetterIndicator(false);
+        }
+
         // 편지 상세 내용 가져오기
         await fetchMessageDetail(letterId);
     };
@@ -420,6 +450,10 @@ function MainPage() {
                                 const letterData = isActive && activeLetterDetail ? activeLetterDetail : letter;
                                 const isFirstLetter = idx === 0;
 
+                                // 바뀐 부분 : 첫 번째 편지인지 확인
+                                // 되야하는 동작 : 첫 번째 편지에만 새로운 편지 표시를 보여줌
+                                const isFirstLetter = idx === 0;
+
                                 return (
                                     <div
                                         key={letter.id}
@@ -441,13 +475,23 @@ function MainPage() {
                                             isLoading={isActive && isLoadingDetail}
                                         />
 
+
+
+                                        {/* 바뀐 부분 : 새로운 편지 표시 추가 */}
+                                        {/* 되야하는 동작 : 첫 번째 편지에 깜빡이는 숫자 1과 슬라이딩 텍스트 표시 */}
+
                                         {isFirstLetter && showNewLetterIndicator && (
                                             <>
                                                 {/* 깜빡이는 숫자 1 표시 */}
                                                 <div style={{
                                                     position: 'absolute',
+
                                                     top: '-10px',
                                                     right: '-10px',
+
+                                                    top: '31px',
+                                                    left: '-21px',
+
                                                     width: '30px',
                                                     height: '30px',
                                                     backgroundColor: '#ff4757',
@@ -459,13 +503,21 @@ function MainPage() {
                                                     fontWeight: 'bold',
                                                     fontSize: '16px',
                                                     zIndex: 1001,
+
                                                     animation: 'blinkNumber 1.5s ease-in-out infinite',
+
+                                                    // animation: 'blinkNumber 1.5s ease-in-out infinite',
+
                                                     boxShadow: '0 2px 10px rgba(255, 71, 87, 0.5)'
                                                 }}>
                                                     1
                                                 </div>
 
+
                                                 {/* 슬라이딩 텍스트 */}
+
+                                                {/* 슬라이딩 텍스트
+
                                                 <div style={{
                                                     position: 'absolute',
                                                     bottom: '-35px',
@@ -492,7 +544,11 @@ function MainPage() {
                                                     }}>
                                                         💌 {newLetterContent}
                                                     </div>
+
                                                 </div>
+
+                                                </div> */}
+
                                             </>
                                         )}
                                     </div>
@@ -562,6 +618,45 @@ function MainPage() {
                     {stars}
                 </div>
             </div>
+            {/* 바뀐 부분 : CSS 애니메이션 스타일 추가 */}
+            {/* 되야하는 동작 : 깜빡이는 숫자와 슬라이딩 텍스트 애니메이션 정의 */}
+            {/* <style jsx>{`
+                @keyframes blinkNumber {
+                    0%, 50% { 
+                        opacity: 1; 
+                        transform: scale(1);
+                    }
+                    25% { 
+                        opacity: 0.7; 
+                        transform: scale(1.1);
+                    }
+                    75% { 
+                        opacity: 0.8; 
+                        transform: scale(0.95);
+                    }
+                }
+
+                @keyframes slideText {
+                    0% {
+                        transform: translateX(100%);
+                    }
+                    10% {
+                        transform: translateX(0%);
+                    }
+                    90% {
+                        transform: translateX(0%);
+                    }
+                    100% {
+                        transform: translateX(-100%);
+                    }
+                }
+
+                @keyframes sparkleRotate {
+                    0% { transform: rotate(0deg) scale(1); opacity: 0.8; }
+                    50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+                    100% { transform: rotate(360deg) scale(1); opacity: 0.8; }
+                }
+            `}</style> */}
         </div >
     );
 }

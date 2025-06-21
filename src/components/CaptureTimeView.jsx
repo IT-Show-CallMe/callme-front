@@ -70,7 +70,7 @@ function CaptureTimeSection() {
                         <img
                             key={photo.id || idx}
                             src={`https://callme.mirim-it-show.site/${photo.capPhoto}`}
-                            alt={`캡쳐 사진 ${photo.id}`}
+                            alt={`사진 촬영이 정상적으로 종료되지 않아서 이미지가 보이지 않아요ㅠㅠ촬영을 끝까지 마무리해 주세요!! ${photo.id}`}
                             className={mainPageStyles.captureImage}
                             style={{
                                 width: '600px',
